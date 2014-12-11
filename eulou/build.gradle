@@ -1,0 +1,28 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 19
+    buildToolsVersion "21.1.1"
+
+    defaultConfig {
+        applicationId "com.ezzet.eulou"
+        minSdkVersion 16
+        targetSdkVersion 21
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+}
+
+dependencies {
+    compile project(':facebookSDK')
+    compile 'com.google.android.gms:play-services:+'
+    compile 'com.google.code.gson:gson:2.2.2'
+    compile files('libs/acra-4.5.0.jar')
+    compile files('libs/android-async-http-1.4.5.jar')
+    compile files('libs/sinch-android-rtc-3.3.2.jar')
+}

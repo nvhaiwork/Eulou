@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/tabitem_padding" >
+
+    <com.ezzet.eulou.views.FBProfilePictureView
+        android:id="@+id/send_message_friend_image"
+        android:layout_width="@dimen/friendlist_photo_width"
+        android:layout_height="@dimen/friendlist_photo_width"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/friendlist_item_padding"
+        android:layout_marginRight="@dimen/friendlist_item_padding" >
+    </com.ezzet.eulou.views.FBProfilePictureView>
+
+    <TextView
+        android:id="@+id/send_message_friend_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/send_message_friend_image"
+        android:layout_toLeftOf="@+id/send_message_friend_type"
+        android:layout_toRightOf="@id/send_message_friend_image"
+        android:layout_toStartOf="@+id/send_message_friend_type"
+        android:text="@string/app_name"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size1" />
+
+    <ImageView
+        android:id="@+id/send_message_friend_type"
+        android:layout_width="@dimen/friendlist_button_width"
+        android:layout_height="@dimen/friendlist_button_width"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/friendlist_item_padding"
+        android:layout_marginRight="@dimen/friendlist_item_padding"
+        android:adjustViewBounds="true"
+        android:background="@color/clear_back"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_message" />
+
+</RelativeLayout>

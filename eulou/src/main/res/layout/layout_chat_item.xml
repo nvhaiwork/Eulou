@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp" >
+
+    <TextView
+        android:id="@+id/chat_message_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textSize="12sp"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <com.ezzet.eulou.views.FBProfilePictureView
+            android:id="@+id/chat_left_img"
+            android:layout_width="@dimen/friendlist_photo_width"
+            android:layout_height="@dimen/friendlist_photo_width"
+            android:background="@drawable/chat_profile_pic_bg" >
+        </com.ezzet.eulou.views.FBProfilePictureView>
+
+        <TextView
+            android:id="@+id/chat_left_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/friendlist_photo_width"
+            android:layout_marginRight="@dimen/friendlist_photo_width"
+            android:layout_toEndOf="@+id/chat_left_img"
+            android:layout_toRightOf="@+id/chat_left_img"
+            android:background="@drawable/ic_chat_buble_left"
+            android:paddingBottom="3dp"
+            android:paddingEnd="7dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="7dp"
+            android:paddingStart="10dp"
+            android:paddingTop="3dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/chatting_message_screen" />
+
+        <TextView
+            android:id="@+id/chat_right_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/friendlist_photo_width"
+            android:layout_marginStart="@dimen/friendlist_photo_width"
+            android:background="@drawable/ic_chat_buble_right"
+            android:paddingBottom="3dp"
+            android:paddingEnd="10dp"
+            android:paddingLeft="7dp"
+            android:paddingRight="10dp"
+            android:paddingStart="7dp"
+            android:paddingTop="3dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/chatting_message_screen" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/chat_item_seen_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:paddingEnd="10dp"
+        android:paddingRight="10dp"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/chat_message_seen"
+        android:visibility="gone" />
+
+</LinearLayout>

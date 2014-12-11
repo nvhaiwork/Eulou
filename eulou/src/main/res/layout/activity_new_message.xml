@@ -1,0 +1,89 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.ezzet.eulou.activities.SplashActivity" >
+
+    <include
+        android:id="@+id/layoutTopBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/topbar_height"
+        layout="@layout/layout_header_navigation" />
+
+    <LinearLayout
+        android:id="@+id/new_message_recipient_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutTopBar"
+        android:background="@color/light_gray"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/to"
+            android:textSize="@dimen/new_message_text" />
+
+        <EditText
+            android:id="@+id/new_message_recipient_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@android:color/transparent"
+            android:hint="@string/name_of_friend"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:textSize="@dimen/new_message_text" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/new_message_recipient_sep"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/new_message_recipient_layout"
+        android:background="@color/dark_gray" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/new_message_recipient_sep"
+        android:paddingEnd="5dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingStart="5dp" >
+
+        <ListView
+            android:id="@+id/new_message_listview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/greyish"
+            android:dividerHeight="1dp"
+            android:scrollbars="none"
+            android:visibility="invisible" >
+        </ListView>
+
+        <EditText
+            android:id="@+id/new_message_edt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@android:color/transparent"
+            android:gravity="top"
+            android:hint="@string/input_message"
+            android:inputType="none"
+            android:lines="7"
+            android:textSize="@dimen/new_message_text" />
+    </RelativeLayout>
+
+    <include
+        android:id="@+id/new_message_noti_ly"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutTopBar"
+        layout="@layout/layout_new_message_notification" />
+
+</RelativeLayout>
