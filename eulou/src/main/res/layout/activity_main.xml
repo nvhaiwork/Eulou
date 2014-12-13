@@ -1,52 +1,52 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:focusableInTouchMode="true"
-    tools:context="com.ezzet.eulou.activities.SplashActivity" >
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+                xmlns:tools = "http://schemas.android.com/tools"
+                android:layout_width = "match_parent"
+                android:layout_height = "match_parent"
+                android:background = "@color/white"
+                android:focusableInTouchMode = "true"
+                tools:context = "com.ezzet.eulou.activities.SplashActivity">
 
     <include
-        android:id="@+id/layoutTopBar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/topbar_height"
-        android:layout_alignParentTop="true"
-        layout="@layout/layout_header_navigation" />
+        layout = "@layout/layout_header_navigation"
+        android:layout_width = "match_parent"
+        android:layout_height = "@dimen/topbar_height"
+        android:layout_alignParentTop = "true"
+        android:id = "@+id/layoutTopBar"/>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/layoutTopBar" >
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:layout_below = "@id/layoutTopBar"
+        android:id = "@+id/pager">
     </android.support.v4.view.ViewPager>
 
     <RelativeLayout
-        android:id="@+id/main_setting_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/layoutTopBar"
-        android:background="@color/white"
-        android:clickable="true"
-        android:padding="10dp"
-        android:visibility="invisible" >
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:layout_below = "@id/layoutTopBar"
+        android:background = "@color/white"
+        android:clickable = "true"
+        android:id = "@+id/main_setting_layout"
+        android:padding = "10dp"
+        android:visibility = "invisible">
 
         <ImageView
-            android:id="@+id/main_setting_logout_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitCenter"
-            android:src="@drawable/logout_btn" />
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_centerHorizontal = "true"
+            android:layout_centerVertical = "true"
+            android:adjustViewBounds = "true"
+            android:contentDescription = "@string/app_name"
+            android:id = "@+id/main_setting_logout_btn"
+            android:scaleType = "fitCenter"
+            android:src = "@drawable/logout_btn"/>
     </RelativeLayout>
 
     <include
-        android:id="@+id/new_message_noti_ly"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutTopBar"
-        layout="@layout/layout_new_message_notification" />
+        layout = "@layout/layout_new_message_notification"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_below = "@+id/layoutTopBar"
+        android:id = "@+id/new_message_noti_ly"/>
 
 </RelativeLayout>

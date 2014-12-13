@@ -1,32 +1,32 @@
 <resources>
 
-    <dimen name="horizontal_gap_1">20dp</dimen>
-    <dimen name="horizontal_gap_2">40dp</dimen>
-    <dimen name="continue_btn_bottom">96dp</dimen>
-    <dimen name="buttons_bottom">150dp</dimen>
-    <dimen name="buttons_spacing">30dp</dimen>
-    <dimen name="topbar_height">100dp</dimen>
-    <dimen name="topbar_button_width">80dp</dimen>
-    <dimen name="tabbar_height">120dp</dimen>
-    <dimen name="tabitem_padding">10dp</dimen>
-    <dimen name="friendlist_item_padding">10dp</dimen>
-    <dimen name="friendlist_item_height">120dp</dimen>
-    <dimen name="friendlist_photo_width">80dp</dimen>
-    <dimen name="friendlist_button_width">50dp</dimen>
-    <dimen name="callpage_photo_width">160dp</dimen>
-    <dimen name="speaker_button_height">160dp</dimen>
-    <dimen name="speaker_button_margin">60dp</dimen>
-    <dimen name="endbutton_padding">40dp</dimen>
-    <dimen name="profile_photo_container">180dp</dimen>
-    <dimen name="profile_photo_width">140dp</dimen>
-    <dimen name="icon_size1">48dp</dimen>
-    <dimen name="item_height1">68dp</dimen>
-    <dimen name="item_padding1">10dp</dimen>
-    <dimen name="item_spacing1">60dp</dimen>
-    <dimen name="logo_height">50dp</dimen>
-    <dimen name="calldetail_photo_height">300dp</dimen>
-    
-    <dimen name="text_size1">28sp</dimen>
-    <dimen name="text_size2">24sp</dimen>
+    <dimen name = "horizontal_gap_1">20dp</dimen>
+    <dimen name = "horizontal_gap_2">40dp</dimen>
+    <dimen name = "continue_btn_bottom">96dp</dimen>
+    <dimen name = "buttons_bottom">150dp</dimen>
+    <dimen name = "buttons_spacing">30dp</dimen>
+    <dimen name = "topbar_height">100dp</dimen>
+    <dimen name = "topbar_button_width">80dp</dimen>
+    <dimen name = "tabbar_height">120dp</dimen>
+    <dimen name = "tabitem_padding">10dp</dimen>
+    <dimen name = "friendlist_item_padding">10dp</dimen>
+    <dimen name = "friendlist_item_height">120dp</dimen>
+    <dimen name = "friendlist_photo_width">80dp</dimen>
+    <dimen name = "friendlist_button_width">50dp</dimen>
+    <dimen name = "callpage_photo_width">160dp</dimen>
+    <dimen name = "speaker_button_height">160dp</dimen>
+    <dimen name = "speaker_button_margin">60dp</dimen>
+    <dimen name = "endbutton_padding">40dp</dimen>
+    <dimen name = "profile_photo_container">180dp</dimen>
+    <dimen name = "profile_photo_width">140dp</dimen>
+    <dimen name = "icon_size1">48dp</dimen>
+    <dimen name = "item_height1">68dp</dimen>
+    <dimen name = "item_padding1">10dp</dimen>
+    <dimen name = "item_spacing1">60dp</dimen>
+    <dimen name = "logo_height">50dp</dimen>
+    <dimen name = "calldetail_photo_height">300dp</dimen>
+
+    <dimen name = "text_size1">28sp</dimen>
+    <dimen name = "text_size2">24sp</dimen>
 
 </resources>

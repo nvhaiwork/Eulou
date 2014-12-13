@@ -1,82 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/parent"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="@color/dialog_out_bg"
-    android:padding="10dp" >
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+                android:layout_width = "match_parent"
+                android:layout_height = "match_parent"
+                android:layout_gravity = "center"
+                android:background = "@color/dialog_out_bg"
+                android:id = "@+id/parent"
+                android:padding = "10dp">
 
     <LinearLayout
-        android:id="@+id/info_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:background="@drawable/dialog_alert_bg"
-        android:orientation="vertical"
-        android:paddingTop="10dp" >
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_centerInParent = "true"
+        android:background = "@drawable/dialog_alert_bg"
+        android:id = "@+id/info_content"
+        android:orientation = "vertical"
+        android:paddingTop = "10dp">
 
         <TextView
-            android:id="@+id/alert_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:paddingTop="9dp"
-            android:text="@string/app_name"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:gravity = "center"
+            android:id = "@+id/alert_title"
+            android:paddingTop = "9dp"
+            android:text = "@string/app_name"
+            android:textColor = "@color/black"
+            android:textSize = "18sp"
+            android:textStyle = "bold"/>
 
         <TextView
-            android:id="@+id/alert_content"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:padding="9dp"
-            android:textColor="@color/black" />
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginBottom = "10dp"
+            android:gravity = "center"
+            android:id = "@+id/alert_content"
+            android:padding = "9dp"
+            android:textColor = "@color/black"/>
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/view_seperator_bg" />
+            android:layout_width = "match_parent"
+            android:layout_height = "1dp"
+            android:background = "@color/view_seperator_bg"/>
 
         <LinearLayout
-            android:id="@+id/alert_button_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:id = "@+id/alert_button_layout"
+            android:orientation = "horizontal">
 
             <TextView
-                android:id="@+id/alert_button_left"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="9dp"
-                android:textColor="@color/dialog_button_text_color"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:layout_weight = "1"
+                android:gravity = "center"
+                android:id = "@+id/alert_button_left"
+                android:padding = "9dp"
+                android:textColor = "@color/dialog_button_text_color"
+                android:textSize = "18sp"
+                android:textStyle = "bold"
+                android:visibility = "gone"/>
 
             <View
-                android:id="@+id/alert_button_sep"
-                android:layout_width="1dp"
-                android:layout_height="fill_parent"
-                android:background="@color/view_seperator_bg"
-                android:visibility="gone" />
+                android:layout_width = "1dp"
+                android:layout_height = "fill_parent"
+                android:background = "@color/view_seperator_bg"
+                android:id = "@+id/alert_button_sep"
+                android:visibility = "gone"/>
 
             <TextView
-                android:id="@+id/alert_button_right"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:padding="9dp"
-                android:textColor="@color/dialog_button_text_color"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:visibility="gone" />
+                android:layout_width = "0dp"
+                android:layout_height = "wrap_content"
+                android:layout_weight = "1"
+                android:gravity = "center"
+                android:id = "@+id/alert_button_right"
+                android:padding = "9dp"
+                android:textColor = "@color/dialog_button_text_color"
+                android:textSize = "18sp"
+                android:textStyle = "bold"
+                android:visibility = "gone"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -1,154 +1,108 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/greyish"
-    tools:context="com.ezzet.eulou.activities.SplashActivity" >
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:background = "@color/greyish"
+    tools:context = "com.ezzet.eulou.activities.SplashActivity">
 
     <RelativeLayout
-        android:id="@+id/layoutPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/profile_photo_container"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/top_bar" >
+        android:id = "@+id/layoutPhoto"
+        android:layout_width = "match_parent"
+        android:layout_height = "@dimen/profile_photo_container"
+        android:layout_alignParentTop = "true"
+        android:layout_centerHorizontal = "true">
 
         <com.ezzet.eulou.views.FBProfilePictureView
-            android:id="@+id/profilePictureView"
-            android:layout_width="@dimen/profile_photo_width"
-            android:layout_height="@dimen/profile_photo_width"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true" >
-        </com.ezzet.eulou.views.FBProfilePictureView>
+            android:id = "@+id/profilePictureView"
+            android:layout_width = "@dimen/profile_photo_width"
+            android:layout_height = "@dimen/profile_photo_width"
+            android:layout_centerHorizontal = "true"
+            android:layout_centerVertical = "true"></com.ezzet.eulou.views.FBProfilePictureView>
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/layoutProfile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutPhoto"
-        android:layout_centerHorizontal="true"
-        android:orientation="vertical" >
+        android:id = "@+id/layoutProfile"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_below = "@+id/layoutPhoto"
+        android:layout_centerHorizontal = "true"
+        android:orientation = "vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:padding="@dimen/item_padding1" >
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:background = "@color/white"
+            android:gravity = "center_vertical"
+            android:padding = "@dimen/item_padding1">
 
             <ImageView
-                android:layout_width="@dimen/icon_size1"
-                android:layout_height="@dimen/icon_size1"
-                android:contentDescription="@string/app_name"
-                android:scaleType="fitXY"
-                android:src="@drawable/user_icon" />
+                android:layout_width = "@dimen/icon_size1"
+                android:layout_height = "@dimen/icon_size1"
+                android:contentDescription = "@string/app_name"
+                android:scaleType = "fitXY"
+                android:src = "@drawable/user_icon" />
 
             <TextView
-                android:id="@+id/textViewUserName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size1" />
+                android:id = "@+id/textViewUserName"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_marginLeft = "10dp"
+                android:gravity = "center_horizontal"
+                android:textColor = "@color/black"
+                android:textSize = "@dimen/text_size1" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:padding="@dimen/item_padding1" >
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop = "2dp"
+            android:background = "@color/white"
+            android:gravity = "center_vertical"
+            android:padding = "@dimen/item_padding1">
 
             <ImageView
-                android:layout_width="@dimen/icon_size1"
-                android:layout_height="@dimen/icon_size1"
-                android:contentDescription="@string/app_name"
-                android:scaleType="fitXY"
-                android:src="@drawable/mail_icon" />
+                android:layout_width = "@dimen/icon_size1"
+                android:layout_height = "@dimen/icon_size1"
+                android:contentDescription = "@string/app_name"
+                android:scaleType = "fitXY"
+                android:src = "@drawable/mail_icon" />
 
             <TextView
-                android:id="@+id/textViewUserMail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size2" />
+                android:id = "@+id/textViewUserMail"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_marginLeft = "10dp"
+                android:gravity = "center_horizontal"
+                android:textColor = "@color/black"
+                android:textSize = "@dimen/text_size2" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:background="@color/white"
-            android:gravity="center_vertical"
-            android:padding="@dimen/item_padding1" >
+            android:id = "@+id/linearNumber"
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginTop = "2dp"
+            android:background = "@color/white"
+            android:gravity = "center_vertical"
+            android:padding = "@dimen/item_padding1">
 
             <ImageView
-                android:layout_width="@dimen/icon_size1"
-                android:layout_height="@dimen/icon_size1"
-                android:contentDescription="@string/app_name"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_call_btn" />
+                android:layout_width = "@dimen/icon_size1"
+                android:layout_height = "@dimen/icon_size1"
+                android:contentDescription = "@string/app_name"
+                android:scaleType = "fitXY"
+                android:src = "@drawable/ic_call_btn" />
 
             <TextView
-                android:id="@+id/textViewUserNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:hint="@string/enter_phone_number"
-                android:textSize="@dimen/text_size2" />
+                android:id = "@+id/textViewUserNumber"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_marginLeft = "10dp"
+                android:gravity = "center_horizontal"
+                android:hint = "@string/enter_phone_number"
+                android:textColor = "@color/black"
+                android:textSize = "@dimen/text_size2" />
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutInvite"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layoutProfile"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/item_spacing1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/friends"
-            android:textColor="@color/dark_gray"
-            android:textSize="@dimen/text_size2" />
-
-        <Button
-            android:id="@+id/buttonInviteSMS"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height1"
-            android:layout_marginTop="5dp"
-            android:background="@color/white"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="20dp"
-            android:text="@string/invite_sms"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size2"
-            android:typeface="normal" />
-
-        <Button
-            android:id="@+id/buttonInviteMail"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/item_height1"
-            android:layout_marginTop="2dp"
-            android:background="@color/white"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="20dp"
-            android:text="@string/invite_mail"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size2"
-            android:typeface="normal" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -1,116 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/greyish"
-    android:orientation="vertical"
-    android:weightSum="16" >
+<LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+              android:layout_width = "match_parent"
+              android:layout_height = "match_parent"
+              android:background = "@color/greyish"
+              android:orientation = "vertical"
+              android:weightSum = "16">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9"
-        android:background="@color/greyish"
-        android:gravity="bottom|center_horizontal"
-        android:orientation="vertical"
-        android:weightSum="4" >
-        
+        android:layout_width = "match_parent"
+        android:layout_height = "0dp"
+        android:layout_weight = "9"
+        android:background = "@color/greyish"
+        android:gravity = "bottom|center_horizontal"
+        android:orientation = "vertical"
+        android:weightSum = "4">
+
         <com.ezzet.eulou.views.FBProfilePictureView
-            android:id="@+id/profilePictureView"
-            android:layout_width="@dimen/callpage_photo_width"
-            android:layout_height="@dimen/callpage_photo_width"
-            android:layout_marginBottom="20dp" />
+            android:layout_width = "@dimen/callpage_photo_width"
+            android:layout_height = "@dimen/callpage_photo_width"
+            android:layout_marginBottom = "20dp"
+            android:id = "@+id/profilePictureView"/>
 
         <TextView
-            android:id="@+id/remoteUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="center"
-            android:text="T-bone"
-            android:textColor="@color/black"
-            android:textSize="28sp" />
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_gravity = "center_horizontal"
+            android:layout_marginBottom = "5dp"
+            android:layout_marginLeft = "10dp"
+            android:layout_marginRight = "10dp"
+            android:gravity = "center"
+            android:id = "@+id/remoteUser"
+            android:text = "T-bone"
+            android:textColor = "@color/black"
+            android:textSize = "28sp"/>
 
         <TextView
-            android:id="@+id/callState"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:text="Ringing"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_gravity = "center_horizontal"
+            android:layout_marginBottom = "5dp"
+            android:gravity = "center"
+            android:id = "@+id/callState"
+            android:text = "Ringing"
+            android:textAllCaps = "true"
+            android:textColor = "@color/black"
+            android:textSize = "16sp"/>
 
         <TextView
-            android:id="@+id/callDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:text="00:00"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_gravity = "center_horizontal"
+            android:layout_marginBottom = "5dp"
+            android:gravity = "center"
+            android:id = "@+id/callDuration"
+            android:text = "00:00"
+            android:textAppearance = "?android:attr/textAppearanceMedium"
+            android:textColor = "@color/black"
+            android:textSize = "16sp"/>
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:layout_weight="4"
-        android:background="@color/greyish"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="0dip" >
-        
+        android:layout_width = "match_parent"
+        android:layout_height = "0dp"
+        android:layout_gravity = "center"
+        android:layout_marginTop = "10dp"
+        android:layout_weight = "4"
+        android:background = "@color/greyish"
+        android:gravity = "center"
+        android:orientation = "horizontal"
+        android:padding = "0dip">
+
         <ImageButton
-            android:id="@+id/buttonSpeaker"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/speaker_button_height"
-            android:adjustViewBounds="true"
-            android:background="@color/clear_back"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-            android:src="@drawable/speaker" />
-        
+            android:layout_width = "wrap_content"
+            android:layout_height = "@dimen/speaker_button_height"
+            android:adjustViewBounds = "true"
+            android:background = "@color/clear_back"
+            android:contentDescription = "@string/app_name"
+            android:id = "@+id/buttonSpeaker"
+            android:scaleType = "fitXY"
+            android:src = "@drawable/speaker"/>
+
         <ImageButton
-            android:id="@+id/buttonMute"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/speaker_button_height"
-            android:layout_marginLeft="@dimen/speaker_button_margin"
-            android:adjustViewBounds="true"
-            android:background="@color/clear_back"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-            android:src="@drawable/mute" />
+            android:layout_width = "wrap_content"
+            android:layout_height = "@dimen/speaker_button_height"
+            android:layout_marginLeft = "@dimen/speaker_button_margin"
+            android:adjustViewBounds = "true"
+            android:background = "@color/clear_back"
+            android:contentDescription = "@string/app_name"
+            android:id = "@+id/buttonMute"
+            android:scaleType = "fitXY"
+            android:src = "@drawable/mute"/>
 
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/bottomPanel"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        android:layout_weight="3"
-        android:background="@color/greyish"
-        android:padding="@dimen/endbutton_padding" >
+        android:layout_width = "match_parent"
+        android:layout_height = "0dp"
+        android:layout_marginTop = "5dp"
+        android:layout_weight = "3"
+        android:background = "@color/greyish"
+        android:id = "@+id/bottomPanel"
+        android:padding = "@dimen/endbutton_padding">
 
         <Button
-                android:id="@+id/hangupButton"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/button_end"/>
+            android:layout_width = "wrap_content"
+            android:layout_height = "wrap_content"
+            android:layout_centerInParent = "true"
+            android:background = "@drawable/button_end"
+            android:id = "@+id/hangupButton"
+            android:paddingBottom = "15dp"
+            android:paddingTop = "15dp"/>
 
     </RelativeLayout>
 

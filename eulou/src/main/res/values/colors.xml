@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="red">#ff0000</color>
-    <color name="blue">#0000ff</color>
-    <color name="white">#ffffff</color>
-    <color name="black">#000000</color>
-    <color name="purple">#ff63029d</color>
-    <color name="app_color">#ff216a</color>
-    <color name="dark_gray">#a0a0a0</color>
-    <color name="greyish">#fff2f1f2</color>
-    <color name="light_gray">#f0f0f0</color>
-    <color name="clear_back">#00000000</color>
-    <color name="dialog_out_bg">#99000000</color>
-    <color name="view_seperator_bg">#e2e2e6</color>
-    <color name="new_message_noti">#50ff216a</color>
-    <color name="dark_gray_transcluent">#80a0a0a0</color>
-    <color name="light_gray_transcluent">#80f0f0f0</color>
-    <color name="dialog_button_text_color">#007aff</color>
+    <color name = "red">#ff0000</color>
+    <color name = "blue">#0000ff</color>
+    <color name = "white">#ffffff</color>
+    <color name = "black">#000000</color>
+    <color name = "purple">#ff63029d</color>
+    <color name = "app_color">#ff216a</color>
+    <color name = "dark_gray">#a0a0a0</color>
+    <color name = "greyish">#fff2f1f2</color>
+    <color name = "light_gray">#f0f0f0</color>
+    <color name = "clear_back">#00000000</color>
+    <color name = "dialog_out_bg">#99000000</color>
+    <color name = "view_seperator_bg">#e2e2e6</color>
+    <color name = "new_message_noti">#50ff216a</color>
+    <color name = "dark_gray_transcluent">#80a0a0a0</color>
+    <color name = "light_gray_transcluent">#80f0f0f0</color>
+    <color name = "dialog_button_text_color">#007aff</color>
 
     <!-- Main screen -->
-    <color name="main_contact_color">#3ab53d</color>
-    <color name="main_twitter_color">#00abf0</color>
-    <color name="main_facebook_color">#3b5a9b</color>
-    <color name="main_instagram_color">#9b7d3b</color>
+    <color name = "main_contact_color">#3ab53d</color>
+    <color name = "main_twitter_color">#00abf0</color>
+    <color name = "main_facebook_color">#3b5a9b</color>
+    <color name = "main_instagram_color">#9b7d3b</color>
 
 </resources>

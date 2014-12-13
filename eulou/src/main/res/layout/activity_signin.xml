@@ -1,47 +1,47 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context="com.ezzet.eulou.activities.SplashActivity" >
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+                xmlns:tools = "http://schemas.android.com/tools"
+                android:layout_width = "match_parent"
+                android:layout_height = "match_parent"
+                android:background = "@color/white"
+                tools:context = "com.ezzet.eulou.activities.SplashActivity">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/app_name"
-        android:scaleType="fitXY"
-        android:src="@drawable/signin_bg" />
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:contentDescription = "@string/app_name"
+        android:scaleType = "fitXY"
+        android:src = "@drawable/signin_bg"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/buttons_bottom"
-        android:layout_marginLeft="@dimen/horizontal_gap_2"
-        android:layout_marginRight="@dimen/horizontal_gap_2"
-        android:orientation="vertical" >
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"
+        android:layout_alignParentBottom = "true"
+        android:layout_centerHorizontal = "true"
+        android:layout_marginBottom = "@dimen/buttons_bottom"
+        android:layout_marginLeft = "@dimen/horizontal_gap_2"
+        android:layout_marginRight = "@dimen/horizontal_gap_2"
+        android:orientation = "vertical">
 
         <ImageButton
-            android:id="@+id/buttonWhatIs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/buttons_spacing"
-            android:adjustViewBounds="true"
-            android:background="@color/clear_back"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-            android:src="@drawable/what_is_btn" />
-        
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:layout_marginBottom = "@dimen/buttons_spacing"
+            android:adjustViewBounds = "true"
+            android:background = "@color/clear_back"
+            android:contentDescription = "@string/app_name"
+            android:id = "@+id/buttonWhatIs"
+            android:scaleType = "fitXY"
+            android:src = "@drawable/what_is_btn"/>
+
         <ImageButton
-            android:id="@+id/buttonFacebook"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:background="@color/clear_back"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-            android:src="@drawable/signin_facebook_btn" />
+            android:layout_width = "match_parent"
+            android:layout_height = "wrap_content"
+            android:adjustViewBounds = "true"
+            android:background = "@color/clear_back"
+            android:contentDescription = "@string/app_name"
+            android:id = "@+id/buttonFacebook"
+            android:scaleType = "fitXY"
+            android:src = "@drawable/signin_facebook_btn"/>
 
     </LinearLayout>
 
