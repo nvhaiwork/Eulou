@@ -4,6 +4,7 @@ import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -38,14 +39,28 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
+	public EulouService service = null;
+	AsyncHttpClient calls_client = new AsyncHttpClient();
 	private ViewPager mPager;
 	private PagerAdapter mPagerAdapter;
 	private boolean isFromVerify = false;
-	private RelativeLayout mSettingLayout;
-	private ImageView mLogoutBtn;
-	AsyncHttpClient calls_client = new AsyncHttpClient();
+	private BroadcastReceiver mUpdateMessageBroadcast = new BroadcastReceiver() {
 
-	public EulouService service = null;
+		public void onReceive(android.content.Context context, Intent intent) {
+
+			if (mPager.getCurrentItem() == 0) {
+
+				MessagesFragment currentFragment = (MessagesFragment) mPager
+						.getAdapter().instantiateItem(mPager,
+								mPager.getCurrentItem());
+				if (currentFragment != null) {
+
+					currentFragment.updateMessageHistory();
+				}
+			}
+		}
+	};
+
 	private ServiceConnection mConnection = new ServiceConnection() {
 
 		public void onServiceConnected(ComponentName className, IBinder binder) {
@@ -65,6 +80,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 			service = null;
 		}
 	};
+	private RelativeLayout mSettingLayout;
+	private ImageView mLogoutBtn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -167,45 +184,45 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 		super.onClick(v);
 		switch (v.getId()) {
-		case R.id.main_navigation_left_img_btn:
+			case R.id.main_navigation_left_img_btn :
 
-			int curPos = mPager.getCurrentItem();
-			if (mSettingLayout.getVisibility() == View.VISIBLE) {
+				int curPos = mPager.getCurrentItem();
+				if (mSettingLayout.getVisibility() == View.VISIBLE) {
 
-				doShowHideSettingLayout(false);
-			} else if (curPos == 0) {
+					doShowHideSettingLayout(false);
+				} else if (curPos == 0) {
 
-				Intent newMsgIntent = new Intent(MainActivity.this,
-						NewMessageActivity.class);
-				startActivity(newMsgIntent);
-			} else {
+					Intent newMsgIntent = new Intent(MainActivity.this,
+							NewMessageActivity.class);
+					startActivity(newMsgIntent);
+				} else {
 
-				curPos -= 1;
-				mPager.setCurrentItem(curPos, true);
-			}
-			break;
-		case R.id.main_navigation_right_img_btn:
+					curPos -= 1;
+					mPager.setCurrentItem(curPos, true);
+				}
+				break;
+			case R.id.main_navigation_right_img_btn :
 
-			curPos = mPager.getCurrentItem();
-			if (curPos == Constants.TAB_PROFILE) {
+				curPos = mPager.getCurrentItem();
+				if (curPos == Constants.TAB_PROFILE) {
 
-				doShowHideSettingLayout(true);
-			} else {
+					doShowHideSettingLayout(true);
+				} else {
 
-				curPos += 1;
-				mPager.setCurrentItem(curPos, true);
-			}
-			break;
-		case R.id.main_setting_logout_btn:
+					curPos += 1;
+					mPager.setCurrentItem(curPos, true);
+				}
+				break;
+			case R.id.main_setting_logout_btn :
 
-			doLogout();
-			break;
+				doLogout();
+				break;
 		}
 	}
 
 	/**
 	 * Do log out
-	 * */
+	 */
 	private void doLogout() {
 
 		service.doLogout();
@@ -219,48 +236,48 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 	/**
 	 * Set up views/resources base on current page
-	 * */
+	 */
 	private void doPageChange(int position) {
 
 		Utilities.doHideKeyboard(MainActivity.this, getCurrentFocus());
 		switch (position) {
-		case Constants.TAB_MESSAGES:
+			case Constants.TAB_MESSAGES :
 
-			mTitleTxt.setText(getString(R.string.messages));
-			mLeftImgBtn.setImageResource(R.drawable.ic_write_msg);
-			mRightImgBtn.setImageResource(R.drawable.ic_contacts);
-			mNavigatorGroup.check(R.id.main_header_navigator_item1);
-			break;
-		case Constants.TAB_CONTACTS:
+				mTitleTxt.setText(getString(R.string.messages));
+				mLeftImgBtn.setImageResource(R.drawable.ic_write_msg);
+				mRightImgBtn.setImageResource(R.drawable.ic_contacts);
+				mNavigatorGroup.check(R.id.main_header_navigator_item1);
+				break;
+			case Constants.TAB_CONTACTS :
 
-			mTitleTxt.setText(getString(R.string.contacts));
-			mLeftImgBtn.setImageResource(R.drawable.ic_messages);
-			mRightImgBtn.setImageResource(R.drawable.ic_recent_calls);
-			mNavigatorGroup.check(R.id.main_header_navigator_item2);
-			break;
-		case Constants.TAB_RECENT_CALLS:
+				mTitleTxt.setText(getString(R.string.contacts));
+				mLeftImgBtn.setImageResource(R.drawable.ic_messages);
+				mRightImgBtn.setImageResource(R.drawable.ic_recent_calls);
+				mNavigatorGroup.check(R.id.main_header_navigator_item2);
+				break;
+			case Constants.TAB_RECENT_CALLS :
 
-			mTitleTxt.setText(getString(R.string.recent_calls));
-			mLeftImgBtn.setImageResource(R.drawable.ic_contacts);
-			mRightImgBtn.setImageResource(R.drawable.ic_profile);
-			mNavigatorGroup.check(R.id.main_header_navigator_item3);
-			break;
-		case Constants.TAB_PROFILE:
+				mTitleTxt.setText(getString(R.string.recent_calls));
+				mLeftImgBtn.setImageResource(R.drawable.ic_contacts);
+				mRightImgBtn.setImageResource(R.drawable.ic_profile);
+				mNavigatorGroup.check(R.id.main_header_navigator_item3);
+				break;
+			case Constants.TAB_PROFILE :
 
-			mTitleTxt.setText(getString(R.string.profile));
-			mLeftImgBtn.setImageResource(R.drawable.ic_recent_calls);
-			mRightImgBtn.setImageResource(R.drawable.ic_setting);
-			mNavigatorGroup.check(R.id.main_header_navigator_item4);
-			break;
+				mTitleTxt.setText(getString(R.string.profile));
+				mLeftImgBtn.setImageResource(R.drawable.ic_recent_calls);
+				mRightImgBtn.setImageResource(R.drawable.ic_setting);
+				mNavigatorGroup.check(R.id.main_header_navigator_item4);
+				break;
 		}
 	}
 
 	/**
 	 * Show or hide setting layout and other components
-	 * 
+	 *
 	 * @param isShow
 	 *            true is show setting layout
-	 * */
+	 */
 	private void doShowHideSettingLayout(boolean isShow) {
 
 		if (isShow) {
@@ -365,23 +382,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		});
 	}
 
-	private BroadcastReceiver mUpdateMessageBroadcast = new BroadcastReceiver() {
-
-		public void onReceive(android.content.Context context, Intent intent) {
-
-			if (mPager.getCurrentItem() == 0) {
-
-				MessagesFragment currentFragment = (MessagesFragment) mPager
-						.getAdapter().instantiateItem(mPager,
-								mPager.getCurrentItem());
-				if (currentFragment != null) {
-
-					currentFragment.updateMessageHistory();
-				}
-			}
-		};
-	};
-
 	private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
 		public ScreenSlidePagerAdapter(FragmentManager fm) {
 			super(fm);
@@ -392,22 +392,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 			Fragment fragment = null;
 			switch (position) {
-			case Constants.TAB_MESSAGES:
+				case Constants.TAB_MESSAGES :
 
-				fragment = new MessagesFragment();
-				break;
-			case Constants.TAB_CONTACTS:
+					fragment = new MessagesFragment();
+					break;
+				case Constants.TAB_CONTACTS :
 
-				fragment = new ContactsFragment();
-				break;
-			case Constants.TAB_RECENT_CALLS:
+					fragment = new ContactsFragment();
+					break;
+				case Constants.TAB_RECENT_CALLS :
 
-				fragment = new RecentCallFragment();
-				break;
-			case Constants.TAB_PROFILE:
+					fragment = new RecentCallFragment();
+					break;
+				case Constants.TAB_PROFILE :
 
-				fragment = new ProfileFragment();
-				break;
+					fragment = new ProfileFragment();
+					break;
 			}
 
 			return fragment;

@@ -1,7 +1,5 @@
 package com.ezzet.eulou.activities;
 
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Context;
@@ -32,6 +30,8 @@ import com.sinch.android.rtc.PushPair;
 import com.sinch.android.rtc.calling.Call;
 import com.sinch.android.rtc.calling.CallListener;
 
+import java.util.List;
+
 @SuppressLint("NewApi")
 public class IncomingCallScreenActivity extends BaseActivity {
 
@@ -45,11 +45,8 @@ public class IncomingCallScreenActivity extends BaseActivity {
 	private FBProfilePictureView profilePictureView;
 	private ImageButton mSpeakerButton;
 	private ImageButton mMuteButton;
-
 	private Call mCall;
-
 	private AudioPlayer mAudioPlayer;
-
 	private boolean speakerDisabled = true;
 	private boolean microphoneMuted = false;
 	private Vibrator vibrator = null;
@@ -63,14 +60,28 @@ public class IncomingCallScreenActivity extends BaseActivity {
 
 			UserInfo callerInfo = service.findFriendUserBySinchID(mCall
 					.getRemoteUserId());
-			if (callerInfo == null)
+			if (callerInfo == null) {
 				mCallerName.setText(mCall.getRemoteUserId());
-			else
+			} else {
 				mCallerName.setText(callerInfo.getUserName());
+			}
 		}
 
 		public void onServiceDisconnected(ComponentName className) {
 			service = null;
+		}
+	};
+	private OnClickListener incomingClickListener = new OnClickListener() {
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+				case R.id.answerButton :
+					answerClicked();
+					break;
+				case R.id.declineButton :
+					declineClicked();
+					break;
+			}
 		}
 	};
 
@@ -108,6 +119,7 @@ public class IncomingCallScreenActivity extends BaseActivity {
 					speakerDisabled = true;
 					SinchClientService.audioController.disableSpeaker();
 				}
+
 				updateButtonStatus();
 			}
 
@@ -124,6 +136,7 @@ public class IncomingCallScreenActivity extends BaseActivity {
 					microphoneMuted = true;
 					SinchClientService.audioController.mute();
 				}
+
 				updateButtonStatus();
 			}
 
@@ -151,12 +164,10 @@ public class IncomingCallScreenActivity extends BaseActivity {
 		microphoneMuted = false;
 		SinchClientService.audioController.disableSpeaker();
 		SinchClientService.audioController.unmute();
-
 		updateButtonStatus();
-
 		vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 		if (vibrator != null && vibrator.hasVibrator()) {
-			long[] pattern = { 0, 1000, 1000 };
+			long[] pattern = {0, 1000, 1000};
 			vibrator.vibrate(pattern, 0);
 		}
 	}
@@ -171,8 +182,9 @@ public class IncomingCallScreenActivity extends BaseActivity {
 
 	@Override
 	public void onDestroy() {
-		if (vibrator != null && vibrator.hasVibrator())
+		if (vibrator != null && vibrator.hasVibrator()) {
 			vibrator.cancel();
+		}
 		unbindService(mConnection);
 		wl.release();
 		super.onDestroy();
@@ -182,8 +194,9 @@ public class IncomingCallScreenActivity extends BaseActivity {
 		mAudioPlayer.stopRingtone();
 		mCall.answer();
 		Intent callIntent = new Intent(this, CallScreenActivity.class);
-		if (callerName != null)
+		if (callerName != null) {
 			callIntent.putExtra("CallerName", callerName);
+		}
 		callIntent.putExtra("SpeakerDisabled", speakerDisabled);
 		callIntent.putExtra("MicrophoneMuted", microphoneMuted);
 		startActivity(callIntent);
@@ -194,6 +207,41 @@ public class IncomingCallScreenActivity extends BaseActivity {
 		mAudioPlayer.stopRingtone();
 		mCall.hangup();
 		finish();
+	}
+
+	private void updateButtonStatus() {
+
+		if (speakerDisabled) {
+			mSpeakerButton.setImageResource(R.drawable.speaker);
+		} else {
+			mSpeakerButton.setImageResource(R.drawable.speaker_pressed);
+		}
+
+		if (microphoneMuted) {
+			mMuteButton.setImageResource(R.drawable.mute_pressed);
+		} else {
+			mMuteButton.setImageResource(R.drawable.mute);
+		}
+	}
+
+	public boolean dispatchKeyEvent(KeyEvent event) {
+		if (event.getAction() == KeyEvent.ACTION_DOWN) {
+			switch (event.getKeyCode()) {
+				case KeyEvent.KEYCODE_VOLUME_UP :
+					// Volume up key detected
+					// Do something
+					return true;
+				case KeyEvent.KEYCODE_VOLUME_DOWN :
+					// Volume down key detected
+					// Do something
+					AudioManager audio_mngr = (AudioManager) getBaseContext()
+							.getSystemService(Context.AUDIO_SERVICE);
+					audio_mngr.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+					return true;
+			}
+		}
+
+		return super.dispatchKeyEvent(event);
 	}
 
 	private class SinchCallListener implements CallListener {
@@ -219,51 +267,5 @@ public class IncomingCallScreenActivity extends BaseActivity {
 		public void onShouldSendPushNotification(Call call,
 				List<PushPair> pushPairs) {
 		}
-	}
-
-	private OnClickListener incomingClickListener = new OnClickListener() {
-		@Override
-		public void onClick(View v) {
-			switch (v.getId()) {
-			case R.id.answerButton:
-				answerClicked();
-				break;
-			case R.id.declineButton:
-				declineClicked();
-				break;
-			}
-		}
-	};
-
-	private void updateButtonStatus() {
-		if (speakerDisabled)
-			mSpeakerButton.setImageResource(R.drawable.speaker);
-		else
-			mSpeakerButton.setImageResource(R.drawable.speaker_pressed);
-
-		if (microphoneMuted)
-			mMuteButton.setImageResource(R.drawable.mute_pressed);
-		else
-			mMuteButton.setImageResource(R.drawable.mute);
-	}
-
-	public boolean dispatchKeyEvent(KeyEvent event) {
-		if (event.getAction() == KeyEvent.ACTION_DOWN) {
-			switch (event.getKeyCode()) {
-			case KeyEvent.KEYCODE_VOLUME_UP:
-				// Volume up key detected
-				// Do something
-				return true;
-			case KeyEvent.KEYCODE_VOLUME_DOWN:
-				// Volume down key detected
-				// Do something
-				AudioManager audio_mngr = (AudioManager) getBaseContext()
-						.getSystemService(Context.AUDIO_SERVICE);
-				audio_mngr.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-				return true;
-			}
-		}
-
-		return super.dispatchKeyEvent(event);
 	}
 }

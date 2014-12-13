@@ -42,20 +42,76 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-public class BaseActivity extends FragmentActivity implements
-		OnItemClickListener, OnClickListener {
+public class BaseActivity extends FragmentActivity
+		implements
+			OnItemClickListener,
+			OnClickListener {
 
 	public static String mCurrentClass;
-	protected RadioGroup mNavigatorGroup;
-	protected ImageView mLeftImgBtn, mRightImgBtn;
-	protected TextView mTitleTxt, mLeftTxtBtn, mRightTxtBtn, mNewMsgNoti;
-
 	public static UserInfo mUserInfo;
-	private EulouService mService = null;
-	private static int runningActivities = 0;
 	public static ArrayList<UserInfo> mFriendUsers;
 	public static ArrayList<UserInfo> mContactUsers;
 	public static Map<String, Map<String, Object>> mMessegas;
+	private static int runningActivities = 0;
+	protected RadioGroup mNavigatorGroup;
+	protected ImageView mLeftImgBtn, mRightImgBtn;
+	protected TextView mTitleTxt, mLeftTxtBtn, mRightTxtBtn, mNewMsgNoti;
+	private EulouService mService = null;
+	private ServiceConnection mConnection = new ServiceConnection() {
+
+		public void onServiceConnected(ComponentName className, IBinder binder) {
+			EulouService.ServiceBinder b = (EulouService.ServiceBinder) binder;
+			mService = b.getService();
+		}
+
+		public void onServiceDisconnected(ComponentName className) {
+			mService = null;
+		}
+	};
+
+	private BroadcastReceiver mMesasgeReceiver = new BroadcastReceiver() {
+
+		public void onReceive(Context context, Intent intent) {
+
+			if (!mCurrentClass.equals(ChatActivity.class.getSimpleName())) {
+
+				int messageEvent = intent.getIntExtra(
+						Constants.INTENT_MESSAGE_EVENT, 0);
+				switch (messageEvent) {
+
+					case Constants.INTENT_RECEIVED_MESSAGE :
+
+						if (mNewMsgNoti != null) {
+
+							String senderId = intent
+									.getStringExtra(Constants.INTENT_PUSH_NEW_MESSAGE_SENDER_ID);
+							String message = intent
+									.getStringExtra(Constants.INTENT_PUSH_NEW_MESSAGE);
+							mNewMsgNoti.setTag(senderId);
+							mNewMsgNoti.setText(message);
+							mNewMsgNoti.setVisibility(View.VISIBLE);
+							hideNewMessageNoti();
+						}
+
+						new GetMessageHistoryTask().execute();
+						break;
+					case Constants.INTENT_SENT_MESSAGE :
+
+						break;
+					case Constants.INTENT_DELIVERED_MESSAGE :
+
+						break;
+					case Constants.INTENT_FAIL_MESSAGE :
+
+						break;
+					case Constants.INTENT_PUSH_NOTIFICATION_MESSAGE :
+
+						showNotice(intent);
+						break;
+				}
+			}
+		}
+	};
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -110,16 +166,16 @@ public class BaseActivity extends FragmentActivity implements
 		// TODO Auto-generated method stub
 
 		switch (v.getId()) {
-		case R.id.new_message_notice:
+			case R.id.new_message_notice :
 
-			String sinchId = (String) v.getTag();
-			mNewMsgNoti.setVisibility(View.GONE);
-			Intent chatIntent = new Intent(BaseActivity.this,
-					ChatActivity.class);
-			UserInfo userInfo = mService.findFriendUserBySinchID(sinchId);
-			chatIntent.putExtra(Constants.INTENT_MESAGE_USER_ID, userInfo);
-			startActivity(chatIntent);
-			break;
+				String sinchId = (String) v.getTag();
+				mNewMsgNoti.setVisibility(View.GONE);
+				Intent chatIntent = new Intent(BaseActivity.this,
+						ChatActivity.class);
+				UserInfo userInfo = mService.findFriendUserBySinchID(sinchId);
+				chatIntent.putExtra(Constants.INTENT_MESAGE_USER_ID, userInfo);
+				startActivity(chatIntent);
+				break;
 		}
 	}
 
@@ -144,7 +200,7 @@ public class BaseActivity extends FragmentActivity implements
 
 			for (UserInfo friend : BaseActivity.mFriendUsers) {
 
-				String remoteId = "";
+				String remoteId;
 				if (friend.getMainSocial() == Constants.FACEBOOK) {
 
 					if (!friend.getFacebookID().contains("@fb")) {
@@ -196,18 +252,6 @@ public class BaseActivity extends FragmentActivity implements
 		}
 	}
 
-	private ServiceConnection mConnection = new ServiceConnection() {
-
-		public void onServiceConnected(ComponentName className, IBinder binder) {
-			EulouService.ServiceBinder b = (EulouService.ServiceBinder) binder;
-			mService = b.getService();
-		}
-
-		public void onServiceDisconnected(ComponentName className) {
-			mService = null;
-		}
-	};
-
 	@Override
 	protected void onStop() {
 		// TODO Auto-generated method stub
@@ -222,7 +266,7 @@ public class BaseActivity extends FragmentActivity implements
 
 				for (UserInfo friend : BaseActivity.mFriendUsers) {
 
-					String remoteId = "";
+					String remoteId;
 					if (friend.getMainSocial() == Constants.FACEBOOK) {
 
 						if (!friend.getFacebookID().contains("@fb")) {
@@ -325,52 +369,6 @@ public class BaseActivity extends FragmentActivity implements
 			}
 		}, 4000);
 	}
-
-	private BroadcastReceiver mMesasgeReceiver = new BroadcastReceiver() {
-
-		public void onReceive(Context context, Intent intent) {
-
-			if (!mCurrentClass.equals(ChatActivity.class.getSimpleName())) {
-
-				int messageEvent = intent.getIntExtra(
-						Constants.INTENT_MESSAGE_EVENT, 0);
-				switch (messageEvent) {
-
-				case Constants.INTENT_RECEIVED_MESSAGE:
-
-					if (mNewMsgNoti != null) {
-
-						String senderId = intent
-								.getStringExtra(Constants.INTENT_PUSH_NEW_MESSAGE_SENDER_ID);
-						String message = intent
-								.getStringExtra(Constants.INTENT_PUSH_NEW_MESSAGE);
-						mNewMsgNoti.setTag(senderId);
-						mNewMsgNoti.setText(message);
-						mNewMsgNoti.setVisibility(View.VISIBLE);
-						hideNewMessageNoti();
-					}
-
-					new GetMessageHistoryTask().execute();
-					break;
-				case Constants.INTENT_SENT_MESSAGE:
-
-					break;
-				case Constants.INTENT_DELIVERED_MESSAGE:
-
-					break;
-				case Constants.INTENT_FAIL_MESSAGE:
-
-					break;
-				case Constants.INTENT_PUSH_NOTIFICATION_MESSAGE:
-
-					LogUtil.e("INTENT_PUSH_NOTIFICATION_MESSAGE",
-							"INTENT_PUSH_NOTIFICATION_MESSAGE");
-					showNotice(intent);
-					break;
-				}
-			}
-		};
-	};
 
 	public class GetMessageHistoryTask extends AsyncTask<Void, Void, Void> {
 

@@ -3,30 +3,27 @@ package com.ezzet.eulou.fragments;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.ezzet.eulou.R;
 import com.ezzet.eulou.activities.BaseActivity;
 import com.ezzet.eulou.activities.EnterNumberActivity;
-import com.ezzet.eulou.R;
 import com.ezzet.eulou.models.UserInfo;
 import com.ezzet.eulou.views.FBProfilePictureView;
 
 public class ProfileFragment extends Fragment {
 
+	boolean isVerified = false;
 	private String userfbid;
 	private String username;
 	private String useremail;
-	boolean isVerified = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,10 +42,6 @@ public class ProfileFragment extends Fragment {
 				.findViewById(R.id.textViewUserName);
 		TextView textViewUserMail = (TextView) rootView
 				.findViewById(R.id.textViewUserMail);
-		Button buttonInviteSMS = (Button) rootView
-				.findViewById(R.id.buttonInviteSMS);
-		Button buttonInviteMail = (Button) rootView
-				.findViewById(R.id.buttonInviteMail);
 		LinearLayout linearNumber = (LinearLayout) rootView
 				.findViewById(R.id.linearNumber);
 		TextView tvNumber = (TextView) rootView
@@ -71,53 +64,55 @@ public class ProfileFragment extends Fragment {
 			tvNumber.setText(mobNo);
 			isVerified = true;
 		}
+
 		linearNumber.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+
 				if (!isVerified) {
 					Intent intent = new Intent(getActivity()
 							.getApplicationContext(), EnterNumberActivity.class);
 					startActivity(intent);
 				}
-
 			}
 		});
 
-		buttonInviteSMS.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(Intent.ACTION_VIEW, Uri
-						.parse("sms:"));
-				intent.putExtra("sms_body",
-						"Hi, I'm using Eulou ! Get it on the Store.\nhttp://eulou.tn");
-				startActivity(intent);
-			}
-
-		});
-
-		buttonInviteMail.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(Intent.ACTION_SEND);
-				intent.setType("text/plain");
-				intent.putExtra(Intent.EXTRA_SUBJECT, "Eulou !  New app VOIP");
-				intent.putExtra(Intent.EXTRA_TEXT,
-						"Hi, I'm using Eulou ! Get it on the Store.\nhttp://eulou.tn");
-				try {
-					startActivity(Intent.createChooser(intent, "Send Email"));
-				} catch (Exception e) {
-					e.printStackTrace();
-					Toast.makeText(getActivity().getApplicationContext(),
-							"There is no email client installed.",
-							Toast.LENGTH_LONG).show();
-				}
-			}
-
-		});
+		// buttonInviteSMS.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// Intent intent = new Intent(Intent.ACTION_VIEW, Uri
+		// .parse("sms:"));
+		// intent.putExtra("sms_body",
+		// "Hi, I'm using Eulou ! Get it on the Store.\nhttp://eulou.tn");
+		// startActivity(intent);
+		// }
+		//
+		// });
+		//
+		// buttonInviteMail.setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// Intent intent = new Intent(Intent.ACTION_SEND);
+		// intent.setType("text/plain");
+		// intent.putExtra(Intent.EXTRA_SUBJECT, "Eulou !  New app VOIP");
+		// intent.putExtra(Intent.EXTRA_TEXT,
+		// "Hi, I'm using Eulou ! Get it on the Store.\nhttp://eulou.tn");
+		// try {
+		//
+		// startActivity(Intent.createChooser(intent, "Send Email"));
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// Toast.makeText(getActivity().getApplicationContext(),
+		// "There is no email client installed.",
+		// Toast.LENGTH_LONG).show();
+		// }
+		// }
+		//
+		// });
 
 		return rootView;
 	}

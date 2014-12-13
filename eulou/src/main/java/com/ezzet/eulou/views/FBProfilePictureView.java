@@ -52,23 +52,9 @@ import java.net.URISyntaxException;
 public class FBProfilePictureView extends FrameLayout {
 
     /**
-     * Callback interface that will be called when a network or other error is encountered
-     * while retrieving profile pictures.
-     */
-    public interface OnErrorListener {
-        /**
-         * Called when a network or other error is encountered.
-         *
-         * @param error a FacebookException representing the error that was encountered.
-         */
-        void onError(FacebookException error);
-    }
-
-    /**
      * Tag used when logging calls are made by ProfilePictureView
      */
     public static final String TAG = FBProfilePictureView.class.getSimpleName();
-
     /**
      * Indicates that the specific size of the View will be set via layout params.
      * ProfilePictureView will default to NORMAL X NORMAL, if the layout params set on
@@ -77,7 +63,7 @@ public class FBProfilePictureView extends FrameLayout {
      * Corresponds with the preset_size Xml attribute that can be set on ProfilePictureView.
      */
     public static final int CUSTOM = -1;
-
+    private int presetSizeType = CUSTOM;
     /**
      * Indicates that the profile image should fit in a SMALL X SMALL space, regardless
      * of whether the cropped or un-cropped version is chosen.
@@ -104,6 +90,7 @@ public class FBProfilePictureView extends FrameLayout {
 
     private static final int MIN_SIZE = 1;
     private static final boolean IS_CROPPED_DEFAULT_VALUE = true;
+    private boolean isCropped = IS_CROPPED_DEFAULT_VALUE;
     private static final String SUPER_STATE_KEY = "ProfilePictureView_superState";
     private static final String PROFILE_ID_KEY = "ProfilePictureView_profileId";
     private static final String PRESET_SIZE_KEY = "ProfilePictureView_presetSize";
@@ -112,18 +99,14 @@ public class FBProfilePictureView extends FrameLayout {
     private static final String BITMAP_WIDTH_KEY = "ProfilePictureView_width";
     private static final String BITMAP_HEIGHT_KEY = "ProfilePictureView_height";
     private static final String PENDING_REFRESH_KEY = "ProfilePictureView_refresh";
-
     private String profileId;
     private int queryHeight = ImageRequest.UNSPECIFIED_DIMENSION;
     private int queryWidth = ImageRequest.UNSPECIFIED_DIMENSION;
-    private boolean isCropped = IS_CROPPED_DEFAULT_VALUE;
     private Bitmap imageContents;
     private ImageView image;
-    private int presetSizeType = CUSTOM;
     private ImageRequest lastRequest;
     private OnErrorListener onErrorListener;
     private Bitmap customizedDefaultProfilePicture = null;
-
     /**
      * Constructor
      *
@@ -161,6 +144,26 @@ public class FBProfilePictureView extends FrameLayout {
         parseAttributes(attrs);
     }
 
+    public static Bitmap getRoundedBitmap(Bitmap bitmap) {
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(output);
+
+        final int color = 0xff424242;
+        final Paint paint = new Paint();
+        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
+        final RectF rectF = new RectF(rect);
+
+        paint.setAntiAlias(true);
+        canvas.drawARGB(0, 0, 0, 0);
+        paint.setColor(color);
+        canvas.drawOval(rectF, paint);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap, rect, rect, paint);
+
+        return output;
+    }
+
     /**
      * Gets the current preset size type
      *
@@ -190,7 +193,7 @@ public class FBProfilePictureView extends FrameLayout {
 
         requestLayout();
     }
-    
+
     /**
      * Indicates whether the cropped version of the profile photo has been chosen
      *
@@ -282,15 +285,13 @@ public class FBProfilePictureView extends FrameLayout {
         boolean customMeasure = false;
         int newHeight = MeasureSpec.getSize(heightMeasureSpec);
         int newWidth = MeasureSpec.getSize(widthMeasureSpec);
-        if (MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY &&
-                params.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
+        if (MeasureSpec.getMode(heightMeasureSpec) != MeasureSpec.EXACTLY && params.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
             newHeight = getPresetSizeInPixels(true); // Default to a preset size
             heightMeasureSpec = MeasureSpec.makeMeasureSpec(newHeight, MeasureSpec.EXACTLY);
             customMeasure = true;
         }
 
-        if (MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.EXACTLY &&
-                params.width == ViewGroup.LayoutParams.WRAP_CONTENT) {
+        if (MeasureSpec.getMode(widthMeasureSpec) != MeasureSpec.EXACTLY && params.width == ViewGroup.LayoutParams.WRAP_CONTENT) {
             newWidth = getPresetSizeInPixels(true); // Default to a preset size
             widthMeasureSpec = MeasureSpec.makeMeasureSpec(newWidth, MeasureSpec.EXACTLY);
             customMeasure = true;
@@ -367,7 +368,7 @@ public class FBProfilePictureView extends FrameLayout {
             }
         }
     }
-    
+
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
@@ -383,9 +384,7 @@ public class FBProfilePictureView extends FrameLayout {
 
         image = new ImageView(context);
 
-        LayoutParams imageLayout = new LayoutParams(
-                LayoutParams.MATCH_PARENT,
-                LayoutParams.MATCH_PARENT);
+        LayoutParams imageLayout = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
         image.setLayoutParams(imageLayout);
 
@@ -407,8 +406,7 @@ public class FBProfilePictureView extends FrameLayout {
         // Note: do not use Utility.isNullOrEmpty here as this will cause the Eclipse
         // Graphical Layout editor to fail in some cases
         if (profileId == null || profileId.length() == 0 ||
-                ((queryWidth == ImageRequest.UNSPECIFIED_DIMENSION) &&
-                        (queryHeight == ImageRequest.UNSPECIFIED_DIMENSION))) {
+                ((queryWidth == ImageRequest.UNSPECIFIED_DIMENSION) && (queryHeight == ImageRequest.UNSPECIFIED_DIMENSION))) {
             setBlankProfilePicture();
         } else if (changed || force) {
             sendImageRequest(true);
@@ -417,9 +415,7 @@ public class FBProfilePictureView extends FrameLayout {
 
     private void setBlankProfilePicture() {
         if (customizedDefaultProfilePicture == null) {
-            int blankImageResource = isCropped() ?
-                    R.drawable.com_facebook_profile_picture_blank_square :
-                    R.drawable.com_facebook_profile_picture_blank_portrait;
+            int blankImageResource = isCropped() ? R.drawable.com_facebook_profile_picture_blank_square : R.drawable.com_facebook_profile_picture_blank_portrait;
             setImageBitmap(BitmapFactory.decodeResource(getResources(), blankImageResource));
         } else {
             // Update profile image dimensions.
@@ -439,21 +435,14 @@ public class FBProfilePictureView extends FrameLayout {
 
     private void sendImageRequest(boolean allowCachedResponse) {
         try {
-            ImageRequest.Builder requestBuilder = new ImageRequest.Builder(
-                    getContext(),
-                    ImageRequest.getProfilePictureUrl(profileId, queryWidth, queryHeight));
+            ImageRequest.Builder requestBuilder = new ImageRequest.Builder(getContext(), ImageRequest.getProfilePictureUrl(profileId, queryWidth, queryHeight));
 
-            ImageRequest request = requestBuilder.setAllowCachedRedirects(allowCachedResponse)
-                    .setCallerTag(this)
-                    .setCallback(
-                            new ImageRequest.Callback() {
-                                @Override
-                                public void onCompleted(ImageResponse response) {
-                                    processResponse(response);
-                                }
-                            }
-                    )
-                    .build();
+            ImageRequest request = requestBuilder.setAllowCachedRedirects(allowCachedResponse).setCallerTag(this).setCallback(new ImageRequest.Callback() {
+                        @Override
+                        public void onCompleted(ImageResponse response) {
+                            processResponse(response);
+                        }
+                    }).build();
 
             // Make sure to cancel the old request before sending the new one to prevent
             // accidental cancellation of the new request. This could happen if the URL and
@@ -468,7 +457,7 @@ public class FBProfilePictureView extends FrameLayout {
             Logger.log(LoggingBehavior.REQUESTS, Log.ERROR, TAG, e.toString());
         }
     }
-    
+
     private void processResponse(ImageResponse response) {
         // First check if the response is for the right request. We may have:
         // 1. Sent a new request, thus super-ceding this one.
@@ -480,8 +469,7 @@ public class FBProfilePictureView extends FrameLayout {
             if (error != null) {
                 OnErrorListener listener = onErrorListener;
                 if (listener != null) {
-                    listener.onError(new FacebookException(
-                            "Error in downloading profile picture for profileId: " + getProfileId(), error));
+                    listener.onError(new FacebookException("Error in downloading profile picture for profileId: " + getProfileId(), error));
                 } else {
                     Logger.log(LoggingBehavior.REQUESTS, Log.ERROR, TAG, error.toString());
                 }
@@ -551,24 +539,16 @@ public class FBProfilePictureView extends FrameLayout {
         return getResources().getDimensionPixelSize(dimensionId);
     }
 
-    public static Bitmap getRoundedBitmap(Bitmap bitmap) {
-        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
-                .getHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
-
-        final int color = 0xff424242;
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, bitmap.getWidth(), bitmap.getHeight());
-        final RectF rectF = new RectF(rect);
-
-        paint.setAntiAlias(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(color);
-        canvas.drawOval(rectF, paint);
-
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
-
-        return output;
+    /**
+     * Callback interface that will be called when a network or other error is encountered
+     * while retrieving profile pictures.
+     */
+    public interface OnErrorListener {
+        /**
+         * Called when a network or other error is encountered.
+         *
+         * @param error a FacebookException representing the error that was encountered.
+         */
+        void onError(FacebookException error);
     }
 }

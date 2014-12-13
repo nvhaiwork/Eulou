@@ -38,7 +38,6 @@ public class NewMessageActivity extends BaseActivity implements TextWatcher {
 	private EulouService mService = null;
 	private EditText mMessageEdt, mRecipEdt;
 	private SendMessageRecipientsAdapter mFriendsAdapter;
-
 	private ServiceConnection mConnection = new ServiceConnection() {
 
 		public void onServiceConnected(ComponentName className, IBinder binder) {
@@ -171,84 +170,86 @@ public class NewMessageActivity extends BaseActivity implements TextWatcher {
 		// TODO Auto-generated method stub
 		super.onClick(v);
 		switch (v.getId()) {
-		case R.id.main_navigation_left_txt_btn:
+			case R.id.main_navigation_left_txt_btn :
 
-			finish();
-			break;
+				finish();
+				break;
 
-		case R.id.main_navigation_right_txt_btn:
+			case R.id.main_navigation_right_txt_btn :
 
-			UserInfo userInfo = (UserInfo) mRecipEdt.getTag();
-			if (userInfo == null) {
+				UserInfo userInfo = (UserInfo) mRecipEdt.getTag();
+				if (userInfo == null) {
 
-				Utilities.showAlertMessage(NewMessageActivity.this,
-						getString(R.string.select_friend), "", null);
-				return;
-			}
-
-			try {
-
-				String remoteId = "";
-				if (userInfo.getMainSocial() == Constants.FACEBOOK) {
-
-					if (!userInfo.getFacebookID().contains("fb")) {
-
-						remoteId = "fb" + userInfo.getFacebookID();
-					} else {
-
-						remoteId = userInfo.getFacebookID();
-					}
-				} else if (userInfo.getMainSocial() == Constants.TWITTER) {
-
-					remoteId = "tw" + userInfo.getTwitterID();
-				} else if (userInfo.getMainSocial() == Constants.INSTAGRAM) {
-
-					remoteId = "in" + userInfo.getInstagramID();
-				} else {
-
-					remoteId = "un" + userInfo.getUserID();
+					Utilities.showAlertMessage(NewMessageActivity.this,
+							getString(R.string.select_friend), "", null);
+					return;
 				}
 
-				if (!remoteId.equals("")) {
+				try {
 
-					// Send message
-					String messageStr = mMessageEdt.getText().toString().trim();
-					if (!messageStr.equals("")) {
+					String remoteId = "";
+					if (userInfo.getMainSocial() == Constants.FACEBOOK) {
 
-						WritableMessage message = new WritableMessage(remoteId,
-								messageStr);
-						message.addHeader("Time", new Date().toString());
-						mService.sendMessage(message);
+						if (!userInfo.getFacebookID().contains("fb")) {
 
-						// Store mesage to db
-						Map<String, Object> chatData = new HashMap<String, Object>();
-						chatData.put("fromuser",
-								mUserInfo.getUserID());
-						chatData.put("touser", userInfo.getUserID());
-						chatData.put("message", messageStr);
-						new UploadChatHistory().execute(chatData);
+							remoteId = "fb" + userInfo.getFacebookID();
+						} else {
+
+							remoteId = userInfo.getFacebookID();
+						}
+					} else if (userInfo.getMainSocial() == Constants.TWITTER) {
+
+						remoteId = "tw" + userInfo.getTwitterID();
+					} else if (userInfo.getMainSocial() == Constants.INSTAGRAM) {
+
+						remoteId = "in" + userInfo.getInstagramID();
 					} else {
 
-						Utilities.showAlertMessage(NewMessageActivity.this,
-								getString(R.string.please_input_message), "",
-								null);
-						return;
+						remoteId = "un" + userInfo.getUserID();
 					}
+
+					if (!remoteId.equals("")) {
+
+						// Send message
+						String messageStr = mMessageEdt.getText().toString()
+								.trim();
+						if (!messageStr.equals("")) {
+
+							WritableMessage message = new WritableMessage(
+									remoteId, messageStr);
+							message.addHeader("Time", new Date().toString());
+							mService.sendMessage(message);
+
+							// Store mesage to db
+							Map<String, Object> chatData = new HashMap<String, Object>();
+							chatData.put("fromuser", mUserInfo.getUserID());
+							chatData.put("touser", userInfo.getUserID());
+							chatData.put("message", messageStr);
+							new UploadChatHistory().execute(chatData);
+						} else {
+
+							Utilities.showAlertMessage(NewMessageActivity.this,
+									getString(R.string.please_input_message),
+									"", null);
+							return;
+						}
+					}
+
+					Utilities
+							.doHideKeyboard(NewMessageActivity.this, mRecipEdt);
+				} catch (Exception ex) {
+
+					Utilities.showAlertMessage(NewMessageActivity.this,
+							getString(R.string.message_not_sent), "", null);
 				}
 
-				Utilities.doHideKeyboard(NewMessageActivity.this, mRecipEdt);
-			} catch (Exception ex) {
-
-				Utilities.showAlertMessage(NewMessageActivity.this,
-						getString(R.string.message_not_sent), "", null);
-			}
-
-			break;
+				break;
 		}
 	}
 
-	private class UploadChatHistory extends
-			AsyncTask<Map<String, Object>, Void, Void> {
+	private class UploadChatHistory
+			extends
+				AsyncTask<Map<String, Object>, Void, Void> {
 
 		Dialog dialog;
 

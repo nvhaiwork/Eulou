@@ -39,254 +39,234 @@ import com.ezzet.eulou.R;
 
 public class EnterNumberActivity extends BaseActivity {
 
-	RelativeLayout rlCountry, rlSkip;
-	TextView tvCName, tvCCode;
-	Button btContinue;
-	EditText txtMobileNumber;
-	ImageButton imgBack;
-	String userPhoneNumber;
-	String countryName;
-	String countryCode;
+    RelativeLayout rlCountry, rlSkip;
+    TextView tvCName, tvCCode;
+    Button btContinue;
+    EditText txtMobileNumber;
+    ImageButton imgBack;
+    String userPhoneNumber;
+    String countryName;
+    String countryCode;
 
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		setContentView(R.layout.activity_number);
-		init();
-		if (countryName != null) {
-			tvCName.setText(countryName);
-			tvCCode.setText("+" + countryCode);
-		}
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while ((line = bufferedReader.readLine()) != null) {
+            result += line;
+        }
 
-		rlCountry.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(EnterNumberActivity.this,
-						CountryListActivity.class);
-				startActivityForResult(intent, 101);
-			}
-		});
-		btContinue.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				hideKeyBoard();
-				if (txtMobileNumber.getText().toString().equals("")) {
-					Toast.makeText(EnterNumberActivity.this,
-							"Please enter number", Toast.LENGTH_SHORT).show();
-				} else {
-					showCustomDialog(tvCCode.getText().toString()
-							+ txtMobileNumber.getText().toString());
+        inputStream.close();
+        return result;
 
-				}
+    }
 
-			}
-		});
-		imgBack.setOnClickListener(new OnClickListener() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        setContentView(R.layout.activity_number);
+        init();
+        if (countryName != null) {
+            tvCName.setText(countryName);
+            tvCCode.setText("+" + countryCode);
+        }
 
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-		rlSkip.setOnClickListener(new OnClickListener() {
+        rlCountry.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EnterNumberActivity.this, CountryListActivity.class);
+                startActivityForResult(intent, 101);
+            }
+        });
+        btContinue.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideKeyBoard();
+                if (txtMobileNumber.getText().toString().equals("")) {
+                    Toast.makeText(EnterNumberActivity.this, "Please enter number", Toast.LENGTH_SHORT).show();
+                } else {
+                    showCustomDialog(tvCCode.getText().toString() + txtMobileNumber.getText().toString());
 
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				Intent intent = new Intent(EnterNumberActivity.this,
-						MainActivity.class);
-				startActivity(intent);
-				overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-				finish();
-			}
-		});
-	}
+                }
 
-	private void init() {
-		rlCountry = (RelativeLayout) findViewById(R.id.relative);
-		rlSkip = (RelativeLayout) findViewById(R.id.relativeSkip);
-		tvCName = (TextView) findViewById(R.id.txtCountryName);
-		tvCCode = (TextView) findViewById(R.id.txtCountryCode);
-		btContinue = (Button) findViewById(R.id.btnVCont);
-		imgBack = (ImageButton) findViewById(R.id.buttonBack);
-		txtMobileNumber = (EditText) findViewById(R.id.txtMobileNumber);
-	}
+            }
+        });
+        imgBack.setOnClickListener(new OnClickListener() {
 
-	private void sendVerificationCode(final int code) {
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					String result = postData(code);
-					if (result != null) {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        rlSkip.setOnClickListener(new OnClickListener() {
 
-						startActivity(new Intent(EnterNumberActivity.this,
-								VerifyNumberActivity.class).putExtra("mobNo",
-								userPhoneNumber));
-						finish();
-					}
-				} catch (Exception e) {
-					runOnUiThread(new Runnable() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(EnterNumberActivity.this, MainActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.fadein, R.anim.fadeout);
+                finish();
+            }
+        });
+    }
 
-						@Override
-						public void run() {
+    private void init() {
+        rlCountry = (RelativeLayout) findViewById(R.id.relative);
+        rlSkip = (RelativeLayout) findViewById(R.id.relativeSkip);
+        tvCName = (TextView) findViewById(R.id.txtCountryName);
+        tvCCode = (TextView) findViewById(R.id.txtCountryCode);
+        btContinue = (Button) findViewById(R.id.btnVCont);
+        imgBack = (ImageButton) findViewById(R.id.buttonBack);
+        txtMobileNumber = (EditText) findViewById(R.id.txtMobileNumber);
+    }
 
-							Toast.makeText(
-									EnterNumberActivity.this,
-									"Verification could not be sent. Please check your number.",
-									Toast.LENGTH_LONG).show();
-						}
-					});
+    private void sendVerificationCode(final int code) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String result = postData(code);
+                    if (result != null) {
 
-					e.printStackTrace();
-				} finally {
-					hideProgress();
-				}
-			}
-		}).start();
-	}
+                        startActivity(new Intent(EnterNumberActivity.this, VerifyNumberActivity.class).putExtra("mobNo", userPhoneNumber));
+                        finish();
+                    }
+                } catch (Exception e) {
+                    runOnUiThread(new Runnable() {
 
-	private void createAndSaveVerificationCode() {
-		Random rnd = new Random();
-		int code = 100000 + rnd.nextInt(900000);
+                        @Override
+                        public void run() {
 
-		SharedPreferences sharedpreferences = getSharedPreferences("CodePref",
-				Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = sharedpreferences.edit();
-		editor.putInt("code", code);
-		editor.commit();
+                            Toast.makeText(EnterNumberActivity.this, "Verification could not be sent. Please check your number.", Toast.LENGTH_LONG).show();
+                        }
+                    });
 
-		sendVerificationCode(code);
+                    e.printStackTrace();
+                } finally {
+                    hideProgress();
+                }
+            }
+        }).start();
+    }
 
-	}
+    private void createAndSaveVerificationCode() {
+        Random rnd = new Random();
+        int code = 100000 + rnd.nextInt(900000);
 
-	private String postData(int code) {
+        SharedPreferences sharedpreferences = getSharedPreferences("CodePref", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putInt("code", code);
+        editor.commit();
 
-		String result = null;
+        sendVerificationCode(code);
 
-		// Create a new HttpClient and Post Header
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(
-				"https://AC0f635cc862fb62ffb81f4483d0679a95:a40071bfd664c7e646996e5ab67094d1@api.twilio.com/2010-04-01/Accounts/AC0f635cc862fb62ffb81f4483d0679a95/SMS/Messages.json");
-		String authString = "AC0f635cc862fb62ffb81f4483d0679a95" + ":"
-				+ "a40071bfd664c7e646996e5ab67094d1";
-		httppost.setHeader(
-				"Authorization",
-				"Basic "
-						+ Base64.encodeToString((authString).getBytes(),
-								Base64.NO_WRAP));
+    }
 
-		try {
-			// Add your data
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-			nameValuePairs.add(new BasicNameValuePair("From", "+18443344277"));
-			nameValuePairs.add(new BasicNameValuePair("To", userPhoneNumber));
-			nameValuePairs.add(new BasicNameValuePair("Body",
-					"Eulou ! Phone Verification: " + code));
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+    private String postData(int code) {
 
-			// Execute HTTP Post Request
-			HttpResponse response = httpclient.execute(httppost);
+        String result = null;
 
-			// 9. receive response as inputStream
-			InputStream inputStream = response.getEntity().getContent();
-			// 10. convert inputstream to string
-			if (inputStream != null)
-				result = convertInputStreamToString(inputStream);
-			else
-				result = "Did not work!";
+        // Create a new HttpClient and Post Header
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost("https://AC0f635cc862fb62ffb81f4483d0679a95:a40071bfd664c7e646996e5ab67094d1@api.twilio.com/2010-04-01/Accounts/AC0f635cc862fb62ffb81f4483d0679a95/SMS/Messages.json");
+        String authString = "AC0f635cc862fb62ffb81f4483d0679a95" + ":" + "a40071bfd664c7e646996e5ab67094d1";
+        httppost.setHeader("Authorization", "Basic " + Base64.encodeToString((authString).getBytes(), Base64.NO_WRAP));
 
-		} catch (ClientProtocolException e) {
-		} catch (IOException e) {
-		}
+        try {
+            // Add your data
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("From", "+18443344277"));
+            nameValuePairs.add(new BasicNameValuePair("To", userPhoneNumber));
+            nameValuePairs.add(new BasicNameValuePair("Body", "Eulou ! Phone Verification: " + code));
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-		return result;
-	}
+            // Execute HTTP Post Request
+            HttpResponse response = httpclient.execute(httppost);
 
-	private static String convertInputStreamToString(InputStream inputStream)
-			throws IOException {
-		BufferedReader bufferedReader = new BufferedReader(
-				new InputStreamReader(inputStream));
-		String line = "";
-		String result = "";
-		while ((line = bufferedReader.readLine()) != null)
-			result += line;
+            // 9. receive response as inputStream
+            InputStream inputStream = response.getEntity().getContent();
+            // 10. convert inputstream to string
+            if (inputStream != null) {
+                result = convertInputStreamToString(inputStream);
+            } else {
+                result = "Did not work!";
+            }
 
-		inputStream.close();
-		return result;
+        } catch (ClientProtocolException e) {
+        } catch (IOException e) {
+        }
 
-	}
+        return result;
+    }
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-		if (resultCode == RESULT_OK && requestCode == 101) {
-			countryName = data.getExtras().getString("cName");
-			countryCode = data.getExtras().getString("cCode");
-			tvCName.setText(countryName);
-			tvCCode.setText("+" + countryCode);
-		}
+        if (resultCode == RESULT_OK && requestCode == 101) {
+            countryName = data.getExtras().getString("cName");
+            countryCode = data.getExtras().getString("cCode");
+            tvCName.setText(countryName);
+            tvCCode.setText("+" + countryCode);
+        }
 
-	}
+    }
 
-	private void showProgress() {
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				findViewById(R.id.loadingLayout).setVisibility(View.VISIBLE);
-			}
-		});
-	}
+    private void showProgress() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.loadingLayout).setVisibility(View.VISIBLE);
+            }
+        });
+    }
 
-	private void hideProgress() {
-		runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				findViewById(R.id.loadingLayout).setVisibility(View.GONE);
-			}
-		});
-	}
+    private void hideProgress() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                findViewById(R.id.loadingLayout).setVisibility(View.GONE);
+            }
+        });
+    }
 
-	private void hideKeyBoard() {
-		InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+    private void hideKeyBoard() {
+        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
-		inputManager.hideSoftInputFromWindow(
-				getCurrentFocus().getWindowToken(),
-				InputMethodManager.HIDE_NOT_ALWAYS);
-	}
+        inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+    }
 
-	public void showCustomDialog(String number) {
-		// TODO Auto-generated method stub
-		final Dialog dialog = new Dialog(EnterNumberActivity.this);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.number_dialog);
+    public void showCustomDialog(String number) {
+        // TODO Auto-generated method stub
+        final Dialog dialog = new Dialog(EnterNumberActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.number_dialog);
 
-		Button btEdit = (Button) dialog.findViewById(R.id.btnEdit);
-		Button btYes = (Button) dialog.findViewById(R.id.btnYes);
-		TextView tvNumber = (TextView) dialog.findViewById(R.id.txtNumber);
+        Button btEdit = (Button) dialog.findViewById(R.id.btnEdit);
+        Button btYes = (Button) dialog.findViewById(R.id.btnYes);
+        TextView tvNumber = (TextView) dialog.findViewById(R.id.txtNumber);
 
-		tvNumber.setText(number);
-		btEdit.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				dialog.dismiss();
-			}
-		});
-		btYes.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				showProgress();
-				userPhoneNumber = tvCCode.getText().toString()
-						+ txtMobileNumber.getText().toString();
-				createAndSaveVerificationCode();
-				dialog.dismiss();
-			}
-		});
-		dialog.show();
-	}
+        tvNumber.setText(number);
+        btEdit.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                dialog.dismiss();
+            }
+        });
+        btYes.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                showProgress();
+                userPhoneNumber = tvCCode.getText().toString() + txtMobileNumber.getText().toString();
+                createAndSaveVerificationCode();
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
 
 }

@@ -22,98 +22,91 @@ import com.ezzet.eulou.adapters.MessageListAdapter;
 import com.ezzet.eulou.constants.Constants;
 import com.ezzet.eulou.models.UserInfo;
 
-public class MessagesFragment extends Fragment implements OnItemClickListener,
-		OnCloseListener, OnQueryTextListener {
+public class MessagesFragment extends Fragment implements OnItemClickListener, OnCloseListener, OnQueryTextListener {
 
-	private ListView mMessageList;
-	private SearchView mSearchView;
-	private MessageListAdapter mMessagesAdapter;
+    private ListView mMessageList;
+    private SearchView mSearchView;
+    private MessageListAdapter mMessagesAdapter;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		ViewGroup rootView = (ViewGroup) inflater.inflate(
-				R.layout.fragment_messages, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_messages, container, false);
 
-		mSearchView = (SearchView) rootView
-				.findViewById(R.id.messages_search_view);
-		mMessageList = (ListView) rootView
-				.findViewById(R.id.messages_message_list);
-		mMessagesAdapter = new MessageListAdapter(getActivity());
-		mMessageList.setAdapter(mMessagesAdapter);
-		mSearchView.setIconified(false);
-		mSearchView.onActionViewExpanded();
-		mSearchView.clearFocus();
+        mSearchView = (SearchView) rootView.findViewById(R.id.messages_search_view);
+        mMessageList = (ListView) rootView.findViewById(R.id.messages_message_list);
+        mMessagesAdapter = new MessageListAdapter(getActivity());
+        mMessageList.setAdapter(mMessagesAdapter);
+        mSearchView.setIconified(false);
+        mSearchView.onActionViewExpanded();
+        mSearchView.clearFocus();
 
-		// Listener
-		mSearchView.setOnCloseListener(this);
-		mSearchView.setOnQueryTextListener(this);
-		mMessageList.setOnItemClickListener(this);
-		return rootView;
-	}
+        // Listener
+        mSearchView.setOnCloseListener(this);
+        mSearchView.setOnQueryTextListener(this);
+        mMessageList.setOnItemClickListener(this);
+        return rootView;
+    }
 
-	@Override
-	@SuppressWarnings("unchecked")
-	public void onItemClick(AdapterView<?> adapterView, View view, int pos,
-			long id) {
-		// TODO Auto-generated method stub
+    @Override
+    @SuppressWarnings("unchecked")
+    public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
+        // TODO Auto-generated method stub
 
-		Map<String, Object> historyItem = (Map<String, Object>) adapterView
-				.getAdapter().getItem(pos);
-		UserInfo userInfo = (UserInfo) historyItem.get("UserInfo");
-		Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
-		chatIntent.putExtra(Constants.INTENT_MESAGE_USER_ID, userInfo);
-		startActivity(chatIntent);
-	}
+        Map<String, Object> historyItem = (Map<String, Object>) adapterView.getAdapter().getItem(pos);
+        UserInfo userInfo = (UserInfo) historyItem.get("UserInfo");
+        Intent chatIntent = new Intent(getActivity(), ChatActivity.class);
+        chatIntent.putExtra(Constants.INTENT_MESAGE_USER_ID, userInfo);
+        startActivity(chatIntent);
+    }
 
-	@Override
-	public boolean onQueryTextChange(String queryText) {
-		// TODO Auto-generated method stub
+    @Override
+    public boolean onQueryTextChange(String queryText) {
+        // TODO Auto-generated method stub
 
-		mMessagesAdapter.getFilter().filter(queryText);
-		return false;
-	}
+        mMessagesAdapter.getFilter().filter(queryText);
+        return false;
+    }
 
-	@Override
-	public boolean onQueryTextSubmit(String arg0) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean onQueryTextSubmit(String arg0) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean onClose() {
-		// TODO Auto-generated method stub
+    @Override
+    public boolean onClose() {
+        // TODO Auto-generated method stub
 
-		mMessagesAdapter.getFilter().filter("");
-		return false;
-	}
+        mMessagesAdapter.getFilter().filter("");
+        return false;
+    }
 
-	@Override
-	public void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();
+    @Override
+    public void onResume() {
+        // TODO Auto-generated method stub
+        super.onResume();
 
-	}
+    }
 
-	public void updateMessageHistory() {
+    public void updateMessageHistory() {
 
-		mMessagesAdapter.setData(BaseActivity.mMessegas);
-		mMessagesAdapter.notifyDataSetChanged();
-	}
+        mMessagesAdapter.setData(BaseActivity.mMessegas);
+        mMessagesAdapter.notifyDataSetChanged();
+    }
 
-	@Override
-	public void setUserVisibleHint(boolean isVisibleToUser) {
-		// TODO Auto-generated method stub
-		super.setUserVisibleHint(isVisibleToUser);
-		if (isVisibleToUser) {
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        // TODO Auto-generated method stub
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
 
-			updateMessageHistory();
-		}
-	}
+            updateMessageHistory();
+        }
+    }
 }

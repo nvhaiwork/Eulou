@@ -18,216 +18,207 @@ import android.widget.TextView;
 
 /**
  * @author ubuntu
- * 
  */
 public class CustomAlertDialog extends Dialog {
 
-	private String mTitle, mMessage, mPositive, mNegative;
-	private TextView mPositiveBtn, mNegativeBtn, mTitleTxt, mMessageTxt;
-	private OnPositiveButtonClick mPositiveClick;
-	private OnNegativeButtonClick mNegativeClick;
-	private boolean isCancelable;
+    /**
+     * View on click positive
+     */
+    View.OnClickListener positiveClickListener = new android.view.View.OnClickListener() {
 
-	public interface OnPositiveButtonClick {
+        /*
+         * (non-Javadoc)
+         *
+         * @see android.view.View.OnClickListener#onClick(android.view.View)
+         */
+        @Override
+        public void onClick(View v) {
+            // TODO Auto-generated method stub
 
-		public void onButtonClick(View view);
-	}
+            mPositiveClick.onButtonClick(v);
+        }
+    };
+    /**
+     * View on click negative
+     */
+    View.OnClickListener negativeClickListener = new View.OnClickListener() {
 
-	public interface OnNegativeButtonClick {
+        /*
+         * (non-Javadoc)
+         *
+         * @see android.view.View.OnClickListener#onClick(android.view.View)
+         */
+        @Override
+        public void onClick(View v) {
+            // TODO Auto-generated method stub
 
-		public void onButtonClick(View view);
-	}
+            mNegativeClick.onButtonClick(v);
+        }
+    };
+    private String mTitle, mMessage, mPositive, mNegative;
+    private TextView mPositiveBtn, mNegativeBtn, mTitleTxt, mMessageTxt;
+    private OnPositiveButtonClick mPositiveClick;
+    private OnNegativeButtonClick mNegativeClick;
+    private boolean isCancelable;
 
-	/**
-	 * @param context
-	 */
-	public CustomAlertDialog(Context context) {
-		super(context);
-		// TODO Auto-generated constructor stub
-		this.mTitle = context.getString(R.string.app_name);
-		this.isCancelable = true;
-	}
+    /**
+     * @param context
+     */
+    public CustomAlertDialog(Context context) {
+        super(context);
+        // TODO Auto-generated constructor stub
+        this.mTitle = context.getString(R.string.app_name);
+        this.isCancelable = true;
+    }
 
-	/**
-	 * @param context
-	 * @param mContext
-	 * @param title
-	 * @param message
-	 */
-	public CustomAlertDialog(Context context, Context mContext, String title,
-			String message) {
-		super(context);
-		this.mTitle = title;
-		this.mMessage = message;
-		this.isCancelable = true;
-	}
+    /**
+     * @param context
+     * @param mContext
+     * @param title
+     * @param message
+     */
+    public CustomAlertDialog(Context context, Context mContext, String title, String message) {
+        super(context);
+        this.mTitle = title;
+        this.mMessage = message;
+        this.isCancelable = true;
+    }
 
-	public String getTitle() {
-		return mTitle;
-	}
+    public String getTitle() {
+        return mTitle;
+    }
 
-	public void setTitle(String title) {
-		this.mTitle = title;
-	}
+    public void setTitle(String title) {
+        this.mTitle = title;
+    }
 
-	public String getMessage() {
-		return mMessage;
-	}
+    public String getMessage() {
+        return mMessage;
+    }
 
-	public void setMessage(String message) {
-		this.mMessage = message;
-	}
+    public void setMessage(String message) {
+        this.mMessage = message;
+    }
 
-	public boolean isCancelableFlag() {
-		return isCancelable;
-	}
+    public boolean isCancelableFlag() {
+        return isCancelable;
+    }
 
-	public void setCancelableFlag(boolean isCancelable) {
-		this.isCancelable = isCancelable;
-	}
+    public void setCancelableFlag(boolean isCancelable) {
+        this.isCancelable = isCancelable;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Dialog#onCreate(android.os.Bundle)
-	 */
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.dialog_alert);
-		getWindow().setBackgroundDrawable(
-				new ColorDrawable(android.graphics.Color.TRANSPARENT));
-		Window window = getWindow();
-		WindowManager.LayoutParams wlp = window.getAttributes();
-		wlp.gravity = Gravity.CENTER;
-		wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
-		wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
-		wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
-		window.setAttributes(wlp);
+    /*
+     * (non-Javadoc)
+     *
+     * @see android.app.Dialog#onCreate(android.os.Bundle)
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        // TODO Auto-generated method stub
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.dialog_alert);
+        getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        Window window = getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.CENTER;
+        wlp.flags &= ~WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.height = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(wlp);
 
-		mTitleTxt = (TextView) findViewById(R.id.alert_title);
-		mMessageTxt = (TextView) findViewById(R.id.alert_content);
-		mPositiveBtn = (TextView) findViewById(R.id.alert_button_right);
-		mNegativeBtn = (TextView) findViewById(R.id.alert_button_left);
+        mTitleTxt = (TextView) findViewById(R.id.alert_title);
+        mMessageTxt = (TextView) findViewById(R.id.alert_content);
+        mPositiveBtn = (TextView) findViewById(R.id.alert_button_right);
+        mNegativeBtn = (TextView) findViewById(R.id.alert_button_left);
 
-		if (mTitle.equals("")) {
+        if (mTitle.equals("")) {
 
-			mTitleTxt.setVisibility(View.GONE);
-		}
+            mTitleTxt.setVisibility(View.GONE);
+        }
 
-		mTitleTxt.setText(mTitle);
-		mMessageTxt.setText(mMessage);
-		setCancelable(isCancelable);
+        mTitleTxt.setText(mTitle);
+        mMessageTxt.setText(mMessage);
+        setCancelable(isCancelable);
 
-		if (isCancelable) {
+        if (isCancelable) {
 
-			RelativeLayout rootLayout = (RelativeLayout) findViewById(R.id.parent);
-			rootLayout.setOnClickListener(new View.OnClickListener() {
+            RelativeLayout rootLayout = (RelativeLayout) findViewById(R.id.parent);
+            rootLayout.setOnClickListener(new View.OnClickListener() {
 
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
+                @Override
+                public void onClick(View v) {
+                    // TODO Auto-generated method stub
 
-					dismiss();
-				}
-			});
-		}
+                    dismiss();
+                }
+            });
+        }
 
-		if (mPositiveClick != null) {
+        if (mPositiveClick != null) {
 
-			mPositiveBtn.setVisibility(View.VISIBLE);
-			mPositiveBtn.setText(mPositive);
-			mPositiveBtn.setOnClickListener(positiveClickListener);
-		}
+            mPositiveBtn.setVisibility(View.VISIBLE);
+            mPositiveBtn.setText(mPositive);
+            mPositiveBtn.setOnClickListener(positiveClickListener);
+        }
 
-		if (mNegativeClick != null) {
+        if (mNegativeClick != null) {
 
-			mNegativeBtn.setVisibility(View.VISIBLE);
-			mNegativeBtn.setText(mNegative);
-			mNegativeBtn.setOnClickListener(negativeClickListener);
-		}
+            mNegativeBtn.setVisibility(View.VISIBLE);
+            mNegativeBtn.setText(mNegative);
+            mNegativeBtn.setOnClickListener(negativeClickListener);
+        }
 
-		if (mPositiveClick != null && mNegativeClick != null) {
+        if (mPositiveClick != null && mNegativeClick != null) {
 
-			View seperator = (View) findViewById(R.id.alert_button_sep);
-			seperator.setVisibility(View.VISIBLE);
-		}
-	}
+            View seperator = (View) findViewById(R.id.alert_button_sep);
+            seperator.setVisibility(View.VISIBLE);
+        }
+    }
 
-	/**
-	 * View on click positive
-	 * */
-	View.OnClickListener positiveClickListener = new android.view.View.OnClickListener() {
+    /**
+     * Set positive button
+     *
+     * @param displayText   Text for display
+     * @param positiveClick
+     */
+    public void setPositiveButton(String displayText, OnPositiveButtonClick positiveClick) {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see android.view.View.OnClickListener#onClick(android.view.View)
-		 */
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
+        this.mPositiveClick = positiveClick;
+        this.mPositive = displayText;
+    }
 
-			mPositiveClick.onButtonClick(v);
-		}
-	};
+    /*
+     * (non-Javadoc)
+     *
+     * @see android.support.v4.app.FragmentActivity#onBackPressed()
+     */
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        super.onBackPressed();
+    }
 
-	/**
-	 * View on click negative
-	 * */
-	View.OnClickListener negativeClickListener = new View.OnClickListener() {
+    /**
+     * Set negative button
+     *
+     * @param displayText   Text for display
+     * @param negativeClick
+     */
+    public void setNegativeButton(String displayText, OnNegativeButtonClick negativeClick) {
 
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see android.view.View.OnClickListener#onClick(android.view.View)
-		 */
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
+        this.mNegativeClick = negativeClick;
+        this.mNegative = displayText;
+    }
 
-			mNegativeClick.onButtonClick(v);
-		}
-	};
+    public interface OnPositiveButtonClick {
 
-	/**
-	 * Set positive button
-	 * 
-	 * @param displayText
-	 *            Text for display
-	 * @param positiveClick
-	 * */
-	public void setPositiveButton(String displayText,
-			OnPositiveButtonClick positiveClick) {
+        public void onButtonClick(View view);
+    }
 
-		this.mPositiveClick = positiveClick;
-		this.mPositive = displayText;
-	}
+    public interface OnNegativeButtonClick {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.support.v4.app.FragmentActivity#onBackPressed()
-	 */
-	@Override
-	public void onBackPressed() {
-		// TODO Auto-generated method stub
-		super.onBackPressed();
-	}
-
-	/**
-	 * Set negative button
-	 * 
-	 * @param displayText
-	 *            Text for display
-	 * @param negativeClick
-	 * */
-	public void setNegativeButton(String displayText,
-			OnNegativeButtonClick negativeClick) {
-
-		this.mNegativeClick = negativeClick;
-		this.mNegative = displayText;
-	}
+        public void onButtonClick(View view);
+    }
 }

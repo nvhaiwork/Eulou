@@ -23,211 +23,187 @@ import android.view.inputmethod.InputMethodManager;
 
 public class Utilities {
 
-	/**
-	 * Do hide keyboard
-	 * 
-	 * @param context
-	 *            {@link Context}
-	 * @param view
-	 *            Curernt forcus view
-	 * 
-	 * */
-	public static void doHideKeyboard(Context context, View view) {
+    /**
+     * Do hide keyboard
+     *
+     * @param context {@link Context}
+     * @param view    Curernt forcus view
+     */
+    public static void doHideKeyboard(Context context, View view) {
 
-		if (view != null) {
+        if (view != null) {
 
-			InputMethodManager inputManager = (InputMethodManager) context
-					.getSystemService(Context.INPUT_METHOD_SERVICE);
-			inputManager.hideSoftInputFromWindow(view.getWindowToken(),
-					InputMethodManager.HIDE_NOT_ALWAYS);
-		}
-	}
+            InputMethodManager inputManager = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
 
-	/**
-	 * Sort list message by time
-	 * 
-	 * @param map
-	 *            Message list
-	 * */
-	public static Map<String, Map<String, Object>> sortMessage(
-			Map<String, Map<String, Object>> map) {
+    /**
+     * Sort list message by time
+     *
+     * @param map Message list
+     */
+    public static Map<String, Map<String, Object>> sortMessage(Map<String, Map<String, Object>> map) {
 
-		List<Map.Entry<String, Map<String, Object>>> list = new LinkedList<Map.Entry<String, Map<String, Object>>>(
-				map.entrySet());
-		final SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
-		Collections.sort(list,
-				new Comparator<Map.Entry<String, Map<String, Object>>>() {
+        List<Map.Entry<String, Map<String, Object>>> list = new LinkedList<Map.Entry<String, Map<String, Object>>>(map.entrySet());
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Collections.sort(list, new Comparator<Map.Entry<String, Map<String, Object>>>() {
 
-					@Override
-					public int compare(Entry<String, Map<String, Object>> lhs,
-							Entry<String, Map<String, Object>> rhs) {
-						// TODO Auto-generated method stub
+                    @Override
+                    public int compare(Entry<String, Map<String, Object>> lhs, Entry<String, Map<String, Object>> rhs) {
+                        // TODO Auto-generated method stub
 
-						Date leftDate = null;
-						Date rightDate = null;
-						try {
+                        Date leftDate = null;
+                        Date rightDate = null;
+                        try {
 
-							leftDate = dateFormat.parse((String) lhs.getValue()
-									.get("LastTime"));
-						} catch (Exception ex) {
+                            leftDate = dateFormat.parse((String) lhs.getValue().get("LastTime"));
+                        } catch (Exception ex) {
 
-							leftDate = new Date();
-						}
+                            leftDate = new Date();
+                        }
 
-						try {
+                        try {
 
-							rightDate = dateFormat.parse((String) rhs
-									.getValue().get("LastTime"));
-						} catch (Exception ex) {
+                            rightDate = dateFormat.parse((String) rhs.getValue().get("LastTime"));
+                        } catch (Exception ex) {
 
-							rightDate = new Date();
-						}
+                            rightDate = new Date();
+                        }
 
-						return rightDate.compareTo(leftDate);
-					}
-				});
+                        return rightDate.compareTo(leftDate);
+                    }
+                });
 
-		Map<String, Map<String, Object>> returnMap = new LinkedHashMap<String, Map<String, Object>>();
-		for (Map.Entry<String, Map<String, Object>> entry : list) {
+        Map<String, Map<String, Object>> returnMap = new LinkedHashMap<String, Map<String, Object>>();
+        for (Map.Entry<String, Map<String, Object>> entry : list) {
 
-			returnMap.put(entry.getKey(), entry.getValue());
-		}
+            returnMap.put(entry.getKey(), entry.getValue());
+        }
 
-		return returnMap;
-	}
+        return returnMap;
+    }
 
-	public static String calcMessageTime(String dateStr) {
+    public static String calcMessageTime(String dateStr) {
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-		SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm",
-				Locale.ENGLISH);
-		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-		dateFormat1.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Date startDate = new Date();
-		try {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.ENGLISH);
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        dateFormat1.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date startDate = new Date();
+        try {
 
-			startDate = dateFormat.parse(dateStr);
-		} catch (ParseException e) {
+            startDate = dateFormat.parse(dateStr);
+        } catch (ParseException e) {
 
-			LogUtil.e("calcMessageTime", e.getMessage());
-		}
+            LogUtil.e("calcMessageTime", e.getMessage());
+        }
 
-		String startDateString = dateFormat1.format(startDate);
-		Date yesterdayDate = new Date(new Date().getTime()
-				- (1000 * 60 * 60 * 24));
-		if (dateFormat1.format(new Date()).equals(startDateString)) {
+        String startDateString = dateFormat1.format(startDate);
+        Date yesterdayDate = new Date(new Date().getTime() - (1000 * 60 * 60 * 24));
+        if (dateFormat1.format(new Date()).equals(startDateString)) {
 
-			return timeFormat.format(startDate);
-		} else if (dateFormat1.format(yesterdayDate).equals(startDateString)) {
+            return timeFormat.format(startDate);
+        } else if (dateFormat1.format(yesterdayDate).equals(startDateString)) {
 
-			return "Yesterday";
-		} else {
+            return "Yesterday";
+        } else {
 
-			return startDateString;
-		}
-	}
+            return startDateString;
+        }
+    }
 
-	public static boolean isToday(String timeStr) {
+    public static boolean isToday(String timeStr) {
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-		dateFormat1.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Date startDate = new Date();
-		try {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        dateFormat1.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date startDate = new Date();
+        try {
 
-			startDate = dateFormat.parse(timeStr);
-		} catch (ParseException e) {
+            startDate = dateFormat.parse(timeStr);
+        } catch (ParseException e) {
 
-			LogUtil.e("calcMessageTime", e.getMessage());
-		}
+            LogUtil.e("calcMessageTime", e.getMessage());
+        }
 
-		String startDateString = dateFormat1.format(startDate);
-		if (dateFormat1.format(new Date()).equals(startDateString)) {
+        String startDateString = dateFormat1.format(startDate);
+        if (dateFormat1.format(new Date()).equals(startDateString)) {
 
-			return true;
-		}
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public static boolean isYesterday(String timeStr) {
+    public static boolean isYesterday(String timeStr) {
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
-		SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-		dateFormat1.setTimeZone(TimeZone.getTimeZone("UTC"));
-		Date startDate = new Date();
-		try {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat1 = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        dateFormat1.setTimeZone(TimeZone.getTimeZone("UTC"));
+        Date startDate = new Date();
+        try {
 
-			startDate = dateFormat.parse(timeStr);
-		} catch (ParseException e) {
+            startDate = dateFormat.parse(timeStr);
+        } catch (ParseException e) {
 
-			LogUtil.e("calcMessageTime", e.getMessage());
-		}
+            LogUtil.e("calcMessageTime", e.getMessage());
+        }
 
-		String startDateString = dateFormat1.format(startDate);
-		Date yesterdayDate = new Date(new Date().getTime()
-				- (1000 * 60 * 60 * 24));
-		if (dateFormat1.format(yesterdayDate).equals(startDateString)) {
+        String startDateString = dateFormat1.format(startDate);
+        Date yesterdayDate = new Date(new Date().getTime() - (1000 * 60 * 60 * 24));
+        if (dateFormat1.format(yesterdayDate).equals(startDateString)) {
 
-			return true;
-		}
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public static boolean isToday(Date date) {
+    public static boolean isToday(Date date) {
 
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-		String startDateString = dateFormat.format(date);
-		if (dateFormat.format(new Date()).equals(startDateString)) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+        String startDateString = dateFormat.format(date);
+        if (dateFormat.format(new Date()).equals(startDateString)) {
 
-			return true;
-		}
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * show alert message
-	 * 
-	 * @param message
-	 *            Alert message
-	 * @param title
-	 *            alert title
-	 * */
-	public static void showAlertMessage(Context context, String message,
-			String title, OnNegativeButtonClick buttonClick) {
+    /**
+     * show alert message
+     *
+     * @param message Alert message
+     * @param title   alert title
+     */
+    public static void showAlertMessage(Context context, String message, String title, OnNegativeButtonClick buttonClick) {
 
-		final CustomAlertDialog dialog = new CustomAlertDialog(context);
-		dialog.setCancelableFlag(false);
-		dialog.setTitle(title);
-		dialog.setMessage(message);
-		if (buttonClick == null) {
+        final CustomAlertDialog dialog = new CustomAlertDialog(context);
+        dialog.setCancelableFlag(false);
+        dialog.setTitle(title);
+        dialog.setMessage(message);
+        if (buttonClick == null) {
 
-			dialog.setNegativeButton(context.getString(R.string.ok),
-					new OnNegativeButtonClick() {
+            dialog.setNegativeButton(context.getString(R.string.ok), new OnNegativeButtonClick() {
 
-						@Override
-						public void onButtonClick(final View view) {
-							// TODO Auto-generated method stub
+                        @Override
+                        public void onButtonClick(final View view) {
+                            // TODO Auto-generated method stub
 
-							dialog.dismiss();
-						}
-					});
-		} else {
+                            dialog.dismiss();
+                        }
+                    });
+        } else {
 
-			dialog.setNegativeButton(context.getString(R.string.ok),
-					buttonClick);
-		}
+            dialog.setNegativeButton(context.getString(R.string.ok), buttonClick);
+        }
 
-		dialog.show();
-	}
+        dialog.show();
+    }
 }

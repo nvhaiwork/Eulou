@@ -21,73 +21,69 @@ import com.ezzet.eulou.models.UserInfo;
 
 public class RecentCallFragment extends Fragment {
 
-	private ListView listViewCalls;
-	private CallsListAdapter adapter;
-	private ReadCallsReceiver readCallsReceiver;
+    private ListView listViewCalls;
+    private CallsListAdapter adapter;
+    private ReadCallsReceiver readCallsReceiver;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		ViewGroup rootView = (ViewGroup) inflater.inflate(
-				R.layout.activity_calls, container, false);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.activity_calls, container, false);
 
-		listViewCalls = (ListView) rootView.findViewById(R.id.listViewCalls);
-		adapter = new CallsListAdapter(getActivity());
-		listViewCalls.setAdapter(adapter);
+        listViewCalls = (ListView) rootView.findViewById(R.id.listViewCalls);
+        adapter = new CallsListAdapter(getActivity());
+        listViewCalls.setAdapter(adapter);
 
-		listViewCalls.setOnItemClickListener(new OnItemClickListener() {
+        listViewCalls.setOnItemClickListener(new OnItemClickListener() {
 
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-				CallHistoryItem item = CallHistoryItem.historyArray
-						.get(position);
-				UserInfo userInfo = item.userInfo;
-				int mainSocial = userInfo.getMainSocial();
-				String userIDString = "";
-				if (mainSocial == Constants.FACEBOOK)
-					userIDString = "fb" + userInfo.getFacebookID();
-				else if (mainSocial == Constants.TWITTER)
-					userIDString = "tw" + userInfo.getTwitterID();
-				else if (mainSocial == Constants.INSTAGRAM)
-					userIDString = "in" + userInfo.getInstagramID();
-				else
-					return;
+                CallHistoryItem item = CallHistoryItem.historyArray.get(position);
+                UserInfo userInfo = item.userInfo;
+                int mainSocial = userInfo.getMainSocial();
+                String userIDString = "";
+                if (mainSocial == Constants.FACEBOOK) {
+                    userIDString = "fb" + userInfo.getFacebookID();
+                } else if (mainSocial == Constants.TWITTER) {
+                    userIDString = "tw" + userInfo.getTwitterID();
+                } else if (mainSocial == Constants.INSTAGRAM) {
+                    userIDString = "in" + userInfo.getInstagramID();
+                } else {
+                    return;
+                }
 
-				Intent intent = new Intent();
-				intent.setAction("com.ezzet.eulou.action.CALLBUTTON");
-				intent.putExtra("SinchID", userIDString);
-				getActivity().sendBroadcast(intent);
+                Intent intent = new Intent();
+                intent.setAction("com.ezzet.eulou.action.CALLBUTTON");
+                intent.putExtra("SinchID", userIDString);
+                getActivity().sendBroadcast(intent);
 
-			}
+            }
 
-		});
+        });
 
-		readCallsReceiver = new ReadCallsReceiver();
-		IntentFilter filter = new IntentFilter(
-				"com.ezzet.eulou.action.READCALLS");
-		getActivity().registerReceiver(readCallsReceiver, filter);
+        readCallsReceiver = new ReadCallsReceiver();
+        IntentFilter filter = new IntentFilter("com.ezzet.eulou.action.READCALLS");
+        getActivity().registerReceiver(readCallsReceiver, filter);
 
-		return rootView;
-	}
+        return rootView;
+    }
 
-	@Override
-	public void onDestroy() {
-		getActivity().unregisterReceiver(readCallsReceiver);
-		super.onDestroy();
-	}
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(readCallsReceiver);
+        super.onDestroy();
+    }
 
-	private class ReadCallsReceiver extends BroadcastReceiver {
+    private class ReadCallsReceiver extends BroadcastReceiver {
 
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			adapter.notifyDataSetChanged();
-		}
-	}
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            adapter.notifyDataSetChanged();
+        }
+    }
 }

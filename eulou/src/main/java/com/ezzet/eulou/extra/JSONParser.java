@@ -32,151 +32,146 @@ import org.json.JSONObject;
 
 public class JSONParser {
 
-	static InputStream is = null;
-	static JSONObject jObj = null;
-	static JSONArray jArry = null;
-	static String json = "";
+    static InputStream is = null;
+    static JSONObject jObj = null;
+    static JSONArray jArry = null;
+    static String json = "";
 
-	// constructor
-	public JSONParser() {
+    // constructor
+    public JSONParser() {
 
-	}
+    }
 
-	public String postData(String userId, String phone) {
-		String URL = "http://eulou.tn/service/index.php?";
-		String result = null;
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String line = "";
+        String result = "";
+        while ((line = bufferedReader.readLine()) != null) {
+            result += line;
+        }
 
-		// Create a new HttpClient and Post Header
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpPost httppost = new HttpPost(URL);
+        inputStream.close();
+        return result;
 
-		try {
-			// Add your data
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-			nameValuePairs
-					.add(new BasicNameValuePair("action", "usersbyphones"));
-			nameValuePairs.add(new BasicNameValuePair("userid", userId));
-			nameValuePairs.add(new BasicNameValuePair("phones", phone));
+    }
 
-			httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+    public String postData(String userId, String phone) {
+        String URL = "http://eulou.tn/service/index.php?";
+        String result = null;
 
-			// Execute HTTP Post Request
-			HttpResponse response = httpclient.execute(httppost);
+        // Create a new HttpClient and Post Header
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost(URL);
 
-			// 9. receive response as inputStream
-			InputStream inputStream = response.getEntity().getContent();
-			// 10. convert inputstream to string
-			if (inputStream != null)
-				result = convertInputStreamToString(inputStream);
-			else
-				result = "Did not work!";
-		} catch (ClientProtocolException e) {
-		} catch (IOException e) {
-		}
-		return result;
-	}
+        try {
+            // Add your data
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+            nameValuePairs.add(new BasicNameValuePair("action", "usersbyphones"));
+            nameValuePairs.add(new BasicNameValuePair("userid", userId));
+            nameValuePairs.add(new BasicNameValuePair("phones", phone));
 
-	private static String convertInputStreamToString(InputStream inputStream)
-			throws IOException {
-		BufferedReader bufferedReader = new BufferedReader(
-				new InputStreamReader(inputStream));
-		String line = "";
-		String result = "";
-		while ((line = bufferedReader.readLine()) != null)
-			result += line;
+            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-		inputStream.close();
-		return result;
+            // Execute HTTP Post Request
+            HttpResponse response = httpclient.execute(httppost);
 
-	}
+            // 9. receive response as inputStream
+            InputStream inputStream = response.getEntity().getContent();
+            // 10. convert inputstream to string
+            if (inputStream != null) {
+                result = convertInputStreamToString(inputStream);
+            } else {
+                result = "Did not work!";
+            }
+        } catch (ClientProtocolException e) {
+        } catch (IOException e) {
+        }
+        return result;
+    }
 
-	public String getJSONFromUrl(String url) {
+    public String getJSONFromUrl(String url) {
 
-		// Making HTTP request
-		try {
-			// defaultHttpClient
-			HttpGet httpGet = new HttpGet(url);
-			HttpParams httpParameters = new BasicHttpParams();
-			int timeoutConnection = 3000;
-			HttpConnectionParams.setConnectionTimeout(httpParameters,
-					timeoutConnection);
-			int timeoutSocket = 5000;
-			HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-			DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
-			HttpResponse httpResponse = httpClient.execute(httpGet);
-			HttpEntity httpEntity = httpResponse.getEntity();
-			is = httpEntity.getContent();
+        // Making HTTP request
+        try {
+            // defaultHttpClient
+            HttpGet httpGet = new HttpGet(url);
+            HttpParams httpParameters = new BasicHttpParams();
+            int timeoutConnection = 3000;
+            HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+            int timeoutSocket = 5000;
+            HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+            DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            is = httpEntity.getContent();
 
-		} catch (ConnectTimeoutException e) {
-			return "lost";
-		} catch (UnsupportedEncodingException e) {
-			return "lost";
-		} catch (ClientProtocolException e) {
-			return "lost";
-		} catch (IOException e) {
-			return "lost";
-		}
+        } catch (ConnectTimeoutException e) {
+            return "lost";
+        } catch (UnsupportedEncodingException e) {
+            return "lost";
+        } catch (ClientProtocolException e) {
+            return "lost";
+        } catch (IOException e) {
+            return "lost";
+        }
 
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					is, "iso-8859-1"), 8);
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
-			}
-			is.close();
-			json = sb.toString();
-		} catch (Exception e) {
-		}
-		// return JSON String
-		return json;
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            is.close();
+            json = sb.toString();
+        } catch (Exception e) {
+        }
+        // return JSON String
+        return json;
 
-	}
+    }
 
-	public String getJSONArryFromUrl(String url) {
+    public String getJSONArryFromUrl(String url) {
 
-		// Making HTTP request
-		try {
-			// defaultHttpClient
-			HttpGet httpGet = new HttpGet(url);
-			HttpParams httpParameters = new BasicHttpParams();
-			int timeoutConnection = 3000;
-			HttpConnectionParams.setConnectionTimeout(httpParameters,
-					timeoutConnection);
-			int timeoutSocket = 5000;
-			HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-			DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
-			HttpResponse httpResponse = httpClient.execute(httpGet);
-			HttpEntity httpEntity = httpResponse.getEntity();
-			is = httpEntity.getContent();
+        // Making HTTP request
+        try {
+            // defaultHttpClient
+            HttpGet httpGet = new HttpGet(url);
+            HttpParams httpParameters = new BasicHttpParams();
+            int timeoutConnection = 3000;
+            HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+            int timeoutSocket = 5000;
+            HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+            DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            is = httpEntity.getContent();
 
-		} catch (ConnectTimeoutException e) {
-			return "lost";
-		} catch (UnsupportedEncodingException e) {
-			return "lost";
-		} catch (ClientProtocolException e) {
-			return "lost";
-		} catch (IOException e) {
-			return "lost";
-		}
+        } catch (ConnectTimeoutException e) {
+            return "lost";
+        } catch (UnsupportedEncodingException e) {
+            return "lost";
+        } catch (ClientProtocolException e) {
+            return "lost";
+        } catch (IOException e) {
+            return "lost";
+        }
 
-		try {
-			BufferedReader reader = new BufferedReader(new InputStreamReader(
-					is, "iso-8859-1"), 8);
-			StringBuilder sb = new StringBuilder();
-			String line = null;
-			while ((line = reader.readLine()) != null) {
-				sb.append(line + "\n");
-			}
-			is.close();
-			json = sb.toString();
-		} catch (Exception e) {
-		}
+        try {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "iso-8859-1"), 8);
+            StringBuilder sb = new StringBuilder();
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line + "\n");
+            }
+            is.close();
+            json = sb.toString();
+        } catch (Exception e) {
+        }
 
-		// return JSON String
-		return json;
+        // return JSON String
+        return json;
 
-	}
+    }
 
 }
