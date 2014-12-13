@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-                android:layout_width = "match_parent"
-                android:layout_height = "match_parent"
-                android:orientation = "vertical">
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:orientation = "vertical">
 
     <RelativeLayout
+        android:id = "@+id/layoutTopBar"
         android:layout_width = "match_parent"
         android:layout_height = "@dimen/topbar_height"
         android:layout_alignParentLeft = "true"
-        android:layout_alignParentTop = "true"
-        android:id = "@+id/layoutTopBar">
+        android:layout_alignParentTop = "true">
 
         <ImageView
             android:layout_width = "match_parent"
@@ -19,9 +19,10 @@
             android:adjustViewBounds = "true"
             android:contentDescription = "@string/app_name"
             android:scaleType = "fitXY"
-            android:src = "@drawable/top_bar"/>
+            android:src = "@drawable/top_bar" />
 
         <ImageButton
+            android:id = "@+id/buttonCall"
             android:layout_width = "@dimen/topbar_button_width"
             android:layout_height = "@dimen/topbar_button_width"
             android:layout_alignParentBottom = "true"
@@ -30,12 +31,12 @@
             android:layout_marginRight = "10dp"
             android:background = "@color/clear_back"
             android:contentDescription = "@string/app_name"
-            android:id = "@+id/buttonCall"
             android:scaleType = "fitXY"
             android:src = "@drawable/ic_call_white"
-            android:visibility = "gone"/>
+            android:visibility = "gone" />
 
         <RelativeLayout
+            android:id = "@+id/relativeDone"
             android:layout_width = "wrap_content"
             android:layout_height = "@dimen/topbar_button_width"
             android:layout_alignParentRight = "true"
@@ -43,21 +44,21 @@
             android:layout_marginRight = "10dp"
             android:background = "@color/clear_back"
             android:contentDescription = "@string/app_name"
-            android:id = "@+id/relativeDone"
             android:scaleType = "fitXY"
             android:visibility = "invisible">
 
             <TextView
+                android:id = "@+id/txtDone"
                 android:layout_width = "wrap_content"
                 android:layout_height = "wrap_content"
                 android:layout_centerVertical = "true"
-                android:id = "@+id/txtDone"
                 android:text = "@string/done"
                 android:textColor = "@color/white"
-                android:textSize = "@dimen/text_size1"/>
+                android:textSize = "@dimen/text_size1" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id = "@+id/relativeSkip"
             android:layout_width = "wrap_content"
             android:layout_height = "@dimen/topbar_button_width"
             android:layout_alignParentLeft = "true"
@@ -65,18 +66,17 @@
             android:layout_marginLeft = "10dp"
             android:background = "@color/clear_back"
             android:contentDescription = "@string/app_name"
-            android:id = "@+id/relativeSkip"
             android:scaleType = "fitXY"
             android:visibility = "invisible">
 
             <TextView
+                android:id = "@+id/txtSkip"
                 android:layout_width = "wrap_content"
                 android:layout_height = "wrap_content"
                 android:layout_centerVertical = "true"
-                android:id = "@+id/txtSkip"
                 android:text = "@string/skip"
                 android:textColor = "@color/white"
-                android:textSize = "@dimen/text_size1"/>
+                android:textSize = "@dimen/text_size1" />
         </RelativeLayout>
 
         <TextView
@@ -90,56 +90,56 @@
             android:gravity = "center_horizontal"
             android:text = "@string/phone_number"
             android:textColor = "@color/white"
-            android:textSize = "@dimen/text_size1"/>
+            android:textSize = "@dimen/text_size1" />
     </RelativeLayout>
 
     <TextView
+        android:id = "@+id/txtNumberDesc"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         android:layout_below = "@+id/layoutTopBar"
         android:layout_centerHorizontal = "true"
         android:layout_marginTop = "50dp"
-        android:id = "@+id/txtNumberDesc"
-        android:text = "@string/numberDesc"/>
+        android:text = "@string/numberDesc" />
 
     <TextView
+        android:id = "@+id/txtNumberDesc2"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         android:layout_below = "@+id/txtNumberDesc"
         android:layout_centerHorizontal = "true"
-        android:id = "@+id/txtNumberDesc2"
-        android:text = "@string/numberDesc2"/>
+        android:text = "@string/numberDesc2" />
 
     <Spinner
+        android:id = "@+id/spCountry"
         android:layout_width = "250dp"
         android:layout_height = "50dp"
         android:layout_below = "@+id/txtNumberDesc2"
         android:layout_centerHorizontal = "true"
-        android:layout_marginTop = "30dp"
-        android:id = "@+id/spCountry"/>
+        android:layout_marginTop = "30dp" />
 
     <EditText
+        android:id = "@+id/etContact"
         android:layout_width = "250dp"
         android:layout_height = "wrap_content"
         android:layout_below = "@+id/spCountry"
         android:layout_centerHorizontal = "true"
         android:layout_marginTop = "15dp"
-        android:ems = "10"
-        android:id = "@+id/etContact">
+        android:ems = "10">
 
-        <requestFocus/>
+        <requestFocus />
     </EditText>
 
     <Button
+        android:id = "@+id/btnVCont"
         android:layout_width = "150dp"
         android:layout_height = "50dp"
         android:layout_below = "@+id/etContact"
         android:layout_centerHorizontal = "true"
         android:layout_marginTop = "15dp"
         android:background = "@drawable/continue_button"
-        android:id = "@+id/btnVCont"
         android:text = "@string/cont"
         android:textColor = "@color/white"
-        android:textSize = "@dimen/text_size1"/>
+        android:textSize = "@dimen/text_size1" />
 
 </RelativeLayout>

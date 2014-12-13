@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-              android:layout_width = "match_parent"
-              android:layout_height = "match_parent"
-              android:background = "@color/greyish"
-              android:orientation = "vertical"
-              android:weightSum = "10">
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:background = "@color/greyish"
+    android:orientation = "vertical"
+    android:weightSum = "10">
 
     <LinearLayout
         android:layout_width = "match_parent"
@@ -15,33 +15,33 @@
         android:orientation = "vertical">
 
         <com.ezzet.eulou.views.FBProfilePictureView
+            android:id = "@+id/profilePictureView"
             android:layout_width = "@dimen/callpage_photo_width"
             android:layout_height = "@dimen/callpage_photo_width"
-            android:layout_marginBottom = "20dp"
-            android:id = "@+id/profilePictureView"/>
+            android:layout_marginBottom = "20dp" />
 
         <TextView
+            android:id = "@+id/remoteUser"
             android:layout_width = "wrap_content"
             android:layout_height = "wrap_content"
             android:layout_gravity = "center_horizontal"
             android:layout_marginBottom = "5dp"
             android:gravity = "center"
-            android:id = "@+id/remoteUser"
             android:text = "Sample user"
             android:textColor = "@color/black"
-            android:textSize = "28sp"/>
+            android:textSize = "28sp" />
 
         <TextView
+            android:id = "@+id/callState"
             android:layout_width = "wrap_content"
             android:layout_height = "wrap_content"
             android:layout_gravity = "center_horizontal"
             android:layout_marginBottom = "5dp"
             android:gravity = "center"
-            android:id = "@+id/callState"
             android:text = "Incoming call"
             android:textAllCaps = "true"
             android:textColor = "@color/black"
-            android:textSize = "16sp"/>
+            android:textSize = "16sp" />
 
     </LinearLayout>
 
@@ -57,29 +57,30 @@
         android:padding = "0dip">
 
         <ImageButton
+            android:id = "@+id/buttonSpeaker"
             android:layout_width = "wrap_content"
             android:layout_height = "@dimen/speaker_button_height"
             android:adjustViewBounds = "true"
             android:background = "@color/clear_back"
             android:contentDescription = "@string/app_name"
-            android:id = "@+id/buttonSpeaker"
             android:scaleType = "fitXY"
-            android:src = "@drawable/speaker"/>
+            android:src = "@drawable/speaker" />
 
         <ImageButton
+            android:id = "@+id/buttonMute"
             android:layout_width = "wrap_content"
             android:layout_height = "@dimen/speaker_button_height"
             android:layout_marginLeft = "@dimen/speaker_button_margin"
             android:adjustViewBounds = "true"
             android:background = "@color/clear_back"
             android:contentDescription = "@string/app_name"
-            android:id = "@+id/buttonMute"
             android:scaleType = "fitXY"
-            android:src = "@drawable/mute"/>
+            android:src = "@drawable/mute" />
 
     </LinearLayout>
 
     <LinearLayout
+        android:id = "@+id/bottomPanel"
         android:layout_width = "match_parent"
         android:layout_height = "0dp"
         android:layout_gravity = "center"
@@ -87,7 +88,6 @@
         android:layout_weight = "2"
         android:background = "@color/greyish"
         android:gravity = "top|center_horizontal"
-        android:id = "@+id/bottomPanel"
         android:orientation = "horizontal"
         android:paddingBottom = "10dp"
         android:paddingLeft = "10dp"
@@ -96,17 +96,18 @@
         android:weightSum = "2">
 
         <ImageButton
+            android:id = "@+id/answerButton"
             android:layout_width = "0dp"
             android:layout_height = "wrap_content"
             android:layout_weight = "1"
             android:adjustViewBounds = "true"
             android:background = "@color/clear_back"
             android:contentDescription = "@string/app_name"
-            android:id = "@+id/answerButton"
             android:scaleType = "fitCenter"
-            android:src = "@drawable/button_accept"/>
+            android:src = "@drawable/button_accept" />
 
         <ImageButton
+            android:id = "@+id/declineButton"
             android:layout_width = "0dp"
             android:layout_height = "wrap_content"
             android:layout_marginLeft = "10dp"
@@ -114,9 +115,8 @@
             android:adjustViewBounds = "true"
             android:background = "@color/clear_back"
             android:contentDescription = "@string/app_name"
-            android:id = "@+id/declineButton"
             android:scaleType = "fitCenter"
-            android:src = "@drawable/button_decline"/>
+            android:src = "@drawable/button_decline" />
 
     </LinearLayout>
 

@@ -1,35 +1,35 @@
 <RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-                xmlns:tools = "http://schemas.android.com/tools"
-                android:layout_width = "match_parent"
-                android:layout_height = "@dimen/topbar_height"
-                android:background = "@drawable/top_bar"
-                android:paddingLeft = "5dp"
-                android:paddingRight = "5dp">
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width = "match_parent"
+    android:layout_height = "@dimen/topbar_height"
+    android:background = "@drawable/top_bar"
+    android:paddingLeft = "5dp"
+    android:paddingRight = "5dp">
 
     <RelativeLayout
+        android:id = "@+id/main_navigation_left_layout"
         android:layout_width = "wrap_content"
-        android:layout_height = "match_parent"
-        android:id = "@+id/main_navigation_left_layout">
+        android:layout_height = "match_parent">
 
         <com.ezzet.eulou.views.CustomImageButton
+            android:id = "@+id/main_navigation_left_img_btn"
             android:layout_width = "wrap_content"
             android:layout_height = "match_parent"
             android:adjustViewBounds = "true"
             android:contentDescription = "@string/app_name"
-            android:id = "@+id/main_navigation_left_img_btn"
             android:padding = "8dp"
-            android:src = "@drawable/ic_launcher"/>
+            android:src = "@drawable/ic_launcher" />
 
         <com.ezzet.eulou.views.CustomFontTextView
+            android:id = "@+id/main_navigation_left_txt_btn"
             android:layout_width = "wrap_content"
             android:layout_height = "match_parent"
             android:gravity = "center_vertical"
-            android:id = "@+id/main_navigation_left_txt_btn"
             android:paddingLeft = "8dp"
             android:paddingRight = "8dp"
             android:textColor = "@color/white"
             android:textSize = "@dimen/navigation_bar_buttons"
-            android:visibility = "gone"/>
+            android:visibility = "gone" />
     </RelativeLayout>
 
     <LinearLayout
@@ -43,80 +43,80 @@
         android:orientation = "vertical">
 
         <TextView
+            android:id = "@+id/main_title_txt"
             android:layout_width = "wrap_content"
             android:layout_height = "wrap_content"
-            android:id = "@+id/main_title_txt"
             android:textColor = "@color/white"
-            android:textSize = "@dimen/navigation_bar_title"/>
+            android:textSize = "@dimen/navigation_bar_title" />
 
         <RadioGroup
+            android:id = "@+id/main_header_navigator"
             android:layout_width = "wrap_content"
             android:layout_height = "wrap_content"
             android:layout_marginTop = "-3dp"
-            android:id = "@+id/main_header_navigator"
             android:orientation = "horizontal">
 
             <RadioButton
+                android:id = "@+id/main_header_navigator_item1"
                 android:layout_width = "wrap_content"
                 android:layout_height = "wrap_content"
                 android:button = "@drawable/main_header_navigator_bg"
                 android:clickable = "false"
-                android:id = "@+id/main_header_navigator_item1"
                 android:paddingLeft = "2dp"
-                android:paddingRight = "2dp"/>
+                android:paddingRight = "2dp" />
 
             <RadioButton
+                android:id = "@+id/main_header_navigator_item2"
                 android:layout_width = "wrap_content"
                 android:layout_height = "wrap_content"
                 android:button = "@drawable/main_header_navigator_bg"
                 android:checked = "true"
                 android:clickable = "false"
-                android:id = "@+id/main_header_navigator_item2"
                 android:paddingLeft = "2dp"
-                android:paddingRight = "2dp"/>
+                android:paddingRight = "2dp" />
 
             <RadioButton
-                android:layout_width = "wrap_content"
-                android:layout_height = "wrap_content"
-                android:button = "@drawable/main_header_navigator_bg"
-                android:clickable = "false"
                 android:id = "@+id/main_header_navigator_item3"
-                android:paddingLeft = "2dp"
-                android:paddingRight = "2dp"/>
-
-            <RadioButton
                 android:layout_width = "wrap_content"
                 android:layout_height = "wrap_content"
                 android:button = "@drawable/main_header_navigator_bg"
                 android:clickable = "false"
-                android:id = "@+id/main_header_navigator_item4"
                 android:paddingLeft = "2dp"
-                android:paddingRight = "2dp"/>
+                android:paddingRight = "2dp" />
+
+            <RadioButton
+                android:id = "@+id/main_header_navigator_item4"
+                android:layout_width = "wrap_content"
+                android:layout_height = "wrap_content"
+                android:button = "@drawable/main_header_navigator_bg"
+                android:clickable = "false"
+                android:paddingLeft = "2dp"
+                android:paddingRight = "2dp" />
         </RadioGroup>
     </LinearLayout>
 
     <com.ezzet.eulou.views.CustomImageButton
+        android:id = "@+id/main_navigation_right_img_btn"
         android:layout_width = "wrap_content"
         android:layout_height = "match_parent"
         android:layout_alignParentEnd = "true"
         android:layout_alignParentRight = "true"
         android:adjustViewBounds = "true"
         android:contentDescription = "@string/app_name"
-        android:id = "@+id/main_navigation_right_img_btn"
         android:padding = "8dp"
-        android:src = "@drawable/ic_launcher"/>
+        android:src = "@drawable/ic_launcher" />
 
     <com.ezzet.eulou.views.CustomFontTextView
+        android:id = "@+id/main_navigation_right_txt_btn"
         android:layout_width = "wrap_content"
         android:layout_height = "match_parent"
         android:layout_alignParentEnd = "true"
         android:layout_alignParentRight = "true"
         android:gravity = "center_vertical"
-        android:id = "@+id/main_navigation_right_txt_btn"
         android:paddingLeft = "8dp"
         android:paddingRight = "8dp"
         android:textColor = "@color/white"
         android:textSize = "@dimen/navigation_bar_buttons"
-        android:visibility = "gone"/>
+        android:visibility = "gone" />
 
 </RelativeLayout>

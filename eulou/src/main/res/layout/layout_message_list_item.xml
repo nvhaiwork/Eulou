@@ -1,18 +1,18 @@
 <RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-                android:layout_width = "match_parent"
-                android:layout_height = "wrap_content"
-                android:padding = "@dimen/tabitem_padding">
+    android:layout_width = "match_parent"
+    android:layout_height = "wrap_content"
+    android:padding = "@dimen/tabitem_padding">
 
     <com.ezzet.eulou.views.FBProfilePictureView
+        android:id = "@+id/message_user_profile_pic"
         android:layout_width = "@dimen/friendlist_photo_width"
         android:layout_height = "@dimen/friendlist_photo_width"
         android:layout_centerVertical = "true"
         android:layout_marginEnd = "@dimen/friendlist_item_padding"
-        android:layout_marginRight = "@dimen/friendlist_item_padding"
-        android:id = "@+id/message_user_profile_pic">
-    </com.ezzet.eulou.views.FBProfilePictureView>
+        android:layout_marginRight = "@dimen/friendlist_item_padding"></com.ezzet.eulou.views.FBProfilePictureView>
 
     <TextView
+        android:id = "@+id/message_username"
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
         android:layout_alignParentTop = "true"
@@ -21,12 +21,12 @@
         android:layout_toLeftOf = "@+id/message_user_type"
         android:layout_toRightOf = "@id/message_user_profile_pic"
         android:layout_toStartOf = "@+id/message_user_type"
-        android:id = "@+id/message_username"
         android:text = "@string/app_name"
         android:textColor = "@color/black"
-        android:textSize = "@dimen/text_size1"/>
+        android:textSize = "@dimen/text_size1" />
 
     <TextView
+        android:id = "@+id/message_text"
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
         android:layout_below = "@+id/message_username"
@@ -34,24 +34,24 @@
         android:layout_toLeftOf = "@+id/message_user_type"
         android:layout_toRightOf = "@id/message_user_profile_pic"
         android:layout_toStartOf = "@+id/message_user_type"
-        android:id = "@+id/message_text"
         android:text = "@string/app_name"
         android:textColor = "@color/dark_gray"
-        android:textSize = "@dimen/text_size3"/>
+        android:textSize = "@dimen/text_size3" />
 
     <TextView
+        android:id = "@+id/message_time"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
         android:layout_alignParentEnd = "true"
         android:layout_alignParentRight = "true"
         android:layout_alignParentTop = "true"
         android:gravity = "center_horizontal"
-        android:id = "@+id/message_time"
         android:text = "@string/app_name"
         android:textColor = "@color/black"
-        android:textSize = "@dimen/message_time"/>
+        android:textSize = "@dimen/message_time" />
 
     <TextView
+        android:id = "@+id/message_unread_count"
         android:layout_width = "@dimen/user_type_image_width"
         android:layout_height = "@dimen/user_type_image_width"
         android:layout_alignParentBottom = "true"
@@ -59,11 +59,11 @@
         android:layout_toStartOf = "@+id/message_user_type"
         android:background = "@drawable/show_message_num_bg"
         android:gravity = "center"
-        android:id = "@+id/message_unread_count"
         android:textColor = "@color/white"
-        android:textSize = "@dimen/un_read_msg_count"/>
+        android:textSize = "@dimen/un_read_msg_count" />
 
     <ImageView
+        android:id = "@+id/message_user_type"
         android:layout_width = "@dimen/user_type_image_width"
         android:layout_height = "@dimen/user_type_image_width"
         android:layout_alignParentBottom = "true"
@@ -76,8 +76,7 @@
         android:adjustViewBounds = "true"
         android:background = "@color/clear_back"
         android:contentDescription = "@string/app_name"
-        android:id = "@+id/message_user_type"
         android:scaleType = "fitCenter"
-        android:src = "@drawable/ic_info"/>
+        android:src = "@drawable/ic_info" />
 
 </RelativeLayout>

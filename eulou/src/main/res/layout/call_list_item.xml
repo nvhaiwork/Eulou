@@ -1,37 +1,37 @@
 <LinearLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-              android:layout_width = "match_parent"
-              android:layout_height = "@dimen/item_height1"
-              android:gravity = "center_vertical"
-              android:orientation = "horizontal"
-              android:padding = "@dimen/tabitem_padding"
-              android:weightSum = "1">
+    android:layout_width = "match_parent"
+    android:layout_height = "@dimen/item_height1"
+    android:gravity = "center_vertical"
+    android:orientation = "horizontal"
+    android:padding = "@dimen/tabitem_padding"
+    android:weightSum = "1">
 
     <TextView
+        android:id = "@+id/textViewTime"
         android:layout_width = "wrap_content"
         android:layout_height = "wrap_content"
-        android:id = "@+id/textViewTime"
         android:text = "@string/app_name"
         android:textColor = "@color/black"
-        android:textSize = "@dimen/text_size3"/>
+        android:textSize = "@dimen/text_size3" />
 
     <TextView
+        android:id = "@+id/textViewDirection"
         android:layout_width = "0dp"
         android:layout_height = "wrap_content"
         android:layout_weight = "1"
         android:gravity = "center_horizontal"
-        android:id = "@+id/textViewDirection"
         android:text = "@string/app_name"
         android:textColor = "@color/black"
         android:textSize = "@dimen/text_size3"
-        android:textStyle = "bold"/>
+        android:textStyle = "bold" />
 
     <TextView
+        android:id = "@+id/textViewDuration"
         android:layout_width = "80dp"
         android:layout_height = "wrap_content"
         android:gravity = "right"
-        android:id = "@+id/textViewDuration"
         android:text = "@string/app_name"
         android:textColor = "@color/black"
-        android:textSize = "@dimen/text_size3"/>
+        android:textSize = "@dimen/text_size3" />
 
 </LinearLayout>

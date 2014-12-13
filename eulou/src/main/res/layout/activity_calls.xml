@@ -1,15 +1,14 @@
 <RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-                xmlns:tools = "http://schemas.android.com/tools"
-                android:layout_width = "match_parent"
-                android:layout_height = "match_parent">
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent">
 
     <ListView
+        android:id = "@+id/listViewCalls"
         android:layout_width = "match_parent"
         android:layout_height = "match_parent"
         android:divider = "@color/greyish"
         android:dividerHeight = "1dp"
-        android:id = "@+id/listViewCalls"
-        android:scrollbars = "none">
-    </ListView>
+        android:scrollbars = "none"></ListView>
 
 </RelativeLayout>

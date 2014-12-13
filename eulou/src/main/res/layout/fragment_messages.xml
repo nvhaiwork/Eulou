@@ -1,27 +1,26 @@
 <RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-                xmlns:tools = "http://schemas.android.com/tools"
-                android:layout_width = "match_parent"
-                android:layout_height = "match_parent"
-                android:background = "@color/light_gray"
-                android:focusableInTouchMode = "true">
+    xmlns:tools = "http://schemas.android.com/tools"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:background = "@color/light_gray"
+    android:focusableInTouchMode = "true">
 
     <SearchView
+        android:id = "@+id/messages_search_view"
         android:layout_width = "match_parent"
         android:layout_height = "wrap_content"
         android:layout_marginLeft = "10dp"
         android:layout_marginRight = "10dp"
         android:hint = "@string/find"
-        android:id = "@+id/messages_search_view"
-        android:textColor = "@color/black"/>
+        android:textColor = "@color/black" />
 
     <ListView
+        android:id = "@+id/messages_message_list"
         android:layout_width = "match_parent"
         android:layout_height = "match_parent"
         android:layout_below = "@+id/messages_search_view"
         android:background = "@color/white"
         android:divider = "@color/light_gray"
-        android:dividerHeight = "1sp"
-        android:id = "@+id/messages_message_list">
-    </ListView>
+        android:dividerHeight = "1sp"></ListView>
 
 </RelativeLayout>
