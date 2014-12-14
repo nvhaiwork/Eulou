@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +19,7 @@ import android.widget.Toast;
 
 import com.ezzet.eulou.R;
 import com.ezzet.eulou.extra.HelperFunction;
+import com.ezzet.eulou.utilities.CustomSharedPreferences;
 import com.google.gson.Gson;
 
 public class VerifyNumberActivity extends BaseActivity {
@@ -66,23 +66,20 @@ public class VerifyNumberActivity extends BaseActivity {
 	private void verify() {
 		String enteredCode = etVCode.getText().toString();
 		if (!enteredCode.trim().equalsIgnoreCase("")) {
-			SharedPreferences sharedpreferences = getSharedPreferences(
-					"CodePref", Context.MODE_PRIVATE);
-			int storedCode = sharedpreferences.getInt("code", -1457689888);
+
+			int storedCode = CustomSharedPreferences.getPreferences("code",
+					-1457689888);
 			if (enteredCode.equalsIgnoreCase(storedCode + "")) {
 				verifyNumber(
 						String.valueOf(BaseActivity.mUserInfo.getUserID()),
 						mobNo);
-				SharedPreferences.Editor editor = sharedpreferences.edit();
-				editor.putString("number", mobNo);
-				editor.commit();
+				CustomSharedPreferences.setPreferences("number", mobNo);
 			} else {
 				Toast.makeText(VerifyNumberActivity.this, "Wrong code.",
 						Toast.LENGTH_LONG).show();
 			}
 		}
 	}
-
 	private void verifyNumber(final String userId, final String number) {
 		new Thread(new Runnable() {
 
@@ -102,21 +99,15 @@ public class VerifyNumberActivity extends BaseActivity {
 										VerifyNumberActivity.this,
 										MainActivity.class);
 								mUserInfo.setPhone(number);
-								SharedPreferences prefs = getSharedPreferences(
-										"Eulou", MODE_PRIVATE);
-								SharedPreferences.Editor editor = prefs.edit();
 								String json = new Gson().toJson(mUserInfo);
-								editor.putString("CLoggedinUser", json);
-								editor.commit();
+								CustomSharedPreferences.setPreferences(
+										"CLoggedinUser", json);
 								intent.putExtra("isFromVerify", true);
 								overridePendingTransition(R.anim.fadein,
 										R.anim.fadeout);
 								startActivity(intent);
 								finish();
-							} else if (result.equals("lost")) {
-								// Toast.makeText(VerifyNumberActivity.this,"Thre is some Problem with Connection.Please Retry.",Toast.LENGTH_SHORT).show();
 							}
-
 						} catch (JSONException e) {
 
 							e.printStackTrace();

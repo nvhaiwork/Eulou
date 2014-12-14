@@ -2,28 +2,33 @@ package com.ezzet.eulou.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ezzet.eulou.R;
 import com.ezzet.eulou.activities.BaseActivity;
 import com.ezzet.eulou.activities.EnterNumberActivity;
 import com.ezzet.eulou.models.UserInfo;
+import com.ezzet.eulou.utilities.CustomSharedPreferences;
+import com.ezzet.eulou.utilities.LogUtil;
 import com.ezzet.eulou.views.FBProfilePictureView;
 
-public class ProfileFragment extends Fragment {
+import org.w3c.dom.Text;
 
-	boolean isVerified = false;
-	private String userfbid;
-	private String username;
-	private String useremail;
+import java.util.List;
+
+public class ProfileFragment extends Fragment implements View.OnClickListener {
+
+	private boolean isVerified;
+	private UserInfo mCurrentUser;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,85 +41,119 @@ public class ProfileFragment extends Fragment {
 		ViewGroup rootView = (ViewGroup) inflater.inflate(
 				R.layout.activity_profile, container, false);
 
+		mCurrentUser = BaseActivity.mUserInfo;
+		String mobNo = CustomSharedPreferences.getPreferences("number", null);
+		isVerified = (mobNo != null);
 		FBProfilePictureView profilePictureView = (FBProfilePictureView) rootView
-				.findViewById(R.id.profilePictureView);
-		TextView textViewUserName = (TextView) rootView
-				.findViewById(R.id.textViewUserName);
-		TextView textViewUserMail = (TextView) rootView
-				.findViewById(R.id.textViewUserMail);
-		LinearLayout linearNumber = (LinearLayout) rootView
-				.findViewById(R.id.linearNumber);
-		TextView tvNumber = (TextView) rootView
-				.findViewById(R.id.textViewUserNumber);
-		UserInfo currentUser = BaseActivity.mUserInfo;
-		userfbid = currentUser.getFacebookID();
-		username = currentUser.getUserName();
-		useremail = currentUser.getUserMail();
+				.findViewById(R.id.profile_user_img);
+		ImageView shareFbBtn = (ImageView) rootView
+				.findViewById(R.id.profile_share_fb_btn);
+		ImageView shareSmsBtn = (ImageView) rootView
+				.findViewById(R.id.profile_share_sms_btn);
+		ImageView shareMailBtn = (ImageView) rootView
+				.findViewById(R.id.profile_share_mail_btn);
+		ImageView shareTwitterBtn = (ImageView) rootView
+				.findViewById(R.id.profile_share_twitter_btn);
+		TextView verifyPhoneNumTxt = (TextView) rootView
+				.findViewById(R.id.profile_verify_phone_number);
 
-		profilePictureView.setProfileId(userfbid);
+		verifyPhoneNumTxt.setText(mCurrentUser.getPhone());
+		profilePictureView.setProfileId(mCurrentUser.getFacebookID());
 
-		textViewUserName.setText(username);
-		textViewUserMail.setText(useremail);
-		SharedPreferences sharedpreferences = getActivity()
-				.getSharedPreferences("CodePref", Context.MODE_PRIVATE);
-		String mobNo = sharedpreferences.getString("number", null);
-		if (mobNo == null) {
-			isVerified = false;
-		} else {
-			tvNumber.setText(mobNo);
-			isVerified = true;
-		}
-
-		linearNumber.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
-				if (!isVerified) {
-					Intent intent = new Intent(getActivity()
-							.getApplicationContext(), EnterNumberActivity.class);
-					startActivity(intent);
-				}
-			}
-		});
-
-		// buttonInviteSMS.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// Intent intent = new Intent(Intent.ACTION_VIEW, Uri
-		// .parse("sms:"));
-		// intent.putExtra("sms_body",
-		// "Hi, I'm using Eulou ! Get it on the Store.\nhttp://eulou.tn");
-		// startActivity(intent);
-		// }
-		//
-		// });
-		//
-		// buttonInviteMail.setOnClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// Intent intent = new Intent(Intent.ACTION_SEND);
-		// intent.setType("text/plain");
-		// intent.putExtra(Intent.EXTRA_SUBJECT, "Eulou !  New app VOIP");
-		// intent.putExtra(Intent.EXTRA_TEXT,
-		// "Hi, I'm using Eulou ! Get it on the Store.\nhttp://eulou.tn");
-		// try {
-		//
-		// startActivity(Intent.createChooser(intent, "Send Email"));
-		// } catch (Exception e) {
-		// e.printStackTrace();
-		// Toast.makeText(getActivity().getApplicationContext(),
-		// "There is no email client installed.",
-		// Toast.LENGTH_LONG).show();
-		// }
-		// }
-		//
-		// });
-
+		shareFbBtn.setOnClickListener(this);
+		shareSmsBtn.setOnClickListener(this);
+		shareMailBtn.setOnClickListener(this);
+		shareTwitterBtn.setOnClickListener(this);
+		verifyPhoneNumTxt.setOnClickListener(this);
 		return rootView;
 	}
 
+	@Override
+	public void onClick(View view) {
+
+		switch (view.getId()) {
+
+			case R.id.profile_verify_phone_number :
+
+				if (!isVerified) {
+
+					Intent intent = new Intent(getActivity(),
+							EnterNumberActivity.class);
+					startActivity(intent);
+				}
+
+				break;
+			case R.id.profile_share_fb_btn :
+
+				Intent intent = new Intent(Intent.ACTION_SEND);
+				intent.setType("text/plain");
+				intent.putExtra(Intent.EXTRA_TEXT,
+						getString(R.string.eulou_homepage));
+				boolean facebookAppFound = false;
+				List<ResolveInfo> matches = getActivity().getPackageManager()
+						.queryIntentActivities(intent, 0);
+				for (ResolveInfo info : matches) {
+					if (info.activityInfo.packageName.toLowerCase().startsWith(
+							"com.facebook.katana")) {
+
+						intent.setPackage(info.activityInfo.packageName);
+						facebookAppFound = true;
+						break;
+					}
+				}
+
+				if (!facebookAppFound) {
+
+					String sharerUrl = "https://www.facebook.com/sharer/sharer.php?u="
+							+ getString(R.string.eulou_homepage);
+					intent = new Intent(Intent.ACTION_VIEW,
+							Uri.parse(sharerUrl));
+				}
+
+				startActivity(intent);
+				break;
+			case R.id.profile_share_twitter_btn :
+
+				intent = new Intent(Intent.ACTION_VIEW);
+				intent.putExtra(Intent.EXTRA_TEXT,
+						getString(R.string.share_eulou_text));
+				matches = getActivity().getPackageManager()
+						.queryIntentActivities(intent, 0);
+				for (ResolveInfo info : matches) {
+					if (info.activityInfo.packageName.toLowerCase().startsWith(
+							"com.twitter")) {
+
+						intent.setPackage(info.activityInfo.packageName);
+					}
+				}
+
+				startActivity(intent);
+				break;
+			case R.id.profile_share_mail_btn :
+
+				intent = new Intent(Intent.ACTION_SEND);
+				intent.setType("text/plain");
+				intent.putExtra(Intent.EXTRA_SUBJECT,
+						getString(R.string.share_eulou_title));
+				intent.putExtra(Intent.EXTRA_TEXT,
+						getString(R.string.share_eulou_text));
+				try {
+
+					startActivity(Intent.createChooser(intent, "Send Email"));
+				} catch (Exception e) {
+
+					LogUtil.e(ProfileFragment.class.getSimpleName(),
+							e.getMessage());
+				}
+
+				break;
+			case R.id.profile_share_sms_btn :
+
+				intent = new Intent(Intent.ACTION_VIEW, Uri.parse("sms:"));
+				intent.putExtra("sms_body",
+						getString(R.string.share_eulou_text));
+				startActivity(intent);
+				break;
+		}
+	}
 }
