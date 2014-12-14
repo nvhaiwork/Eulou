@@ -1,108 +1,168 @@
-<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android = "http://schemas.android.com/apk/res/android"
     xmlns:tools = "http://schemas.android.com/tools"
     android:layout_width = "match_parent"
     android:layout_height = "match_parent"
-    android:background = "@color/greyish"
-    tools:context = "com.ezzet.eulou.activities.SplashActivity">
+    android:background = "@color/greyish">
 
     <RelativeLayout
-        android:id = "@+id/layoutPhoto"
         android:layout_width = "match_parent"
-        android:layout_height = "@dimen/profile_photo_container"
-        android:layout_alignParentTop = "true"
-        android:layout_centerHorizontal = "true">
+        android:layout_height = "wrap_content">
 
-        <com.ezzet.eulou.views.FBProfilePictureView
-            android:id = "@+id/profilePictureView"
-            android:layout_width = "@dimen/profile_photo_width"
-            android:layout_height = "@dimen/profile_photo_width"
-            android:layout_centerHorizontal = "true"
-            android:layout_centerVertical = "true"></com.ezzet.eulou.views.FBProfilePictureView>
+        <RelativeLayout
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent"
+            android:background = "@color/greyish"></RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width = "match_parent"
+            android:layout_height = "match_parent"
+            android:background = "@color/greyish">
+
+            <com.ezzet.eulou.views.FBProfilePictureView
+                android:id = "@+id/profile_user_img"
+                android:layout_width = "@dimen/profile_photo_width"
+                android:layout_height = "@dimen/profile_photo_width"
+                android:layout_centerHorizontal = "true"
+                android:layout_marginBottom = "40dp"
+                android:layout_marginTop = "15dp" />
+
+            <LinearLayout
+                android:id = "@+id/profile_account_info_ly"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_below = "@+id/profile_user_img"
+                android:orientation = "vertical">
+
+                <LinearLayout
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content"
+                    android:layout_marginTop = "1dp"
+                    android:background = "@color/white"
+                    android:gravity = "center_vertical"
+                    android:padding = "@dimen/profile_item_padding">
+
+                    <ImageView
+                        android:layout_width = "@dimen/icon_size1"
+                        android:layout_height = "@dimen/icon_size1"
+                        android:contentDescription = "@string/app_name"
+                        android:scaleType = "fitXY"
+                        android:src = "@drawable/ic_call_btn" />
+
+                    <TextView
+                        android:id = "@+id/profile_verify_phone_number"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:hint = "@string/enter_phone_number"
+                        android:padding = "@dimen/profile_item_padding"
+                        android:textColor = "@color/black"
+                        android:textSize = "@dimen/profile_item_text"
+                        android:textStyle = "italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content"
+                    android:layout_marginTop = "1dp"
+                    android:background = "@color/white"
+                    android:gravity = "center_vertical"
+                    android:padding = "@dimen/profile_item_padding">
+
+                    <ImageView
+                        android:layout_width = "@dimen/icon_size1"
+                        android:layout_height = "@dimen/icon_size1"
+                        android:contentDescription = "@string/app_name"
+                        android:scaleType = "fitXY"
+                        android:src = "@drawable/ic_twitter_profile_red" />
+
+                    <TextView
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:hint = "@string/profile_not_connected"
+                        android:padding = "@dimen/profile_item_padding"
+                        android:textColor = "@color/black"
+                        android:textSize = "@dimen/profile_item_text"
+                        android:textStyle = "italic" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id = "@+id/linearNumber"
+                    android:layout_width = "match_parent"
+                    android:layout_height = "wrap_content"
+                    android:layout_marginTop = "1dp"
+                    android:background = "@color/white"
+                    android:gravity = "center_vertical"
+                    android:padding = "@dimen/profile_item_padding">
+
+                    <ImageView
+                        android:layout_width = "@dimen/icon_size1"
+                        android:layout_height = "@dimen/icon_size1"
+                        android:contentDescription = "@string/app_name"
+                        android:scaleType = "fitXY"
+                        android:src = "@drawable/ic_instagram_profile_red" />
+
+                    <TextView
+                        android:id = "@+id/textViewUserNumber"
+                        android:layout_width = "match_parent"
+                        android:layout_height = "wrap_content"
+                        android:hint = "@string/profile_not_connected"
+                        android:padding = "@dimen/profile_item_padding"
+                        android:textColor = "@color/black"
+                        android:textSize = "@dimen/profile_item_text"
+                        android:textStyle = "italic" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id = "@+id/profile_share_eulout_title"
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_below = "@+id/profile_account_info_ly"
+                android:layout_marginTop = "25dp"
+                android:gravity = "center"
+                android:hint = "@string/profile_share_eulou"
+                android:padding = "@dimen/profile_item_padding" />
+
+            <LinearLayout
+                android:layout_width = "match_parent"
+                android:layout_height = "wrap_content"
+                android:layout_below = "@+id/profile_share_eulout_title"
+                android:background = "@color/white"
+                android:orientation = "horizontal"
+                android:padding = "@dimen/profile_item_padding">
+
+                <com.ezzet.eulou.views.CustomImageButton
+                    android:id = "@+id/profile_share_fb_btn"
+                    android:layout_width = "0dp"
+                    android:layout_height = "@dimen/profile_share_icons_width"
+                    android:layout_weight = "1"
+                    android:contentDescription = "@null"
+                    android:src = "@drawable/ic_facebook_profile_share" />
+
+                <com.ezzet.eulou.views.CustomImageButton
+                    android:id = "@+id/profile_share_twitter_btn"
+                    android:layout_width = "0dp"
+                    android:layout_height = "@dimen/profile_share_icons_width"
+                    android:layout_weight = "1"
+                    android:contentDescription = "@null"
+                    android:src = "@drawable/ic_twitter_profile_share" />
+
+                <com.ezzet.eulou.views.CustomImageButton
+                    android:id = "@+id/profile_share_mail_btn"
+                    android:layout_width = "0dp"
+                    android:layout_height = "@dimen/profile_share_icons_width"
+                    android:layout_weight = "1"
+                    android:contentDescription = "@null"
+                    android:src = "@drawable/ic_email_profile_share" />
+
+                <com.ezzet.eulou.views.CustomImageButton
+                    android:id = "@+id/profile_share_sms_btn"
+                    android:layout_width = "0dp"
+                    android:layout_height = "@dimen/profile_share_icons_width"
+                    android:layout_weight = "1"
+                    android:contentDescription = "@null"
+                    android:src = "@drawable/ic_sms_profile_share" />
+            </LinearLayout>
+        </RelativeLayout>
+
     </RelativeLayout>
-
-    <LinearLayout
-        android:id = "@+id/layoutProfile"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:layout_below = "@+id/layoutPhoto"
-        android:layout_centerHorizontal = "true"
-        android:orientation = "vertical">
-
-        <LinearLayout
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:background = "@color/white"
-            android:gravity = "center_vertical"
-            android:padding = "@dimen/item_padding1">
-
-            <ImageView
-                android:layout_width = "@dimen/icon_size1"
-                android:layout_height = "@dimen/icon_size1"
-                android:contentDescription = "@string/app_name"
-                android:scaleType = "fitXY"
-                android:src = "@drawable/user_icon" />
-
-            <TextView
-                android:id = "@+id/textViewUserName"
-                android:layout_width = "match_parent"
-                android:layout_height = "wrap_content"
-                android:layout_marginLeft = "10dp"
-                android:gravity = "center_horizontal"
-                android:textColor = "@color/black"
-                android:textSize = "@dimen/text_size1" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:layout_marginTop = "2dp"
-            android:background = "@color/white"
-            android:gravity = "center_vertical"
-            android:padding = "@dimen/item_padding1">
-
-            <ImageView
-                android:layout_width = "@dimen/icon_size1"
-                android:layout_height = "@dimen/icon_size1"
-                android:contentDescription = "@string/app_name"
-                android:scaleType = "fitXY"
-                android:src = "@drawable/mail_icon" />
-
-            <TextView
-                android:id = "@+id/textViewUserMail"
-                android:layout_width = "match_parent"
-                android:layout_height = "wrap_content"
-                android:layout_marginLeft = "10dp"
-                android:gravity = "center_horizontal"
-                android:textColor = "@color/black"
-                android:textSize = "@dimen/text_size2" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id = "@+id/linearNumber"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:layout_marginTop = "2dp"
-            android:background = "@color/white"
-            android:gravity = "center_vertical"
-            android:padding = "@dimen/item_padding1">
-
-            <ImageView
-                android:layout_width = "@dimen/icon_size1"
-                android:layout_height = "@dimen/icon_size1"
-                android:contentDescription = "@string/app_name"
-                android:scaleType = "fitXY"
-                android:src = "@drawable/ic_call_btn" />
-
-            <TextView
-                android:id = "@+id/textViewUserNumber"
-                android:layout_width = "match_parent"
-                android:layout_height = "wrap_content"
-                android:layout_marginLeft = "10dp"
-                android:gravity = "center_horizontal"
-                android:hint = "@string/enter_phone_number"
-                android:textColor = "@color/black"
-                android:textSize = "@dimen/text_size2" />
-        </LinearLayout>
-    </LinearLayout>
-
-</RelativeLayout>
+</ScrollView>
