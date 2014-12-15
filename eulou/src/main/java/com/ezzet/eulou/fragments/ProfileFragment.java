@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ezzet.eulou.R;
@@ -28,7 +29,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
 	private boolean isVerified;
 	private UserInfo mCurrentUser;
-
+	private RelativeLayout mShareLayout, mSocialInfoLy;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 		isVerified = (mobNo != null);
 		FBProfilePictureView profilePictureView = (FBProfilePictureView) rootView
 				.findViewById(R.id.profile_user_img);
+		mShareLayout = (RelativeLayout) rootView
+				.findViewById(R.id.profile_share_ly);
 		ImageView shareFbBtn = (ImageView) rootView
 				.findViewById(R.id.profile_share_fb_btn);
 		ImageView shareSmsBtn = (ImageView) rootView
@@ -56,6 +59,27 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 				.findViewById(R.id.profile_share_twitter_btn);
 		TextView verifyPhoneNumTxt = (TextView) rootView
 				.findViewById(R.id.profile_verify_phone_number);
+		mSocialInfoLy = (RelativeLayout) rootView
+				.findViewById(R.id.profile_user_info_root_ly);
+
+		// Social information views
+		TextView statusTxt = (TextView) rootView
+				.findViewById(R.id.profile_info_status);
+		TextView userNameTxt = (TextView) rootView
+				.findViewById(R.id.profile_info_username);
+		TextView fbName = (TextView) rootView
+				.findViewById(R.id.profile_info_fb_name);
+		TextView twName = (TextView) rootView
+				.findViewById(R.id.profile_info_twitter_name);
+		TextView phoneNumber = (TextView) rootView
+				.findViewById(R.id.profile_info_phone);
+		TextView instarName = (TextView) rootView
+				.findViewById(R.id.profile_info_instar_name);
+
+		// Set views
+		userNameTxt.setText(mCurrentUser.getUserName());
+		statusTxt.setText(getString(R.string.online));
+		phoneNumber.setText(mCurrentUser.getPhone());
 
 		verifyPhoneNumTxt.setText(mCurrentUser.getPhone());
 		profilePictureView.setProfileId(mCurrentUser.getFacebookID());
@@ -65,6 +89,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 		shareMailBtn.setOnClickListener(this);
 		shareTwitterBtn.setOnClickListener(this);
 		verifyPhoneNumTxt.setOnClickListener(this);
+		profilePictureView.setOnClickListener(this);
 		return rootView;
 	}
 
@@ -153,6 +178,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 				intent.putExtra("sms_body",
 						getString(R.string.share_eulou_text));
 				startActivity(intent);
+				break;
+			case R.id.profile_user_img :
+
+				mShareLayout.setVisibility(View.GONE);
 				break;
 		}
 	}

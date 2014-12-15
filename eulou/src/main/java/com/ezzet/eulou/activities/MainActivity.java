@@ -139,6 +139,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		if (mSettingLayout.getVisibility() == View.VISIBLE) {
 
 			doShowHideSettingLayout(false);
+		} else if (mPager.getCurrentItem() == 2) {
+
 		} else {
 
 			super.onBackPressed();
