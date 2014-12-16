@@ -12,6 +12,7 @@
     <string name="btYes">Yes</string>
     <string name="find">Find</string>
     <string name="ok">OK</string>
+    <string name="loading">Loading&#8230;</string>
     <string name="online">Online</string>
     <string name="search">Search</string>
     <string name="friends">Friends</string>
@@ -59,4 +60,5 @@
     <!--Profile Screen-->
     <string name="profile_not_connected">Not connected</string>
     <string name="profile_share_eulou">Share Eulou!</string>
+    <string name="profile_no_phone">No phone</string>
 </resources>

@@ -433,7 +433,7 @@ public class FBProfilePictureView extends FrameLayout {
 
 		// We want to prevent up-scaling the image, but still have it fit within
 		// the layout bounds as best as possible.
-		image.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+		image.setScaleType(ImageView.ScaleType.FIT_XY);
 		addView(image);
 	}
 

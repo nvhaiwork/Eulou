@@ -4,107 +4,116 @@ import java.io.Serializable;
 
 public class UserInfo implements Serializable {
 
-    /**
+	/**
      *
      */
-    private static final long serialVersionUID = 1L;
-    private int userID;
-    private int mainSocial;
-    private String facebookID;
-    private String twitterID;
-    private String instagramID;
-    private String userName;
-    private String userMail;
-    private int gender;
-    private String phone;
-    private boolean isOnline;
-    private String lastOnline;
+	private static final long serialVersionUID = 1L;
+	private int userID;
+	private int mainSocial;
+	private String facebookID;
+	private String twitterID;
+	private String instagramID;
+	private String userName;
+	private String userMail;
+	private int gender;
+	private String phone;
+	private boolean isOnline;
+	private String lastOnline;
+	private String fbName;
 
-    public boolean isOnline() {
-        return isOnline;
-    }
+	public String getFbName() {
+		return fbName;
+	}
 
-    public void setOnline(boolean isOnline) {
-        this.isOnline = isOnline;
-    }
+	public void setFbName(String fbName) {
+		this.fbName = fbName;
+	}
 
-    public String getLastOnline() {
-        return lastOnline;
-    }
+	public boolean isOnline() {
+		return isOnline;
+	}
 
-    public void setLastOnline(String lastOnline) {
-        this.lastOnline = lastOnline;
-    }
+	public void setOnline(boolean isOnline) {
+		this.isOnline = isOnline;
+	}
 
-    public int getUserID() {
-        return userID;
-    }
+	public String getLastOnline() {
+		return lastOnline;
+	}
 
-    public void setUserID(int userID) {
-        this.userID = userID;
-    }
+	public void setLastOnline(String lastOnline) {
+		this.lastOnline = lastOnline;
+	}
 
-    public int getMainSocial() {
-        return mainSocial;
-    }
+	public int getUserID() {
+		return userID;
+	}
 
-    public void setMainSocial(int mainSocial) {
-        this.mainSocial = mainSocial;
-    }
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 
-    public String getFacebookID() {
-        return facebookID;
-    }
+	public int getMainSocial() {
+		return mainSocial;
+	}
 
-    public void setFacebookID(String facebookID) {
-        this.facebookID = facebookID;
-    }
+	public void setMainSocial(int mainSocial) {
+		this.mainSocial = mainSocial;
+	}
 
-    public String getTwitterID() {
-        return twitterID;
-    }
+	public String getFacebookID() {
+		return facebookID;
+	}
 
-    public void setTwitterID(String twitterID) {
-        this.twitterID = twitterID;
-    }
+	public void setFacebookID(String facebookID) {
+		this.facebookID = facebookID;
+	}
 
-    public String getInstagramID() {
-        return instagramID;
-    }
+	public String getTwitterID() {
+		return twitterID;
+	}
 
-    public void setInstagramID(String instagramID) {
-        this.instagramID = instagramID;
-    }
+	public void setTwitterID(String twitterID) {
+		this.twitterID = twitterID;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public String getInstagramID() {
+		return instagramID;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public void setInstagramID(String instagramID) {
+		this.instagramID = instagramID;
+	}
 
-    public String getUserMail() {
-        return userMail;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public void setUserMail(String userMail) {
-        this.userMail = userMail;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public int getGender() {
-        return gender;
-    }
+	public String getUserMail() {
+		return userMail;
+	}
 
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
+	public void setUserMail(String userMail) {
+		this.userMail = userMail;
+	}
 
-    public String getPhone() {
-        return phone;
-    }
+	public int getGender() {
+		return gender;
+	}
 
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
+	public void setGender(int gender) {
+		this.gender = gender;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 }

@@ -28,6 +28,7 @@ import com.ezzet.eulou.extra.HelperFunction;
 import com.ezzet.eulou.models.CurrentCall;
 import com.ezzet.eulou.models.UserInfo;
 import com.ezzet.eulou.utilities.CustomSharedPreferences;
+import com.ezzet.eulou.utilities.LogUtil;
 import com.facebook.Request;
 import com.facebook.Request.GraphUserListCallback;
 import com.facebook.Response;
@@ -240,6 +241,7 @@ public class EulouService extends Service {
 									.getString("usermail"));
 							userInfo.setLastOnline(userObject
 									.getString("last_online"));
+							userInfo.setPhone(userObject.getString("phone"));
 							if (userObject.getString("is_online").equals("1")) {
 
 								userInfo.setOnline(true);

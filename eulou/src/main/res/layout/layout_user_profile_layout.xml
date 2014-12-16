@@ -1,148 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-    android:layout_width = "match_parent"
-    android:layout_height = "match_parent"
-    android:paddingBottom = "20dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp">
 
-    <com.ezzet.eulou.views.FBProfilePictureView
-        android:id = "@+id/profile_user_large_img"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:contentDescription = "@null"
-        android:scaleType = "fitXY"
-        android:src = "@drawable/com_facebook_profile_picture_blank_portrait" />
+        <com.ezzet.eulou.views.FBProfilePictureView
+            android:id="@+id/profile_user_large_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@null"
+            android:scaleType="fitXY"
+            android:src="@drawable/com_facebook_profile_picture_blank_portrait" />
 
-    <LinearLayout
-        android:id = "@+id/profile_user_info_ly"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:layout_alignBottom = "@+id/profile_user_large_img"
-        android:background = "@drawable/profile_user_status_bg"
-        android:orientation = "vertical"
-        android:paddingBottom = "20dp"
-        android:paddingLeft = "15dp"
-        android:paddingRight = "15dp"
-        android:paddingTop = "40dp">
+        <LinearLayout
+            android:id="@+id/profile_user_info_ly"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/profile_user_large_img"
+            android:background="@drawable/profile_user_status_bg"
+            android:orientation="vertical"
+            android:paddingBottom="20dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:paddingTop="40dp">
 
-        <TextView
-            android:id = "@+id/profile_info_username"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:textColor = "@color/white"
-            android:textSize = "@dimen/profile_user_name" />
+            <TextView
+                android:id="@+id/profile_info_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/profile_user_name" />
 
-        <TextView
-            android:id = "@+id/profile_info_status"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:textColor = "@color/white"
-            android:textSize = "@dimen/profile_user_status" />
+            <TextView
+                android:id="@+id/profile_info_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/profile_user_status" />
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <LinearLayout
-        android:id = "@+id/profile_user_social_root_ly"
-        android:layout_width = "match_parent"
-        android:layout_height = "match_parent"
-        android:layout_below = "@+id/profile_user_large_img"
-        android:orientation = "vertical"
-        android:visibility = "invisible">
+        <LinearLayout
+            android:id="@+id/profile_user_social_root_ly"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/profile_user_large_img"
+            android:orientation="vertical"
+            android:visibility="invisible">
 
-        <TableLayout
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:layout_marginEnd = "10dp"
-            android:layout_marginLeft = "10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight = "10dp"
-            android:layout_marginStart = "10dp">
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="10dp">
 
-            <TableRow
-                android:gravity = "center"
-                android:padding = "3dp">
+                <TableRow
+                    android:gravity="center"
+                    android:padding="3dp">
 
-                <TextView
-                    android:id = "@+id/profile_info_fb_name"
-                    android:layout_width = "0dp"
-                    android:layout_height = "wrap_content"
-                    android:layout_weight = "1"
-                    android:drawableLeft = "@drawable/ic_profile_social_fb"
-                    android:drawablePadding = "3dp"
-                    android:ellipsize = "end"
-                    android:gravity = "center_vertical"
-                    android:singleLine = "true"
-                    android:text = "@string/profile_not_connected"
-                    android:textColor = "@color/black" />
+                    <TextView
+                        android:id="@+id/profile_info_fb_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_profile_social_fb"
+                        android:drawablePadding="3dp"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="@string/profile_not_connected"
+                        android:textColor="@color/black" />
 
-                <TextView
-                    android:id = "@+id/profile_info_twitter_name"
-                    android:layout_width = "0dp"
-                    android:layout_height = "wrap_content"
-                    android:layout_weight = "1"
-                    android:drawableLeft = "@drawable/ic_profile_social_twitter"
-                    android:drawablePadding = "3dp"
-                    android:ellipsize = "end"
-                    android:gravity = "center_vertical"
-                    android:singleLine = "true"
-                    android:text = "@string/profile_not_connected"
-                    android:textColor = "@color/black" />
-            </TableRow>
+                    <TextView
+                        android:id="@+id/profile_info_twitter_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_profile_social_twitter"
+                        android:drawablePadding="3dp"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="@string/profile_not_connected"
+                        android:textColor="@color/black" />
+                </TableRow>
 
-            <TableRow
-                android:gravity = "center"
-                android:padding = "3dp">
+                <TableRow
+                    android:gravity="center"
+                    android:padding="3dp">
 
-                <TextView
-                    android:id = "@+id/profile_info_phone"
-                    android:layout_width = "0dp"
-                    android:layout_height = "wrap_content"
-                    android:layout_weight = "1"
-                    android:drawableLeft = "@drawable/ic_profile_social_phone"
-                    android:drawablePadding = "3dp"
-                    android:ellipsize = "end"
-                    android:gravity = "center_vertical"
-                    android:singleLine = "true"
-                    android:text = "@string/profile_not_connected"
-                    android:textColor = "@color/black" />
+                    <TextView
+                        android:id="@+id/profile_info_phone"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_profile_social_phone"
+                        android:drawablePadding="3dp"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="@string/profile_not_connected"
+                        android:textColor="@color/black" />
 
-                <TextView
-                    android:id = "@+id/profile_info_instar_name"
-                    android:layout_width = "0dp"
-                    android:layout_height = "wrap_content"
-                    android:layout_weight = "1"
-                    android:drawableLeft = "@drawable/ic_profile_social_instar"
-                    android:drawablePadding = "3dp"
-                    android:ellipsize = "end"
-                    android:gravity = "center_vertical"
-                    android:singleLine = "true"
-                    android:text = "@string/profile_not_connected"
-                    android:textColor = "@color/black" />
-            </TableRow>
-        </TableLayout>
+                    <TextView
+                        android:id="@+id/profile_info_instar_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableLeft="@drawable/ic_profile_social_instar"
+                        android:drawablePadding="3dp"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="@string/profile_not_connected"
+                        android:textColor="@color/black" />
+                </TableRow>
+            </TableLayout>
 
-        <TextView
-            android:id = "@+id/profile_info_friends"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:drawableLeft = "@drawable/ic_profile_social_friends"
-            android:drawablePadding = "3dp"
-            android:gravity = "center_vertical"
-            android:paddingBottom = "5dp"
-            android:paddingLeft = "15dp"
-            android:paddingTop = "10dp"
-            android:text = "@string/app_name" />
+            <TextView
+                android:id="@+id/profile_info_friends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_profile_social_friends"
+                android:drawablePadding="3dp"
+                android:gravity="center_vertical"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:text="@string/loading"
+                android:paddingTop="10dp" />
 
-        <HorizontalScrollView
-            android:layout_width = "wrap_content"
-            android:layout_height = "wrap_content"
-            android:paddingLeft = "30dp">
+            <HorizontalScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="30dp">
 
-            <LinearLayout
-                android:id = "@+id/profile_friend_list"
-                android:layout_width = "match_parent"
-                android:layout_height = "wrap_content"
-                android:orientation = "horizontal" />
-        </HorizontalScrollView>
-    </LinearLayout>
-</RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/profile_friend_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

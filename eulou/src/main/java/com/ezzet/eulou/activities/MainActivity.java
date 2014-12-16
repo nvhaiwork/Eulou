@@ -152,7 +152,7 @@ public class MainActivity extends BaseActivity
 			isProfileShown = false;
 			mLeftImgBtn.setImageResource(R.drawable.ic_recent_calls);
 			ProfileFragment currentFragment = (ProfileFragment) mPager
-					.getAdapter().instantiateItem(mPager, 2);
+					.getAdapter().instantiateItem(mPager, 3);
 			if (currentFragment != null) {
 
 				currentFragment.closeSocialLayout();
@@ -160,8 +160,6 @@ public class MainActivity extends BaseActivity
 		} else if (mSettingLayout.getVisibility() == View.VISIBLE) {
 
 			doShowHideSettingLayout(false);
-		} else if (mPager.getCurrentItem() == 2) {
-
 		} else {
 
 			super.onBackPressed();

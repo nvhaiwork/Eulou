@@ -1,57 +1,57 @@
-<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-    android:layout_width = "match_parent"
-    android:layout_height = "wrap_content"
-    android:padding = "@dimen/tabitem_padding">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/tabitem_padding">
 
     <com.ezzet.eulou.views.FBProfilePictureView
-        android:id = "@+id/friend_profile"
-        android:layout_width = "@dimen/friendlist_photo_width"
-        android:layout_height = "@dimen/friendlist_photo_width"
-        android:layout_centerVertical = "true"
-        android:layout_marginEnd = "@dimen/tabitem_padding"
-        android:layout_marginRight = "@dimen/tabitem_padding" />
+        android:id="@+id/friend_profile"
+        android:layout_width="@dimen/friendlist_photo_width"
+        android:layout_height="@dimen/friendlist_photo_width"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/tabitem_padding"
+        android:layout_marginRight="@dimen/tabitem_padding" />
 
-    <ImageButton
-        android:id = "@+id/friend_call_btn"
-        android:layout_width = "@dimen/friendlist_button_width"
-        android:layout_height = "@dimen/friendlist_button_width"
-        android:layout_alignParentEnd = "true"
-        android:layout_alignParentRight = "true"
-        android:layout_centerVertical = "true"
-        android:layout_marginEnd = "@dimen/friendlist_item_padding"
-        android:layout_marginRight = "@dimen/friendlist_item_padding"
-        android:adjustViewBounds = "true"
-        android:background = "@color/clear_back"
-        android:contentDescription = "@string/app_name"
-        android:scaleType = "fitCenter"
-        android:src = "@drawable/ic_call_btn" />
+    <ImageView
+        android:id="@+id/friend_call_btn"
+        android:layout_width="@dimen/friendlist_button_width"
+        android:layout_height="@dimen/friendlist_button_width"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/friendlist_item_padding"
+        android:layout_marginRight="@dimen/friendlist_item_padding"
+        android:adjustViewBounds="true"
+        android:background="@color/clear_back"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_call_btn" />
 
-    <ImageButton
-        android:id = "@+id/friend_message_conversation_btn"
-        android:layout_width = "@dimen/friendlist_button_width"
-        android:layout_height = "@dimen/friendlist_button_width"
-        android:layout_centerVertical = "true"
-        android:layout_marginEnd = "@dimen/friendlist_item_padding"
-        android:layout_marginRight = "@dimen/friendlist_item_padding"
-        android:layout_toLeftOf = "@+id/friend_call_btn"
-        android:layout_toStartOf = "@+id/friend_call_btn"
-        android:adjustViewBounds = "true"
-        android:background = "@color/clear_back"
-        android:contentDescription = "@string/app_name"
-        android:scaleType = "fitCenter"
-        android:src = "@drawable/ic_message" />
+    <ImageView
+        android:id="@+id/friend_message_conversation_btn"
+        android:layout_width="@dimen/friendlist_button_width"
+        android:layout_height="@dimen/friendlist_button_width"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/friendlist_item_padding"
+        android:layout_marginRight="@dimen/friendlist_item_padding"
+        android:layout_toLeftOf="@+id/friend_call_btn"
+        android:layout_toStartOf="@+id/friend_call_btn"
+        android:adjustViewBounds="true"
+        android:background="@color/clear_back"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_message" />
 
     <TextView
-        android:id = "@+id/friend_username"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:layout_centerVertical = "true"
-        android:layout_toEndOf = "@+id/friend_profile"
-        android:layout_toLeftOf = "@+id/friend_call_btn"
-        android:layout_toRightOf = "@+id/friend_profile"
-        android:layout_toStartOf = "@+id/friend_call_btn"
-        android:gravity = "center_vertical"
-        android:textColor = "@color/black"
-        android:textSize = "@dimen/text_size1" />
+        android:id="@+id/friend_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/friend_profile"
+        android:layout_toLeftOf="@+id/friend_call_btn"
+        android:layout_toRightOf="@+id/friend_profile"
+        android:layout_toStartOf="@+id/friend_call_btn"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size1" />
 
 </RelativeLayout>
