@@ -9,7 +9,7 @@
         android:layout_height = "@dimen/friendlist_photo_width"
         android:layout_centerVertical = "true"
         android:layout_marginEnd = "@dimen/friendlist_item_padding"
-        android:layout_marginRight = "@dimen/friendlist_item_padding"></com.ezzet.eulou.views.FBProfilePictureView>
+        android:layout_marginRight = "@dimen/friendlist_item_padding"/>
 
     <TextView
         android:id = "@+id/send_message_friend_name"

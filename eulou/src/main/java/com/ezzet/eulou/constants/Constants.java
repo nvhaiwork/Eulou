@@ -34,6 +34,8 @@ public class Constants {
 	public static final String INTENT_BROADCAST_UPDATE_MESSAGE_HIST = "com.ezzet.eulou.update_message_hist";
 	public static final String INTENT_PUSH_NEW_MESSAGE = "com.ezzet.eulou.push_new_message_message";
 	public static final String INTENT_PUSH_NEW_MESSAGE_SENDER_ID = "com.ezzet.eulou.push_new_message_sender_id";
+	public static final String INTENT_FRIEND_PROFILE_USER_INFO = "com.ezzet.eulou"
+			+ ".friend_profile_user_info";
 
 	// Receiver intent filters
 	public static final String INTENT_MESSAGE = "com.ezzet.eulou.message";

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android = "http://schemas.android.com/apk/res/android"
+<manifest
     package = "com.ezzet.eulou"
+    xmlns:android = "http://schemas.android.com/apk/res/android"
     android:installLocation = "auto"
     android:versionCode = "152"
     android:versionName = "1.5.2">
@@ -50,6 +51,7 @@
         <activity android:name = ".activities.CountryListActivity" />
         <activity android:name = ".activities.VerifyNumberActivity" />
         <activity android:name = ".activities.CallScreenActivity" />
+        <activity android:name = ".activities.FriendProfileActivity" />
         <activity
             android:name = ".activities.ChatActivity"
             android:windowSoftInputMode = "stateHidden" />

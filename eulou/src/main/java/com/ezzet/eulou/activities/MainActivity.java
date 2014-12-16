@@ -37,13 +37,17 @@ import com.ezzet.eulou.utilities.Utilities;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity
+		implements
+			View.OnClickListener,
+			ProfileFragment.OnDisplaySocialInfoListener {
 
-	public EulouService service = null;
-	AsyncHttpClient calls_client = new AsyncHttpClient();
 	private ViewPager mPager;
 	private PagerAdapter mPagerAdapter;
-	private boolean isFromVerify = false;
+	public EulouService service = null;
+	private boolean isFromVerify = false, isProfileShown;
+	AsyncHttpClient calls_client = new AsyncHttpClient();
+
 	private BroadcastReceiver mUpdateMessageBroadcast = new BroadcastReceiver() {
 
 		public void onReceive(android.content.Context context, Intent intent) {
@@ -80,6 +84,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 			service = null;
 		}
 	};
+
 	private RelativeLayout mSettingLayout;
 	private ImageView mLogoutBtn;
 
@@ -133,10 +138,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 	}
 
 	@Override
+	public void onDisplay() {
+
+		mLeftImgBtn.setImageResource(R.drawable.ic_back);
+		isProfileShown = true;
+	}
+
+	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
+		if (isProfileShown) {
 
-		if (mSettingLayout.getVisibility() == View.VISIBLE) {
+			isProfileShown = false;
+			mLeftImgBtn.setImageResource(R.drawable.ic_recent_calls);
+			ProfileFragment currentFragment = (ProfileFragment) mPager
+					.getAdapter().instantiateItem(mPager, 2);
+			if (currentFragment != null) {
+
+				currentFragment.closeSocialLayout();
+			}
+		} else if (mSettingLayout.getVisibility() == View.VISIBLE) {
 
 			doShowHideSettingLayout(false);
 		} else if (mPager.getCurrentItem() == 2) {
@@ -188,24 +209,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 		switch (v.getId()) {
 			case R.id.main_navigation_left_img_btn :
 
-				int curPos = mPager.getCurrentItem();
-				if (mSettingLayout.getVisibility() == View.VISIBLE) {
+				if (isProfileShown) {
 
-					doShowHideSettingLayout(false);
-				} else if (curPos == 0) {
+					isProfileShown = false;
+					mLeftImgBtn.setImageResource(R.drawable.ic_recent_calls);
+					ProfileFragment currentFragment = (ProfileFragment) mPager
+							.getAdapter().instantiateItem(mPager, 3);
+					if (currentFragment != null) {
 
-					Intent newMsgIntent = new Intent(MainActivity.this,
-							NewMessageActivity.class);
-					startActivity(newMsgIntent);
+						currentFragment.closeSocialLayout();
+					}
 				} else {
+					int curPos = mPager.getCurrentItem();
+					if (mSettingLayout.getVisibility() == View.VISIBLE) {
 
-					curPos -= 1;
-					mPager.setCurrentItem(curPos, true);
+						doShowHideSettingLayout(false);
+					} else if (curPos == 0) {
+
+						Intent newMsgIntent = new Intent(MainActivity.this,
+								NewMessageActivity.class);
+						startActivity(newMsgIntent);
+					} else {
+
+						curPos -= 1;
+						mPager.setCurrentItem(curPos, true);
+					}
 				}
 				break;
 			case R.id.main_navigation_right_img_btn :
 
-				curPos = mPager.getCurrentItem();
+				int curPos = mPager.getCurrentItem();
 				if (curPos == Constants.TAB_PROFILE) {
 
 					doShowHideSettingLayout(true);
