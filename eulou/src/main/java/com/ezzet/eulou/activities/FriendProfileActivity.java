@@ -236,6 +236,7 @@ public class FriendProfileActivity extends BaseActivity {
 						@Override
 						public void onCompleted(Response response) {
 
+							String fbIDs = "";
 							try {
 
 								GraphObject responseGraphObject = response
@@ -244,7 +245,6 @@ public class FriendProfileActivity extends BaseActivity {
 										.getInnerJSONObject();
 								JSONArray friendIds = json.getJSONArray("data");
 
-								String fbIDs = "";
 								for (int i = 0; i < friendIds.length(); i++) {
 
 									JSONObject friend = friendIds
@@ -258,12 +258,17 @@ public class FriendProfileActivity extends BaseActivity {
 									}
 								}
 
-								new GetUserFbFriend().execute(fbIDs);
 							} catch (JSONException je) {
 
 								LogUtil.e("newGraphPathRequest",
 										je.getMessage());
+							} catch (NullPointerException npe) {
+
+								LogUtil.e("newGraphPathRequest",
+										npe.getMessage());
 							}
+
+							new GetUserFbFriend().execute(fbIDs);
 						}
 					}).executeAsync();
 		}
