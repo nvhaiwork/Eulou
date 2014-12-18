@@ -293,6 +293,15 @@ public class ChatActivity extends BaseActivity
 				intent.putExtra("SinchID", userIDString);
 				sendBroadcast(intent);
 				break;
+			case R.id.chat_navigation_info_btn :
+
+				userInfo = mRecipient;
+				Intent friendProfileIntent = new Intent(ChatActivity.this,
+						FriendProfileActivity.class);
+				friendProfileIntent.putExtra(
+						Constants.INTENT_FRIEND_PROFILE_USER_INFO, userInfo);
+				startActivity(friendProfileIntent);
+				break;
 		}
 	}
 
@@ -437,6 +446,11 @@ public class ChatActivity extends BaseActivity
 	}
 
 	private void sendTypingMessage() {
+
+		if (mRecipient == null) {
+
+			return;
+		}
 
 		String userRemoteId = "";
 		if (mRecipient.getMainSocial() == Constants.FACEBOOK) {

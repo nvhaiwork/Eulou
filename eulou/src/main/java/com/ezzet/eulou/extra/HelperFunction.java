@@ -414,19 +414,15 @@ public class HelperFunction {
 		jsonParser.getJSONFromUrl(urls);
 	}
 
-	public void deleteCallHistory(Map<String, Object> data) {
+	public void deleteCallHistory(String... data) {
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("action",
 				"deleteCallHistoryBetweenUserAndSpecificUser"));
-		params.add(new BasicNameValuePair("userid", data.get("userid")
-				.toString()));
-		params.add(new BasicNameValuePair("specificuserid", data.get(
-				"specificuserid").toString()));
-		params.add(new BasicNameValuePair("direction", data.get("direction")
-				.toString()));
-		params.add(new BasicNameValuePair("groupdate", data.get("groupdate")
-				.toString()));
+		params.add(new BasicNameValuePair("userid", data[0]));
+		params.add(new BasicNameValuePair("specificuserid", data[1]));
+		params.add(new BasicNameValuePair("direction", data[2]));
+		params.add(new BasicNameValuePair("groupdate", data[3]));
 
 		String paramString = URLEncodedUtils.format(params, "utf-8");
 		String urls = URL + paramString;
@@ -444,13 +440,12 @@ public class HelperFunction {
 		String urls = URL + paramString;
 		jsonParser.getJSONFromUrl(urls);
 	}
-	public void deleteAllCallHistory(Map<String, Object> data) {
+	public void deleteAllCallHistory(String userId) {
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("action",
 				"deleteAllCallHistoryofUser"));
-		params.add(new BasicNameValuePair("userid", data.get("userid")
-				.toString()));
+		params.add(new BasicNameValuePair("userid", userId));
 
 		String paramString = URLEncodedUtils.format(params, "utf-8");
 		String urls = URL + paramString;

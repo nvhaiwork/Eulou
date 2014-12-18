@@ -195,7 +195,7 @@ public class MainActivity extends BaseActivity
 				service.requestUsersFromContacts();
 			}
 
-			if (mMessegas == null || mMessegas.size() == 0) {
+			if (mMessages == null || mMessages.size() == 0) {
 
 				new GetMessageHistoryTask().execute();
 			}

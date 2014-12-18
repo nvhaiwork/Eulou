@@ -51,7 +51,7 @@ public class BaseActivity extends FragmentActivity
 	public static UserInfo mUserInfo;
 	public static ArrayList<UserInfo> mFriendUsers;
 	public static ArrayList<UserInfo> mContactUsers;
-	public static Map<String, Map<String, Object>> mMessegas;
+	public static Map<String, Map<String, Object>> mMessages;
 	private static int runningActivities = 0;
 	protected RadioGroup mNavigatorGroup;
 	protected ImageView mLeftImgBtn, mRightImgBtn;
@@ -472,7 +472,7 @@ public class BaseActivity extends FragmentActivity
 			}
 
 			// Sort messages
-			mMessegas = Utilities.sortMessage(messageHist);
+			mMessages = Utilities.sortMessage(messageHist);
 			return null;
 		}
 

@@ -477,11 +477,21 @@ public class FBProfilePictureView extends FrameLayout {
 
 	private void setBlankProfilePicture() {
 		if (customizedDefaultProfilePicture == null) {
-			int blankImageResource = isCropped()
-					? R.drawable.com_facebook_profile_picture_blank_square
-					: R.drawable.com_facebook_profile_picture_blank_portrait;
-			setImageBitmap(BitmapFactory.decodeResource(getResources(),
-					blankImageResource));
+			try {
+
+				int blankImageResource = isCropped()
+						? R.drawable.com_facebook_profile_picture_blank_square
+						: R.drawable.com_facebook_profile_picture_blank_portrait;
+				setImageBitmap(BitmapFactory.decodeResource(getResources(),
+						blankImageResource));
+			} catch (Exception ex) {
+
+				int blankImageResource = isCropped()
+						? R.drawable.com_facebook_profile_picture_blank_square_large
+						: R.drawable.com_facebook_profile_picture_blank_portrait_large;
+				setImageBitmap(BitmapFactory.decodeResource(getResources(),
+						blankImageResource));
+			}
 		} else {
 			// Update profile image dimensions.
 			updateImageQueryParameters();

@@ -497,9 +497,9 @@ public class ContactsFragment extends Fragment
 					.findViewById(R.id.friend_username);
 			textViewName.setText(user.getUserName());
 
-			ImageButton buttonCall = (ImageButton) layoutItem
+			ImageView buttonCall = (ImageView) layoutItem
 					.findViewById(R.id.friend_call_btn);
-			ImageButton buttonMessage = (ImageButton) layoutItem
+			ImageView buttonMessage = (ImageView) layoutItem
 					.findViewById(R.id.friend_message_conversation_btn);
 			buttonCall.setTag(position);
 			buttonMessage.setTag(position);

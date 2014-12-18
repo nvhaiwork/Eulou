@@ -1,5 +1,6 @@
 package com.ezzet.eulou.fragments;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import android.app.Activity;
@@ -115,7 +116,7 @@ public class MessagesFragment extends Fragment
 
 	public void updateMessageHistory() {
 
-		mMessagesAdapter.setData(BaseActivity.mMessegas);
+		mMessagesAdapter.setData(BaseActivity.mMessages);
 		mMessagesAdapter.notifyDataSetChanged();
 	}
 
@@ -133,14 +134,11 @@ public class MessagesFragment extends Fragment
 	public boolean onItemLongClick(AdapterView<?> adapterView, View view,
 			int i, long l) {
 
-		Map<String, Object> historyItem = (Map<String, Object>) adapterView
-				.getAdapter().getItem(i);
-		deleteOptionsDialog(getActivity(), historyItem, "Line 1", "Line 2");
+		deleteOptionsDialog(getActivity(), i);
 		return true;
 	}
 
-	public void deleteOptionsDialog(final Activity act,
-			final Map<String, Object> historyItem, String... lines) {
+	public void deleteOptionsDialog(final Activity act, final int pos) {
 
 		final Dialog dialog = new Dialog(act);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -158,15 +156,13 @@ public class MessagesFragment extends Fragment
 				.findViewById(R.id.delete_options_1);
 		TextView option2 = (TextView) dialog
 				.findViewById(R.id.delete_options_2);
-		option1.setText(lines[0]);
-		option2.setText(lines[1]);
 		option1.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 
-				new DeleteMessageHistory().execute(historyItem);
+				new DeleteMessageHistory().execute(pos);
 				dialog.dismiss();
 			}
 		});
@@ -177,7 +173,7 @@ public class MessagesFragment extends Fragment
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 
-				new DeleteMessageHistory().execute();
+				new DeleteMessageHistory().execute(-1);
 				dialog.dismiss();
 			}
 		});
@@ -185,26 +181,27 @@ public class MessagesFragment extends Fragment
 		dialog.show();
 	}
 
-	private class DeleteMessageHistory
-			extends
-				AsyncTask<Map<String, Object>, Void, Void> {
+	private class DeleteMessageHistory extends AsyncTask<Integer, Void, Void> {
 
 		@Override
-		protected Void doInBackground(Map<String, Object>... messages) {
+		protected Void doInBackground(Integer... pos) {
 
 			HelperFunction helper = new HelperFunction(getActivity());
 			String userId = String.valueOf(BaseActivity.mUserInfo.getUserID());
-			if (messages == null || messages.length == 0) {
+			int selectedPos = pos[0];
+			if (selectedPos < 0) {
 
 				helper.deleteAllMessageHistory(userId);
-				BaseActivity.mMessegas.clear();
+				BaseActivity.mMessages.clear();
 			} else {
 
-				Map<String, Object> message = messages[0];
+				String key = (String) (new ArrayList(
+						BaseActivity.mMessages.keySet())).get(selectedPos);
+				Map<String, Object> message = BaseActivity.mMessages.get(key);
 				UserInfo userInfo = (UserInfo) message.get("UserInfo");
 				String partnerId = String.valueOf(userInfo.getUserID());
 				helper.deleteMessageHistory(userId, partnerId);
-				BaseActivity.mMessegas.remove(message);
+				BaseActivity.mMessages.remove(key);
 			}
 
 			return null;
@@ -213,7 +210,7 @@ public class MessagesFragment extends Fragment
 		@Override
 		protected void onPostExecute(Void aVoid) {
 			super.onPostExecute(aVoid);
-			mMessagesAdapter.setData(BaseActivity.mMessegas);
+			mMessagesAdapter.setData(BaseActivity.mMessages);
 			mMessagesAdapter.notifyDataSetChanged();
 		}
 	}
