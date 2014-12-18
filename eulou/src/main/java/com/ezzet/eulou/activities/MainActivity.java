@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -34,6 +35,7 @@ import com.ezzet.eulou.models.CallHistoryItem;
 import com.ezzet.eulou.models.UserInfo;
 import com.ezzet.eulou.services.EulouService;
 import com.ezzet.eulou.utilities.Utilities;
+import com.ezzet.eulou.views.CustomSwipeViewPager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
@@ -42,11 +44,11 @@ public class MainActivity extends BaseActivity
 			View.OnClickListener,
 			ProfileFragment.OnDisplaySocialInfoListener {
 
-	private ViewPager mPager;
-	private PagerAdapter mPagerAdapter;
 	public EulouService service = null;
+	private CustomSwipeViewPager mPager;
+	private PagerAdapter mPagerAdapter;
 	private boolean isFromVerify = false, isProfileShown;
-	AsyncHttpClient calls_client = new AsyncHttpClient();
+	private AsyncHttpClient calls_client = new AsyncHttpClient();
 
 	private BroadcastReceiver mUpdateMessageBroadcast = new BroadcastReceiver() {
 
@@ -99,7 +101,7 @@ public class MainActivity extends BaseActivity
 					false);
 		}
 
-		mPager = (ViewPager) findViewById(R.id.pager);
+		mPager = (CustomSwipeViewPager) findViewById(R.id.pager);
 		mLogoutBtn = (ImageView) findViewById(R.id.main_setting_logout_btn);
 		mSettingLayout = (RelativeLayout) findViewById(R.id.main_setting_layout);
 		mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
@@ -140,6 +142,7 @@ public class MainActivity extends BaseActivity
 	@Override
 	public void onDisplay() {
 
+		setPagerSwipeable(false);
 		mLeftImgBtn.setImageResource(R.drawable.ic_back);
 		isProfileShown = true;
 	}
@@ -147,7 +150,7 @@ public class MainActivity extends BaseActivity
 	@Override
 	public void onBackPressed() {
 		// TODO Auto-generated method stub
-		if (isProfileShown) {
+		if (isProfileShown && mSettingLayout.getVisibility() != View.VISIBLE) {
 
 			isProfileShown = false;
 			mLeftImgBtn.setImageResource(R.drawable.ic_recent_calls);
@@ -157,6 +160,8 @@ public class MainActivity extends BaseActivity
 
 				currentFragment.closeSocialLayout();
 			}
+
+			setPagerSwipeable(true);
 		} else if (mSettingLayout.getVisibility() == View.VISIBLE) {
 
 			doShowHideSettingLayout(false);
@@ -165,7 +170,6 @@ public class MainActivity extends BaseActivity
 			super.onBackPressed();
 		}
 	}
-
 	@Override
 	public void onDestroy() {
 		getApplicationContext().unbindService(mConnection);
@@ -207,7 +211,8 @@ public class MainActivity extends BaseActivity
 		switch (v.getId()) {
 			case R.id.main_navigation_left_img_btn :
 
-				if (isProfileShown) {
+				if (isProfileShown
+						&& mSettingLayout.getVisibility() != View.VISIBLE) {
 
 					isProfileShown = false;
 					mLeftImgBtn.setImageResource(R.drawable.ic_recent_calls);
@@ -217,6 +222,8 @@ public class MainActivity extends BaseActivity
 
 						currentFragment.closeSocialLayout();
 					}
+
+					setPagerSwipeable(true);
 				} else {
 					int curPos = mPager.getCurrentItem();
 					if (mSettingLayout.getVisibility() == View.VISIBLE) {
@@ -265,6 +272,11 @@ public class MainActivity extends BaseActivity
 		startActivity(signinIntent);
 		overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 		finish();
+	}
+
+	private void setPagerSwipeable(boolean isSwipeable) {
+
+		mPager.setCanSwipe(isSwipeable);
 	}
 
 	/**
@@ -326,7 +338,10 @@ public class MainActivity extends BaseActivity
 			mSettingLayout.setVisibility(View.GONE);
 			mRightImgBtn.setVisibility(View.VISIBLE);
 			mTitleTxt.setText(getString(R.string.profile));
-			mLeftImgBtn.setImageResource(R.drawable.ic_recent_calls);
+			if (!isProfileShown) {
+
+				mLeftImgBtn.setImageResource(R.drawable.ic_recent_calls);
+			}
 		}
 	}
 

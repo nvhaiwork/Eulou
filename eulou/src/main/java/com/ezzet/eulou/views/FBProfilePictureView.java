@@ -21,19 +21,26 @@ import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.renderscript.Allocation;
+import android.renderscript.Element;
+import android.renderscript.RenderScript;
+import android.renderscript.ScriptIntrinsicBlur;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.ezzet.eulou.utilities.LogUtil;
 import com.facebook.FacebookException;
 import com.facebook.LoggingBehavior;
 import com.facebook.android.R;
@@ -42,6 +49,7 @@ import com.facebook.internal.ImageRequest;
 import com.facebook.internal.ImageResponse;
 import com.facebook.internal.Logger;
 import com.facebook.internal.Utility;
+import com.google.android.gms.internal.im;
 
 import java.net.URISyntaxException;
 
@@ -107,7 +115,7 @@ public class FBProfilePictureView extends FrameLayout {
 	private ImageRequest lastRequest;
 	private OnErrorListener onErrorListener;
 	private Bitmap customizedDefaultProfilePicture = null;
-	private boolean isSquare;
+	private boolean isSquare, isBlur;
 	/**
 	 * Constructor
 	 *
@@ -179,6 +187,10 @@ public class FBProfilePictureView extends FrameLayout {
 		canvas.drawBitmap(bitmap, rect, rect, paint);
 
 		return output;
+	}
+
+	public void setBlur(boolean isBlur) {
+		this.isBlur = isBlur;
 	}
 
 	/**
@@ -449,7 +461,7 @@ public class FBProfilePictureView extends FrameLayout {
 		a.recycle();
 	}
 
-	private void refreshImage(boolean force) {
+	public void refreshImage(boolean force) {
 		boolean changed = updateImageQueryParameters();
 		// Note: do not use Utility.isNullOrEmpty here as this will cause the
 		// Eclipse
@@ -485,6 +497,11 @@ public class FBProfilePictureView extends FrameLayout {
 	private void setImageBitmap(Bitmap imageBitmap) {
 		if (image != null && imageBitmap != null) {
 			imageContents = imageBitmap; // Hold for save-restore cycles
+
+			if (isBlur) {
+
+				imageBitmap = blurImage(imageBitmap);
+			}
 
 			if (isSquare) {
 
@@ -633,5 +650,35 @@ public class FBProfilePictureView extends FrameLayout {
 		 *            encountered.
 		 */
 		void onError(FacebookException error);
+	}
+
+	private Bitmap blurImage(Bitmap input) {
+
+		try {
+
+			if (android.os.Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN_MR1) {
+
+				RenderScript rsScript = RenderScript.create(getContext());
+				Allocation alloc = Allocation.createFromBitmap(rsScript, input);
+
+				ScriptIntrinsicBlur blur = ScriptIntrinsicBlur.create(rsScript,
+						Element.U8_4(rsScript));
+				blur.setRadius(25);
+				blur.setInput(alloc);
+				Bitmap result = Bitmap.createBitmap(input.getWidth(),
+						input.getHeight(), Bitmap.Config.ARGB_8888);
+				Allocation outAlloc = Allocation.createFromBitmap(rsScript,
+						result);
+				blur.forEach(outAlloc);
+				outAlloc.copyTo(result);
+				rsScript.destroy();
+				return result;
+			}
+		} catch (Exception e) {
+
+			LogUtil.e("blurImage", e.getMessage());
+		}
+
+		return input;
 	}
 }

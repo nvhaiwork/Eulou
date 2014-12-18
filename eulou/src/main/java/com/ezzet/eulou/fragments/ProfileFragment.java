@@ -78,12 +78,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 				.findViewById(R.id.profile_share_twitter_btn);
 		TextView verifyPhoneNumTxt = (TextView) rootView
 				.findViewById(R.id.profile_verify_phone_number);
+		TextView summaryName = (TextView) rootView
+				.findViewById(R.id.profile_summary_name);
 		mSocialInfoLy = (LinearLayout) rootView
 				.findViewById(R.id.profile_user_social_root_ly);
 		FBProfilePictureView profilePictureView = (FBProfilePictureView) rootView
 				.findViewById(R.id.profile_user_img);
 		mProfilePictureViewLarge = (FBProfilePictureView) rootView
 				.findViewById(R.id.profile_user_large_img);
+		mProfilePictureViewLarge.setBlur(true);
 
 		// Social information views
 		TextView statusTxt = (TextView) rootView
@@ -101,6 +104,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 		mProfilePictureViewLarge.setSquare(true);
 
 		// Set views
+		summaryName.setText(mCurrentUser.getUserName());
 		fbName.setText(mCurrentUser.getUserName());
 		phoneNumber.setText(mCurrentUser.getPhone());
 		statusTxt.setText(getString(R.string.online));
@@ -244,6 +248,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 				break;
 			case R.id.profile_user_img :
 
+				mProfilePictureViewLarge.setBlur(false);
+				mProfilePictureViewLarge.refreshImage(true);
 				mShareLayout.setVisibility(View.GONE);
 				mSocialInfoLy.setVisibility(View.VISIBLE);
 				mDisplayListener.onDisplay();
@@ -256,6 +262,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 	 * */
 	public void closeSocialLayout() {
 
+		mProfilePictureViewLarge.setBlur(true);
+		mProfilePictureViewLarge.refreshImage(true);
 		mShareLayout.setVisibility(View.VISIBLE);
 		mSocialInfoLy.setVisibility(View.GONE);
 	}
