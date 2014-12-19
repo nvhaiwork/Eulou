@@ -192,9 +192,17 @@ public class FriendProfileActivity extends BaseActivity {
 	private void displayFriendList() {
 
 		mFriendListLv.removeAllViews();
-		mFriendNumber.setText("Shared Friends (" + mFriendList.size() + ")");
+
+		int friendCount = 0;
 		for (final UserInfo user : mFriendList) {
 
+			if (user.getFacebookID().equals(
+					BaseActivity.mUserInfo.getFacebookID())) {
+
+				continue;
+			}
+
+			friendCount++;
 			View itemView = getLayoutInflater().inflate(
 					R.layout.layout_profile_friend_list_item, null, false);
 			FBProfilePictureView image = (FBProfilePictureView) itemView
@@ -221,6 +229,9 @@ public class FriendProfileActivity extends BaseActivity {
 
 			mFriendListLv.addView(itemView);
 		}
+
+		mFriendNumber.setText("Shared Friends (" + friendCount + ")");
+
 	}
 
 	private void getFbFriend() {
@@ -261,11 +272,11 @@ public class FriendProfileActivity extends BaseActivity {
 							} catch (JSONException je) {
 
 								LogUtil.e("newGraphPathRequest",
-										je.getMessage());
+										"JSONException");
 							} catch (NullPointerException npe) {
 
 								LogUtil.e("newGraphPathRequest",
-										npe.getMessage());
+										"NullPointerException");
 							}
 
 							new GetUserFbFriend().execute(fbIDs);

@@ -278,6 +278,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 				+ ")");
 		for (final UserInfo user : BaseActivity.mFriendUsers) {
 
+			if (user.getFacebookID().equals(
+					BaseActivity.mUserInfo.getFacebookID())) {
+
+				continue;
+			}
+
 			View itemView = (LinearLayout) getActivity().getLayoutInflater()
 					.inflate(R.layout.layout_profile_friend_list_item, null,
 							false);
