@@ -236,7 +236,7 @@ public class ChatActivity extends BaseActivity
 		unbindService(mConnection);
 		LocalBroadcastManager.getInstance(this).unregisterReceiver(
 				mMesasgeReceiver);
-		ChatActivity.mRecipient = null;
+		// ChatActivity.mRecipient = null;
 		super.onDestroy();
 	}
 

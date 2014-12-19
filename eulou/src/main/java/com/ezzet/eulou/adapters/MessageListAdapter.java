@@ -13,6 +13,7 @@ import java.util.Map.Entry;
 
 import com.ezzet.eulou.R;
 import com.ezzet.eulou.models.UserInfo;
+import com.ezzet.eulou.utilities.LogUtil;
 import com.ezzet.eulou.utilities.Utilities;
 import com.ezzet.eulou.views.FBProfilePictureView;
 
@@ -27,190 +28,209 @@ import android.widget.TextView;
 
 public class MessageListAdapter extends BaseAdapter {
 
-    private MessagesFilter mFilters;
-    private LayoutInflater mInflater;
-    private SimpleDateFormat mDateFormat;
-    private Map<String, Map<String, Object>> mMessages, mOrgMessages;
+	private MessagesFilter mFilters;
+	private LayoutInflater mInflater;
+	private SimpleDateFormat mDateFormat;
+	private Map<String, Map<String, Object>> mMessages, mOrgMessages;
 
-    public MessageListAdapter(Context context) {
+	public MessageListAdapter(Context context) {
 
-        this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    }
+		this.mInflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	}
 
-    @Override
-    public int getCount() {
-        // TODO Auto-generated method stub
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
 
-        if (mMessages != null) {
+		if (mMessages != null) {
 
-            return mMessages.size();
-        }
+			return mMessages.size();
+		}
 
-        return 0;
-    }
+		return 0;
+	}
 
-    @Override
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public Map<String, Object> getItem(int arg0) {
-        // TODO Auto-generated method stub
+	@Override
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	public Map<String, Object> getItem(int arg0) {
+		// TODO Auto-generated method stub
 
-        String key = (String) (new ArrayList(mMessages.keySet())).get(arg0);
-        return mMessages.get(key);
-    }
+		String key = (String) (new ArrayList(mMessages.keySet())).get(arg0);
+		return mMessages.get(key);
+	}
 
-    @Override
-    public long getItemId(int arg0) {
-        // TODO Auto-generated method stub
-        return arg0;
-    }
+	@Override
+	public long getItemId(int arg0) {
+		// TODO Auto-generated method stub
+		return arg0;
+	}
 
-    @Override
-    public View getView(int pos, View convertView, ViewGroup parrent) {
-        // TODO Auto-generated method stub
+	@Override
+	public View getView(int pos, View convertView, ViewGroup parrent) {
+		// TODO Auto-generated method stub
 
-        Map<String, Object> message = (Map<String, Object>) getItem(pos);
-        ViewHolder holder = null;
-        if (convertView == null) {
+		Map<String, Object> message = (Map<String, Object>) getItem(pos);
+		ViewHolder holder = null;
+		if (convertView == null) {
 
-            convertView = mInflater.inflate(R.layout.layout_message_list_item, parrent, false);
-            holder = new ViewHolder();
-            holder.profilePic = (FBProfilePictureView) convertView.findViewById(R.id.message_user_profile_pic);
-            holder.username = (TextView) convertView.findViewById(R.id.message_username);
-            holder.message = (TextView) convertView.findViewById(R.id.message_text);
-            holder.time = (TextView) convertView.findViewById(R.id.message_time);
-            holder.userType = (ImageView) convertView.findViewById(R.id.message_user_type);
-            holder.messageCount = (TextView) convertView.findViewById(R.id.message_unread_count);
-            convertView.setTag(holder);
-        } else {
+			convertView = mInflater.inflate(R.layout.layout_message_list_item,
+					parrent, false);
+			holder = new ViewHolder();
+			holder.profilePic = (FBProfilePictureView) convertView
+					.findViewById(R.id.message_user_profile_pic);
+			holder.username = (TextView) convertView
+					.findViewById(R.id.message_username);
+			holder.message = (TextView) convertView
+					.findViewById(R.id.message_text);
+			holder.time = (TextView) convertView
+					.findViewById(R.id.message_time);
+			holder.userType = (ImageView) convertView
+					.findViewById(R.id.message_user_type);
+			holder.messageCount = (TextView) convertView
+					.findViewById(R.id.message_unread_count);
+			convertView.setTag(holder);
+		} else {
 
-            holder = (ViewHolder) convertView.getTag();
-        }
+			holder = (ViewHolder) convertView.getTag();
+		}
 
-        UserInfo user = (UserInfo) message.get("UserInfo");
-        String messageTime = "";
-        try {
+		UserInfo user = (UserInfo) message.get("UserInfo");
+		String messageTime = "";
+		try {
 
-            mDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-            Date startDate = mDateFormat.parse((String) message.get("LastTime"));
-            mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
-            messageTime = mDateFormat.format(startDate);
-        } catch (ParseException e) {
+			mDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+			Date startDate = mDateFormat
+					.parse((String) message.get("LastTime"));
+			mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+					Locale.ENGLISH);
+			messageTime = mDateFormat.format(startDate);
+		} catch (ParseException e) {
 
-            messageTime = (String) message.get("LastTime");
-        }
+			messageTime = (String) message.get("LastTime");
+		}
 
-        holder.time.setText(messageTime.replace(" ", "\n"));
-        holder.message.setText(((String) message.get("LastMessage")));
-        holder.username.setText(user.getUserName());
-        holder.userType.setVisibility(View.VISIBLE);
+		holder.time.setText(messageTime.replace(" ", "\n"));
+		holder.message.setText(((String) message.get("LastMessage")));
 
-        int receivedMsg = 0;
-        int shownMsg = 0;
-        if (message.containsKey("ReceivedMsgCount")) {
+		// Log for crashes
+		LogUtil.e("Message history list all data: ", mMessages.toString());
+		LogUtil.e("Message history list current data: ", message.toString());
+		holder.username.setText(user.getUserName());
+		holder.userType.setVisibility(View.VISIBLE);
 
-            receivedMsg = (Integer) message.get("ReceivedMsgCount");
-        }
+		int receivedMsg = 0;
+		int shownMsg = 0;
+		if (message.containsKey("ReceivedMsgCount")) {
 
-        if (message.containsKey("ShownMsgCount")) {
+			receivedMsg = (Integer) message.get("ReceivedMsgCount");
+		}
 
-            shownMsg = (Integer) message.get("ShownMsgCount");
-        }
+		if (message.containsKey("ShownMsgCount")) {
 
-        int messageCount = receivedMsg - shownMsg;
-        if (messageCount > 0) {
+			shownMsg = (Integer) message.get("ShownMsgCount");
+		}
 
-            holder.messageCount.setText(messageCount + "");
-            holder.messageCount.setVisibility(View.VISIBLE);
-        } else {
+		int messageCount = receivedMsg - shownMsg;
+		if (messageCount > 0) {
 
-            holder.messageCount.setVisibility(View.INVISIBLE);
-        }
+			holder.messageCount.setText(messageCount + "");
+			holder.messageCount.setVisibility(View.VISIBLE);
+		} else {
 
-        if (!user.getFacebookID().equals("")) {
+			holder.messageCount.setVisibility(View.INVISIBLE);
+		}
 
-            holder.profilePic.setProfileId(user.getFacebookID());
-            holder.userType.setImageResource(R.drawable.ic_facebook_list_item);
-        } else if (!user.getTwitterID().equals("")) {
+		if (!user.getFacebookID().equals("")) {
 
-            holder.userType.setImageResource(R.drawable.ic_twitter_list_item);
-        } else if (!user.getTwitterID().equals("")) {
+			holder.profilePic.setProfileId(user.getFacebookID());
+			holder.userType.setImageResource(R.drawable.ic_facebook_list_item);
+		} else if (!user.getTwitterID().equals("")) {
 
-            holder.userType.setImageResource(R.drawable.ic_instargram_list_item);
-        } else {
+			holder.userType.setImageResource(R.drawable.ic_twitter_list_item);
+		} else if (!user.getTwitterID().equals("")) {
 
-            holder.userType.setVisibility(View.INVISIBLE);
-        }
+			holder.userType
+					.setImageResource(R.drawable.ic_instargram_list_item);
+		} else {
 
-        return convertView;
-    }
+			holder.userType.setVisibility(View.INVISIBLE);
+		}
 
-    public void setData(Map<String, Map<String, Object>> messages) {
+		return convertView;
+	}
 
-        this.mMessages = messages;
-        this.mOrgMessages = messages;
-    }
+	public void setData(Map<String, Map<String, Object>> messages) {
 
-    /**
-     * Return message filter
-     */
-    public Filter getFilter() {
+		this.mMessages = messages;
+		this.mOrgMessages = messages;
+	}
 
-        if (mFilters == null) {
+	/**
+	 * Return message filter
+	 */
+	public Filter getFilter() {
 
-            mFilters = new MessagesFilter();
-        }
+		if (mFilters == null) {
 
-        return mFilters;
-    }
+			mFilters = new MessagesFilter();
+		}
 
-    private class ViewHolder {
+		return mFilters;
+	}
 
-        ImageView userType;
-        FBProfilePictureView profilePic;
-        TextView username, message, time, messageCount;
-    }
+	private class ViewHolder {
 
-    private class MessagesFilter extends Filter {
+		ImageView userType;
+		FBProfilePictureView profilePic;
+		TextView username, message, time, messageCount;
+	}
 
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-            // TODO Auto-generated method stub
+	private class MessagesFilter extends Filter {
 
-            FilterResults result = new FilterResults();
-            if (constraint == null || constraint.length() == 0) {
+		@Override
+		protected FilterResults performFiltering(CharSequence constraint) {
+			// TODO Auto-generated method stub
 
-                result.values = mOrgMessages;
-                result.count = mOrgMessages.size();
-            } else {
+			FilterResults result = new FilterResults();
+			if (constraint == null || constraint.length() == 0) {
 
-                Map<String, Map<String, Object>> messages = new HashMap<String, Map<String, Object>>();
-                Iterator<Entry<String, Map<String, Object>>> it = mOrgMessages.entrySet().iterator();
-                while (it.hasNext()) {
+				result.values = mOrgMessages;
+				result.count = mOrgMessages.size();
+			} else {
 
-                    Map.Entry<String, Map<String, Object>> message = it.next();
-                    UserInfo user = (UserInfo) message.getValue().get("UserInfo");
-                    if (user.getUserName().toLowerCase().contains(constraint.toString().toLowerCase())) {
+				Map<String, Map<String, Object>> messages = new HashMap<String, Map<String, Object>>();
+				Iterator<Entry<String, Map<String, Object>>> it = mOrgMessages
+						.entrySet().iterator();
+				while (it.hasNext()) {
 
-                        messages.put(message.getKey(), message.getValue());
-                    }
-                }
+					Map.Entry<String, Map<String, Object>> message = it.next();
+					UserInfo user = (UserInfo) message.getValue().get(
+							"UserInfo");
+					if (user.getUserName().toLowerCase()
+							.contains(constraint.toString().toLowerCase())) {
 
-                result.values = Utilities.sortMessage(messages);
-                result.count = messages.size();
-            }
+						messages.put(message.getKey(), message.getValue());
+					}
+				}
 
-            return result;
-        }
+				result.values = Utilities.sortMessage(messages);
+				result.count = messages.size();
+			}
 
-        @SuppressWarnings("unchecked")
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            // TODO Auto-generated method stub
+			return result;
+		}
 
-            mMessages = (Map<String, Map<String, Object>>) results.values;
-            notifyDataSetChanged();
-        }
-    }
+		@SuppressWarnings("unchecked")
+		@Override
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
+			// TODO Auto-generated method stub
+
+			mMessages = (Map<String, Map<String, Object>>) results.values;
+			notifyDataSetChanged();
+		}
+	}
 
 }
