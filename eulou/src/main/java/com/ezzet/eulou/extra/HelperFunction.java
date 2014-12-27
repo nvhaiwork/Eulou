@@ -440,6 +440,7 @@ public class HelperFunction {
 		String urls = URL + paramString;
 		jsonParser.getJSONFromUrl(urls);
 	}
+
 	public void deleteAllCallHistory(String userId) {
 
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -450,5 +451,43 @@ public class HelperFunction {
 		String paramString = URLEncodedUtils.format(params, "utf-8");
 		String urls = URL + paramString;
 		jsonParser.getJSONFromUrl(urls);
+	}
+
+	public UserInfo getUserInfoById(String userId) {
+
+		UserInfo userInfo = new UserInfo();
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("action", "getUserInfoById"));
+		params.add(new BasicNameValuePair("userid", userId));
+
+		String paramString = URLEncodedUtils.format(params, "utf-8");
+		String urls = URL + paramString;
+		String jsonStr = jsonParser.getJSONFromUrl(urls);
+		try {
+
+			JSONObject jsonObject = new JSONObject(jsonStr);
+			JSONArray jsonArray = jsonObject.getJSONArray("data");
+			jsonObject = jsonArray.getJSONObject(0);
+
+			userInfo.setUserID(jsonObject.getInt("userID"));
+			userInfo.setMainSocial(jsonObject.getInt("mainSocial"));
+			userInfo.setFacebookID(jsonObject.getString("facebookID"));
+			userInfo.setTwitterID(jsonObject.getString("twitterID"));
+			userInfo.setInstagramID(jsonObject.getString("instagramID"));
+			userInfo.setUserName(jsonObject.getString("username"));
+			userInfo.setUserMail(jsonObject.getString("usermail"));
+			userInfo.setLastOnline(jsonObject.getString("last_online"));
+			if (jsonObject.getString("is_online").equals("1")) {
+
+				userInfo.setOnline(true);
+			}
+
+			userInfo.setGender(jsonObject.getInt("gender"));
+		} catch (Exception ex) {
+
+			LogUtil.e("getUserInfoById", ex.getMessage());
+		}
+
+		return userInfo;
 	}
 }

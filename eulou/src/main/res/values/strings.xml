@@ -11,6 +11,7 @@
     <string name = "btEdit">Edit</string>
     <string name = "btYes">Yes</string>
     <string name = "find">Find</string>
+    <string name = "search_all_contacts">Search all contacts</string>
     <string name = "delete">Delete</string>
     <string name = "delete_all">Delete All</string>
     <string name = "ok">OK</string>

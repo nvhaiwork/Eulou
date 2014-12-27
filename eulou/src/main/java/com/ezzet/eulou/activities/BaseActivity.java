@@ -423,6 +423,13 @@ public class BaseActivity extends FragmentActivity
 						}
 					}
 
+					if (one.get("UserInfo") == null) {
+
+						UserInfo userInfo = new HelperFunction(
+								BaseActivity.this).getUserInfoById(partnerId);
+						one.put("UserInfo", userInfo);
+					}
+
 					messageHist.put(partnerId, one);
 				}
 

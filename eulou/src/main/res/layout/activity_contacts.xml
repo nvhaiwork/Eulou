@@ -1,122 +1,120 @@
-<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-    xmlns:tools = "http://schemas.android.com/tools"
-    android:layout_width = "match_parent"
-    android:layout_height = "match_parent"
-    android:background = "@color/light_gray"
-    android:focusableInTouchMode = "true"
-    android:orientation = "vertical">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_gray"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
     <SearchView
-        android:id = "@+id/contact_search_view"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:layout_marginLeft = "10dp"
-        android:layout_marginRight = "10dp"
-        android:hint = "@string/find"
-        android:textColor = "@color/black" />
+        android:id="@+id/contact_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:queryHint="@string/search_all_contacts"
+        android:textColor="@color/black" />
 
     <LinearLayout
-        android:id = "@+id/contact_tabs_layout"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:layout_below = "@+id/contact_search_view"
-        android:orientation = "horizontal">
+        android:id="@+id/contact_tabs_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contact_search_view"
+        android:orientation="horizontal">
 
         <ImageView
-            android:id = "@+id/contacts_contact"
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:background = "@color/main_contact_color"
-            android:contentDescription = "@string/app_name"
-            android:padding = "7dp"
-            android:src = "@drawable/ic_contacts" />
+            android:id="@+id/contacts_contact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/main_contact_color"
+            android:contentDescription="@string/app_name"
+            android:padding="7dp"
+            android:src="@drawable/ic_contacts" />
 
         <ImageView
-            android:id = "@+id/contacts_facebook"
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:background = "@color/main_facebook_color"
-            android:contentDescription = "@string/app_name"
-            android:padding = "7dp"
-            android:src = "@drawable/ic_facebook" />
+            android:id="@+id/contacts_facebook"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/main_facebook_color"
+            android:contentDescription="@string/app_name"
+            android:padding="7dp"
+            android:src="@drawable/ic_facebook" />
 
         <ImageView
-            android:id = "@+id/contacts_twitter"
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:background = "@color/main_twitter_color"
-            android:contentDescription = "@string/app_name"
-            android:padding = "7dp"
-            android:src = "@drawable/ic_twitter" />
+            android:id="@+id/contacts_twitter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/main_twitter_color"
+            android:contentDescription="@string/app_name"
+            android:padding="7dp"
+            android:src="@drawable/ic_twitter" />
 
         <ImageView
-            android:id = "@+id/contacts_instagram"
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:background = "@color/main_instagram_color"
-            android:contentDescription = "@string/app_name"
-            android:padding = "7dp"
-            android:src = "@drawable/ic_instagram" />
+            android:id="@+id/contacts_instagram"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/main_instagram_color"
+            android:contentDescription="@string/app_name"
+            android:padding="7dp"
+            android:src="@drawable/ic_instagram" />
     </LinearLayout>
 
-    <ListView
-        android:id = "@+id/contact_tab_listivew"
-        android:layout_width = "match_parent"
-        android:layout_height = "match_parent"
-        android:layout_below = "@+id/contact_tabs_layout"
-        android:background = "@color/white"
-        android:divider = "@color/light_gray"
-        android:dividerHeight = "1sp"></ListView>
+    <com.ezzet.eulou.views.IndexableListView
+        android:id="@+id/contact_tab_listivew"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/contact_tabs_layout"
+        android:background="@color/white"
+        android:divider="@color/light_gray"
+        android:dividerHeight="1sp" />
 
     <RadioGroup
-        android:id = "@+id/contacts_tab_triangles"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:layout_below = "@+id/contact_tabs_layout"
-        android:layout_marginTop = "-1dp"
-        android:gravity = "center_vertical"
-        android:orientation = "horizontal">
+        android:id="@+id/contacts_tab_triangles"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/contact_tabs_layout"
+        android:layout_marginTop="-1dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
         <RadioButton
-            android:id = "@+id/contacts_tab_contact_triangle"
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:background = "@drawable/main_tab_contacts_triangle_bg"
-            android:button = "@null"
-            android:clickable = "false" />
+            android:id="@+id/contacts_tab_contact_triangle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/main_tab_contacts_triangle_bg"
+            android:button="@null"
+            android:clickable="false" />
 
         <RadioButton
-            android:id = "@+id/contacts_tab_facebook_triangle"
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:background = "@drawable/main_tab_facebook_triangle_bg"
-            android:button = "@null"
-            android:checked = "true"
-            android:clickable = "false" />
+            android:id="@+id/contacts_tab_facebook_triangle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/main_tab_facebook_triangle_bg"
+            android:button="@null"
+            android:checked="true"
+            android:clickable="false" />
 
         <RadioButton
-            android:id = "@+id/contacts_tab_twitter_triangle"
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:background = "@drawable/main_tab_twitter_triangle_bg"
-            android:button = "@null"
-            android:clickable = "false" />
+            android:id="@+id/contacts_tab_twitter_triangle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/main_tab_twitter_triangle_bg"
+            android:button="@null"
+            android:clickable="false" />
 
         <RadioButton
-            android:id = "@+id/contacts_tab_instagram_triangle"
-            android:layout_width = "0dp"
-            android:layout_height = "wrap_content"
-            android:layout_weight = "1"
-            android:background = "@drawable/main_tab_instargram_triangle_bg"
-            android:button = "@null"
-            android:clickable = "false" />
+            android:id="@+id/contacts_tab_instagram_triangle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/main_tab_instargram_triangle_bg"
+            android:button="@null"
+            android:clickable="false" />
     </RadioGroup>
 
 </RelativeLayout>
