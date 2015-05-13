@@ -26,7 +26,7 @@ import com.ezzet.eulou.activities.MainActivity;
 import com.ezzet.eulou.adapters.ContactAdapter;
 import com.ezzet.eulou.utilities.Utilities;
 import com.ezzet.eulou.views.IndexableListView;
-import com.facebook.android.Util;
+
 
 public class ContactsFragment extends Fragment
 		implements

@@ -24,4 +24,6 @@
     <color name = "main_facebook_color">#3b5a9b</color>
     <color name = "main_instagram_color">#9b7d3b</color>
 
+    <color name="holo_blue_dark">#ff0099cc</color>
+
 </resources>

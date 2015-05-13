@@ -18,10 +18,10 @@ import com.ezzet.eulou.models.UserInfo;
 import com.ezzet.eulou.utilities.LogUtil;
 import com.ezzet.eulou.utilities.Utilities;
 import com.ezzet.eulou.views.FBProfilePictureView;
-import com.facebook.Request;
+/*import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
-import com.facebook.model.GraphObject;
+import com.facebook.model.GraphObject;*/
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -236,7 +236,7 @@ public class FriendProfileActivity extends BaseActivity {
 
 	private void getFbFriend() {
 
-		Session activeSession = Session.getActiveSession();
+		/*Session activeSession = Session.getActiveSession();
 		String path = String.format("/%s/friends", mFriendInfo.getFacebookID());
 		if (activeSession == null || !activeSession.isOpened()) {
 			Session.openActiveSessionFromCache(this);
@@ -282,7 +282,7 @@ public class FriendProfileActivity extends BaseActivity {
 							new GetUserFbFriend().execute(fbIDs);
 						}
 					}).executeAsync();
-		}
+		}*/
 	}
 
 	private class GetUserFbFriend extends AsyncTask<String, Void, Void> {

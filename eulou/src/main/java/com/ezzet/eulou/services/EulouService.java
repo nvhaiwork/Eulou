@@ -28,12 +28,12 @@ import com.ezzet.eulou.extra.HelperFunction;
 import com.ezzet.eulou.models.CurrentCall;
 import com.ezzet.eulou.models.UserInfo;
 import com.ezzet.eulou.utilities.CustomSharedPreferences;
-import com.ezzet.eulou.utilities.LogUtil;
+/*import com.ezzet.eulou.utilities.LogUtil;
 import com.facebook.Request;
 import com.facebook.Request.GraphUserListCallback;
 import com.facebook.Response;
 import com.facebook.Session;
-import com.facebook.model.GraphUser;
+import com.facebook.model.GraphUser;*/
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -153,10 +153,10 @@ public class EulouService extends Service {
 		BaseActivity.mFriendUsers = null;
 		BaseActivity.mContactUsers = null;
 		CustomSharedPreferences.setPreferences("LoggedinUser", "");
-		if (Session.getActiveSession() != null
+		/*if (Session.getActiveSession() != null
 				&& Session.getActiveSession().isOpened()) {
 			Session.getActiveSession().closeAndClearTokenInformation();
-		}
+		}*/
 	}
 
 	private void init() {
@@ -170,7 +170,7 @@ public class EulouService extends Service {
 	}
 
 	public void requestFriendsFacebook() {
-		Session activeSession = Session.getActiveSession();
+		/*Session activeSession = Session.getActiveSession();
 		if (activeSession == null || !activeSession.isOpened()) {
 			Session.openActiveSessionFromCache(this);
 			EulouService.this.requestFriendsFacebook();
@@ -203,7 +203,7 @@ public class EulouService extends Service {
 						}
 
 					}).executeAsync();
-		}
+		}*/
 	}
 
 	private void requestFriendsService(String ids) {

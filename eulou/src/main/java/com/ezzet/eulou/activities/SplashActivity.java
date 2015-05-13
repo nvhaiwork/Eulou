@@ -65,7 +65,7 @@ public class SplashActivity extends BaseActivity {
 			}
 		} else {
 
-			mainIntent = new Intent(SplashActivity.this, WelcomeActivity.class);
+			mainIntent = new Intent(SplashActivity.this, SigninActivity.class);
 			SplashActivity.this.startActivity(mainIntent);
 			SplashActivity.this.overridePendingTransition(R.anim.fadein,
 					R.anim.fadeout);

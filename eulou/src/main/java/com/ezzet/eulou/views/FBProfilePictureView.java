@@ -43,7 +43,7 @@ import android.widget.ImageView;
 import com.ezzet.eulou.utilities.LogUtil;
 import com.facebook.FacebookException;
 import com.facebook.LoggingBehavior;
-import com.facebook.android.R;
+import com.facebook.R;
 import com.facebook.internal.ImageDownloader;
 import com.facebook.internal.ImageRequest;
 import com.facebook.internal.ImageResponse;
@@ -484,10 +484,10 @@ public class FBProfilePictureView extends FrameLayout {
 				setImageBitmap(BitmapFactory.decodeResource(getResources(),
 						blankImageResource));
 			} catch (Exception ex) {
-
+//com_facebook_profile_picture_blank_square_large
 				int blankImageResource = isCropped()
-						? R.drawable.com_facebook_profile_picture_blank_square_large
-						: R.drawable.com_facebook_profile_picture_blank_portrait_large;
+						? R.drawable.com_facebook_profile_picture_blank_square
+						: R.drawable.com_facebook_profile_picture_blank_portrait;
 				setImageBitmap(BitmapFactory.decodeResource(getResources(),
 						blankImageResource));
 			}
@@ -525,11 +525,13 @@ public class FBProfilePictureView extends FrameLayout {
 
 	private void sendImageRequest(boolean allowCachedResponse) {
 		try {
-			ImageRequest.Builder requestBuilder = new ImageRequest.Builder(
-					getContext(), ImageRequest.getProfilePictureUrl(profileId,
-							queryWidth, queryHeight));
+			ImageRequest.Builder requestBuilder;
 
-			ImageRequest request = requestBuilder
+            requestBuilder = new ImageRequest.Builder(
+                    getContext(), ImageRequest.getProfilePictureUri(profileId,
+                            queryWidth, queryHeight));
+
+            ImageRequest request = requestBuilder
 					.setAllowCachedRedirects(allowCachedResponse)
 					.setCallerTag(this)
 					.setCallback(new ImageRequest.Callback() {
@@ -550,7 +552,7 @@ public class FBProfilePictureView extends FrameLayout {
 			lastRequest = request;
 
 			ImageDownloader.downloadAsync(request);
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
 			Logger.log(LoggingBehavior.REQUESTS, Log.ERROR, TAG, e.toString());
 		}
 	}

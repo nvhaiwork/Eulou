@@ -7,6 +7,8 @@ import org.acra.annotation.ReportsCrashes;
 
 import android.app.Application;
 
+import com.facebook.FacebookSdk;
+
 @ReportsCrashes(formKey = "", mailTo = "nvhai.work.vn@gmail.com", customReportContent = {
 		ReportField.APP_VERSION_CODE, ReportField.APP_VERSION_NAME,
 		ReportField.ANDROID_VERSION, ReportField.PHONE_MODEL,
@@ -17,6 +19,7 @@ public class EolouApplication extends Application {
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
+        FacebookSdk.sdkInitialize(getApplicationContext());
 		ACRA.init(this);
 	}
 }
