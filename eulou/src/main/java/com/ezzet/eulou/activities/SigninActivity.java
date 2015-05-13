@@ -6,7 +6,6 @@ import org.json.JSONObject;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
@@ -28,7 +27,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
 
-public class SigninActivity extends FragmentActivity implements View.OnClickListener {
+public class SigninActivity extends BaseActivity implements View.OnClickListener {
 
     private CallbackManager mCallbackManager;
     private FacebookConnectCallBack mFacebookCallback;
@@ -172,6 +171,7 @@ public class SigninActivity extends FragmentActivity implements View.OnClickList
                             LogUtil.e("makeRequest", "jsonObject: " + jsonObject.toString());
 
                             Intent mainIntent = null;
+                            mUserInfo = userInfo;
                             mainIntent = new Intent(SigninActivity.this, MainActivity.class);
                             startActivity(mainIntent);
                             overridePendingTransition(R.anim.fadein, R.anim.fadeout);
