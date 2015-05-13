@@ -163,13 +163,14 @@ public class SigninActivity extends FragmentActivity implements View.OnClickList
                                     .optString("name"));
                             userInfo.setUserMail(jsonObject.optString("email"));
                             userInfo.setFacebookID(jsonObject.optString("id"));
-                            userInfo.setUserID(jsonObject.getInt("userID"));
-                            userInfo.setGender(jsonObject.getInt("gender"));
-                            userInfo.setPhone(jsonObject.getString("phone"));
+                            //userInfo.setUserID(jsonObject.getInt("userID"));
+                            //userInfo.setGender(jsonObject.getInt("gender"));
+                            /*userInfo.setPhone(jsonObject.getString("phone"));
                             userInfo.setMainSocial(jsonObject.getInt("mainSocial"));
                             userInfo.setTwitterID(jsonObject.getString("twitterID"));
-                            userInfo.setInstagramID(jsonObject.getString("instagramID"));
+                            userInfo.setInstagramID(jsonObject.getString("instagramID"));*/
                             LogUtil.e("makeRequest", "jsonObject: " + jsonObject.toString());
+
                             Intent mainIntent = null;
                             mainIntent = new Intent(SigninActivity.this, MainActivity.class);
                             startActivity(mainIntent);
@@ -182,6 +183,7 @@ public class SigninActivity extends FragmentActivity implements View.OnClickList
                         } catch (Exception ex) {
 
                             //mFacebookCallback.onFbRequestError();
+                            LogUtil.e("makeRequest", ex.getMessage());
                         }
                     }
                 }).executeAsync();
