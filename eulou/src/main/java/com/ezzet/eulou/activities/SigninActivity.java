@@ -15,6 +15,7 @@ import com.ezzet.eulou.R;
 import com.ezzet.eulou.adapters.LoginExplainAdapter;
 import com.ezzet.eulou.models.UserInfo;
 
+import com.ezzet.eulou.utilities.CustomSharedPreferences;
 import com.ezzet.eulou.utilities.LogUtil;
 import com.ezzet.eulou.views.CirclePageIndicatorView;
 import com.facebook.CallbackManager;
@@ -25,6 +26,7 @@ import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
+import com.google.gson.Gson;
 
 
 public class SigninActivity extends BaseActivity implements View.OnClickListener {
@@ -170,8 +172,12 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
                             userInfo.setInstagramID(jsonObject.getString("instagramID"));*/
                             LogUtil.e("makeRequest", "jsonObject: " + jsonObject.toString());
 
-                            Intent mainIntent = null;
+                            Gson gson = new Gson();
+                            String json = gson.toJson(userInfo);
+                            CustomSharedPreferences.setPreferences("LoggedinUser", json);
                             mUserInfo = userInfo;
+                            Intent mainIntent = null;
+
                             mainIntent = new Intent(SigninActivity.this, MainActivity.class);
                             startActivity(mainIntent);
                             overridePendingTransition(R.anim.fadein, R.anim.fadeout);
