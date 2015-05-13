@@ -3,18 +3,12 @@ package com.ezzet.eulou.activities;
 import java.util.Arrays;
 import java.util.List;
 import org.json.JSONObject;
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
-
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageButton;
 
@@ -22,6 +16,7 @@ import com.ezzet.eulou.R;
 import com.ezzet.eulou.adapters.LoginExplainAdapter;
 import com.ezzet.eulou.models.UserInfo;
 
+import com.ezzet.eulou.utilities.LogUtil;
 import com.ezzet.eulou.views.CirclePageIndicatorView;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -174,7 +169,7 @@ public class SigninActivity extends FragmentActivity implements View.OnClickList
                             userInfo.setMainSocial(jsonObject.getInt("mainSocial"));
                             userInfo.setTwitterID(jsonObject.getString("twitterID"));
                             userInfo.setInstagramID(jsonObject.getString("instagramID"));
-                            Log.e("makeRequest", "jsonObject: " + jsonObject.toString());
+                            LogUtil.e("makeRequest", "jsonObject: " + jsonObject.toString());
                             Intent mainIntent = null;
                             mainIntent = new Intent(SigninActivity.this, MainActivity.class);
                             startActivity(mainIntent);
