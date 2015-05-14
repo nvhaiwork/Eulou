@@ -200,7 +200,10 @@ public class MainActivity extends BaseActivity
 			}
 		}
 
-		readCallHistory();
+        if (mUserInfo != null) {
+            readCallHistory();
+        }
+
 	}
 
 	@Override

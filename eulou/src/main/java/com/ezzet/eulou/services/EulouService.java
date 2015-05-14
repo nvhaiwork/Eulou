@@ -28,12 +28,12 @@ import com.ezzet.eulou.extra.HelperFunction;
 import com.ezzet.eulou.models.CurrentCall;
 import com.ezzet.eulou.models.UserInfo;
 import com.ezzet.eulou.utilities.CustomSharedPreferences;
-/*import com.ezzet.eulou.utilities.LogUtil;
-import com.facebook.Request;
-import com.facebook.Request.GraphUserListCallback;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.model.GraphUser;*/
+
+import com.ezzet.eulou.utilities.LogUtil;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphRequestBatch;
+import com.facebook.GraphResponse;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -107,10 +107,14 @@ public class EulouService extends Service {
 		{
 			userName = "" + currentUser.getUserID();// added by darshak
 		}
+        LogUtil.e("SinchClientService", "SinchClientService1: " + userName);
 		mSinchClientService = new SinchClientService();
 		mSinchClientService.start(this, userName);
+        LogUtil.e("SinchClientService", "SinchClientService2: " + userName);
 		requestFriendsFacebook();
+        LogUtil.e("SinchClientService", "SinchClientService3: " + userName);
 		requestUsersFromContacts();
+        LogUtil.e("SinchClientService", "SinchClientService4: " + userName);
 	}
 
 	public void requestUsersFromContacts() {
@@ -170,12 +174,69 @@ public class EulouService extends Service {
 	}
 
 	public void requestFriendsFacebook() {
-		/*Session activeSession = Session.getActiveSession();
-		if (activeSession == null || !activeSession.isOpened()) {
-			Session.openActiveSessionFromCache(this);
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+		//Session activeSession = Session.getActiveSession();
+		if (accessToken == null) {
+			//Session.openActiveSessionFromCache(this);
 			EulouService.this.requestFriendsFacebook();
 		} else {
-			Request.newMyFriendsRequest(Session.getActiveSession(),
+            GraphRequestBatch batch = new GraphRequestBatch(
+                    GraphRequest.newMeRequest(
+                            accessToken,
+                            new GraphRequest.GraphJSONObjectCallback() {
+                                @Override
+                                public void onCompleted(
+                                        JSONObject jsonObject,
+                                        GraphResponse response) {
+                                    if (jsonObject != null) {
+                                        LogUtil.e("newMeRequest", "JSONOBJECT: " + jsonObject.toString());
+                                    } else {
+                                        Toast.makeText(
+                                                EulouService.this
+                                                        .getApplicationContext(),
+                                                "Failed to retrieve friends list.",
+                                                Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+                            }),
+                    GraphRequest.newMyFriendsRequest(
+                            accessToken,
+                            new GraphRequest.GraphJSONArrayCallback() {
+                                @Override
+                                public void onCompleted(
+                                        JSONArray jsonArray,
+                                        GraphResponse response) {
+                                    if(jsonArray != null) {
+                                        LogUtil.e("newMeRequest", "JSONOBJECT: " + jsonArray.toString());
+                                    }else {
+                                        Toast.makeText(
+                                                EulouService.this
+                                                        .getApplicationContext(),
+                                                "Failed to retrieve friends list.",
+                                                Toast.LENGTH_LONG).show();
+                                    }
+
+                                }
+                            })
+            );
+            batch.addCallback(new GraphRequestBatch.Callback() {
+                @Override
+                public void onBatchCompleted(GraphRequestBatch graphRequests) {
+                    // Application code for when the batch finishes
+                }
+            });
+            batch.executeAsync();
+
+
+
+
+
+
+
+
+
+			/*Request.newMyFriendsRequest(Session.getActiveSession(),
 					new GraphUserListCallback() {
 
 						@Override
@@ -202,8 +263,8 @@ public class EulouService extends Service {
 							EulouService.this.requestFriendsService(fbIDs);
 						}
 
-					}).executeAsync();
-		}*/
+					}).executeAsync();*/
+		}
 	}
 
 	private void requestFriendsService(String ids) {
