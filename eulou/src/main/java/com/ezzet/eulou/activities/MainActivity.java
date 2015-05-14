@@ -19,7 +19,6 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -268,7 +267,7 @@ public class MainActivity extends BaseActivity
 		service.doLogout();
 		CallHistoryItem.historyArray.clear();
 		Intent signinIntent = new Intent(MainActivity.this,
-				SigninActivity.class);
+				SignInActivity.class);
 		startActivity(signinIntent);
 		overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 		finish();
