@@ -24,7 +24,7 @@
     <color name="main_facebook_color">#3b5a9b</color>
     <color name="main_instagram_color">#9b7d3b</color>
 
-    <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="holo_blue_dark">#5eafe3</color>
 
     <!-- Login screen -->
     <color name="login_fb_notice_text">#3d3d3d</color>

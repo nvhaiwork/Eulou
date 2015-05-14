@@ -3,8 +3,8 @@
 
     <bool name="default_circle_indicator_centered">true</bool>
 
-    <color name="default_circle_indicator_fill_color">#FFFF0000</color>
-    <color name="default_circle_indicator_page_color">#00000000</color>
+    <color name="default_circle_indicator_fill_color">#3d3d3d</color>
+    <color name="default_circle_indicator_page_color">#3d3d3d</color>
 
     <integer name="default_circle_indicator_orientation">0</integer>
 
@@ -12,7 +12,7 @@
 
     <bool name="default_circle_indicator_snap">false</bool>
 
-    <color name="default_circle_indicator_stroke_color">#FFDDDDDD</color>
+    <color name="default_circle_indicator_stroke_color">#ffffff</color>
 
     <dimen name="default_circle_indicator_stroke_width">1dp</dimen>
 
