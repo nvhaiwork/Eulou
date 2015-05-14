@@ -1,51 +1,44 @@
-<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-    xmlns:tools = "http://schemas.android.com/tools"
-    android:layout_width = "match_parent"
-    android:layout_height = "match_parent"
-    android:background = "@color/white"
-    tools:context = "com.ezzet.eulou.activities.SplashActivity">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true"
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width = "match_parent"
-        android:layout_height = "match_parent"
-        android:contentDescription = "@string/app_name"
-        android:scaleType = "fitXY"
-        android:src = "@drawable/signin_bg" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/login_explain_vpr"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:layout_weight="1"/>
 
-    <LinearLayout
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:layout_alignParentBottom = "true"
-        android:layout_centerHorizontal = "true"
-        android:layout_marginBottom = "@dimen/buttons_bottom"
-        android:layout_marginLeft = "@dimen/horizontal_gap_2"
-        android:layout_marginRight = "@dimen/horizontal_gap_2"
-        android:orientation = "vertical">
+    <com.ezzet.eulou.views.CirclePageIndicatorView
+        android:id="@+id/login_explain_indicator"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:padding="10dip"/>
 
-        <android.support.v4.view.ViewPager
-            android:id="@+id/login_explain_vpr"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:layout_marginBottom = "10dp"/>
+    <com.ezzet.eulou.views.CustomImageButton
+        android:id="@+id/buttonFacebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/login_fb_button_margin"
+        android:layout_marginLeft="@dimen/login_fb_button_margin"
+        android:layout_marginRight="@dimen/login_fb_button_margin"
+        android:layout_marginStart="@dimen/login_fb_button_margin"
+        android:adjustViewBounds="true"
+        android:src="@drawable/signin_facebook_btn"/>
 
-        <com.ezzet.eulou.views.CirclePageIndicatorView
-            android:id="@+id/login_explain_indicator"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom = "10dp"
-            android:padding="10dip" />
-
-        <ImageButton
-            android:id = "@+id/buttonFacebook"
-            android:layout_width = "match_parent"
-            android:layout_height = "wrap_content"
-            android:adjustViewBounds = "true"
-            android:background = "@color/clear_back"
-            android:contentDescription = "@string/app_name"
-            android:scaleType = "fitXY"
-            android:src = "@drawable/signin_facebook_btn" />
-
-    </LinearLayout>
-
-</RelativeLayout>
+    <com.ezzet.eulou.views.CustomFontTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:drawableLeft="@drawable/ic_fb_notice"
+        android:drawableStart="@drawable/ic_fb_notice"
+        android:gravity="center"
+        android:text="@string/login_facebook_notice"
+        android:textColor="@color/login_fb_notice_text"/>
+</LinearLayout>

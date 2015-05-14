@@ -2,68 +2,71 @@
 <resources>
 
     <!-- Common -->
-    <string name = "crash_toast_text">Application crashed. Please send bug report by email.</string>
-    <string name = "cancel">Cancel</string>
-    <string name = "send">Send</string>
-    <string name = "app_name">Eulou !</string>
-    <string name = "skip">Skip</string>
-    <string name = "done">Done</string>
-    <string name = "btEdit">Edit</string>
-    <string name = "btYes">Yes</string>
-    <string name = "find">Find</string>
-    <string name = "search_all_contacts">Search all contacts</string>
-    <string name = "delete">Delete</string>
-    <string name = "delete_all">Delete All</string>
-    <string name = "ok">OK</string>
-    <string name = "loading">Loading&#8230;</string>
-    <string name = "online">Online</string>
-    <string name = "search">Search</string>
-    <string name = "friends">Friends</string>
-    <string name = "contacts">Contacts</string>
-    <string name = "profile">Profile</string>
-    <string name = "messages">Messages</string>
-    <string name = "setting">Settings</string>
-    <string name = "recent_calls">Recent Calls</string>
-    <string name = "invite_sms">Invite by sms</string>
-    <string name = "invite_mail">Invite by mail</string>
-    <string name = "app_id">1468510263423576</string>
-    <string name = "info">Info</string>
-    <string name = "phone_number">Your Phone Number</string>
-    <string name = "enter_phone_number">Enter your phone number</string>
-    <string name = "numberDesc">Please confirm your country code</string>
-    <string name = "numberDesc2">and enter your phone number</string>
-    <string name = "verify1">We have sent you an SMS with a</string>
-    <string name = "verify2">code to the number above.</string>
-    <string name = "verify3">To complete your phone number</string>
-    <string name = "verify4">verification,please enter the 6-digit</string>
-    <string name = "verify5">activation code.</string>
-    <string name = "cont">Continue</string>
-    <string name = "numberConf">Number Confirmation:</string>
-    <string name = "number">Is your phone number above correct?</string>
+    <string name="crash_toast_text">Application crashed. Please send bug report by email.</string>
+    <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
+    <string name="app_name">Eulou !</string>
+    <string name="skip">Skip</string>
+    <string name="done">Done</string>
+    <string name="btEdit">Edit</string>
+    <string name="btYes">Yes</string>
+    <string name="find">Find</string>
+    <string name="search_all_contacts">Search all contacts</string>
+    <string name="delete">Delete</string>
+    <string name="delete_all">Delete All</string>
+    <string name="ok">OK</string>
+    <string name="loading">Loading&#8230;</string>
+    <string name="online">Online</string>
+    <string name="search">Search</string>
+    <string name="friends">Friends</string>
+    <string name="contacts">Contacts</string>
+    <string name="profile">Profile</string>
+    <string name="messages">Messages</string>
+    <string name="setting">Settings</string>
+    <string name="recent_calls">Recent Calls</string>
+    <string name="invite_sms">Invite by sms</string>
+    <string name="invite_mail">Invite by mail</string>
+    <string name="app_id">1468510263423576</string>
+    <string name="info">Info</string>
+    <string name="phone_number">Your Phone Number</string>
+    <string name="enter_phone_number">Enter your phone number</string>
+    <string name="numberDesc">Please confirm your country code</string>
+    <string name="numberDesc2">and enter your phone number</string>
+    <string name="verify1">We have sent you an SMS with a</string>
+    <string name="verify2">code to the number above.</string>
+    <string name="verify3">To complete your phone number</string>
+    <string name="verify4">verification,please enter the 6-digit</string>
+    <string name="verify5">activation code.</string>
+    <string name="cont">Continue</string>
+    <string name="numberConf">Number Confirmation:</string>
+    <string name="number">Is your phone number above correct?</string>
 
     <!--Share content-->
-    <string name = "share_eulou_text">Hi, I\'m using Eulou ! Get it on the
+    <string name="share_eulou_text">Hi, I\'m using Eulou ! Get it on the
         Store.\nhttp://eulou.tn</string>
-    <string name = "share_eulou_title">Eulou !  New app VOIP</string>
-    <string name = "eulou_homepage">http://eulou.tn/</string>
+    <string name="share_eulou_title">Eulou !  New app VOIP</string>
+    <string name="eulou_homepage">http://eulou.tn/</string>
 
     <!-- New message screen -->
-    <string name = "to">To :</string>
-    <string name = "new_message">New Message</string>
-    <string name = "name_of_friend">Name of friend</string>
-    <string name = "input_message">Input message here</string>
-    <string name = "please_input_message">Please input message.</string>
-    <string name = "message_sent">Message was sent successfully.</string>
-    <string name = "message_not_sent">Message was not sent. Pleaes try again.</string>
-    <string name = "select_friend">Please select friend whom you want to send message to.</string>
+    <string name="to">To :</string>
+    <string name="new_message">New Message</string>
+    <string name="name_of_friend">Name of friend</string>
+    <string name="input_message">Input message here</string>
+    <string name="please_input_message">Please input message.</string>
+    <string name="message_sent">Message was sent successfully.</string>
+    <string name="message_not_sent">Message was not sent. Pleaes try again.</string>
+    <string name="select_friend">Please select friend whom you want to send message to.</string>
 
     <!-- Chat screen -->
-    <string name = "chat_input_hint">Type your message</string>
+    <string name="chat_input_hint">Type your message</string>
 
     <!--Profile Screen-->
-    <string name = "profile_not_connected">Not connected</string>
-    <string name = "profile_share_eulou">Share Eulou!</string>
-    <string name = "profile_no_phone">No phone</string>
-    <string name = "profile_view_profile">View proflie</string>
+    <string name="profile_not_connected">Not connected</string>
+    <string name="profile_share_eulou">Share Eulou!</string>
+    <string name="profile_no_phone">No phone</string>
+    <string name="profile_view_profile">View profile</string>
+
+    <!-- Login screen -->
+    <string name="login_facebook_notice">We don\'t post anything to Facebook</string>
 
 </resources>
