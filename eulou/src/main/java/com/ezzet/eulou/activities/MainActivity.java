@@ -267,7 +267,7 @@ public class MainActivity extends BaseActivity
 		service.doLogout();
 		CallHistoryItem.historyArray.clear();
 		Intent signinIntent = new Intent(MainActivity.this,
-				SignInActivity.class);
+				SigninActivity.class);
 		startActivity(signinIntent);
 		overridePendingTransition(R.anim.fadein, R.anim.fadeout);
 		finish();

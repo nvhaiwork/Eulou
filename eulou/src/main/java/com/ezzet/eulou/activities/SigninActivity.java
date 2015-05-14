@@ -4,12 +4,11 @@ import java.util.Arrays;
 import java.util.List;
 import org.json.JSONObject;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.ezzet.eulou.R;
 import com.ezzet.eulou.adapters.LoginExplainAdapter;
@@ -28,179 +27,116 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.google.gson.Gson;
 
+public class SigninActivity extends BaseActivity
+		implements
+			View.OnClickListener {
 
-public class SigninActivity extends BaseActivity implements View.OnClickListener {
+	private CallbackManager mCallbackManager;
+	private final List<String> mPermissions = Arrays.asList("public_profile",
+			"email", "user_friends");
 
-    private CallbackManager mCallbackManager;
-    private FacebookConnectCallBack mFacebookCallback;
-    private final List<String> mPermissions = Arrays.asList("public_profile",
-            "email", "user_friends");
-    private ViewPager mVpLoginExplain;
-    private LoginExplainAdapter mLoginExplainAdapter;
-    private CirclePageIndicatorView mLoginExplainIndicator;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		FacebookSdk.sdkInitialize(this.getApplicationContext());
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        FacebookSdk.sdkInitialize(this.getApplicationContext());
-        setContentView(R.layout.activity_signin);
-        ImageButton buttonFacebook = (ImageButton) findViewById(R.id.buttonFacebook);
+		setContentView(R.layout.activity_signin);
+		ImageView buttonFacebook = (ImageView) findViewById(R.id.buttonFacebook);
 
+		ViewPager vpLoginExplain = (ViewPager) findViewById(R.id.login_explain_vpr);
+		LoginExplainAdapter loginExplainAdapter = new LoginExplainAdapter(this);
+		vpLoginExplain.setAdapter(loginExplainAdapter);
+		vpLoginExplain.setOffscreenPageLimit(4);
 
-        mVpLoginExplain = (ViewPager) findViewById(R.id.login_explain_vpr);
-        mLoginExplainAdapter = new LoginExplainAdapter(this);
-        mVpLoginExplain.setAdapter(mLoginExplainAdapter);
+		CirclePageIndicatorView loginExplainIndicator = (CirclePageIndicatorView) findViewById(R.id.login_explain_indicator);
+		loginExplainIndicator.setViewPager(vpLoginExplain);
+		loginExplainIndicator.setSnap(true);
 
-        mLoginExplainIndicator = (CirclePageIndicatorView) findViewById(R.id.login_explain_indicator);
-        mLoginExplainIndicator.setViewPager(mVpLoginExplain);
-        ((CirclePageIndicatorView) mLoginExplainIndicator).setSnap(true);
-        mLoginExplainIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+		// Facebook
+		mCallbackManager = CallbackManager.Factory.create();
+		LoginManager.getInstance().registerCallback(mCallbackManager,
+				facebookCallback);
 
-            }
+		buttonFacebook.setOnClickListener(SigninActivity.this);
+	}
 
-            @Override
-            public void onPageSelected(int position) {
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+			case R.id.buttonFacebook :
 
-            }
+				doLogInFacebook();
+				break;
+		}
+	}
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		mCallbackManager.onActivityResult(requestCode, resultCode, data);
+	}
 
-            }
-        });
+	private FacebookCallback facebookCallback = new FacebookCallback<LoginResult>() {
 
-        // Facebook
-        mCallbackManager = CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(mCallbackManager,
-                facebookCallback);
+		@Override
+		public void onSuccess(LoginResult loginResult) {
 
-        buttonFacebook.setOnClickListener(SigninActivity.this);
+			makeRequest(loginResult);
+		}
 
+		@Override
+		public void onCancel() {
 
-    }
+		}
 
+		@Override
+		public void onError(FacebookException e) {
 
+		}
+	};
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.buttonFacebook :
+	private void makeRequest(LoginResult loginResult) {
 
-                doLogInFacebook();
-                break;
-        }
-    }
+		GraphRequest.newMeRequest(loginResult.getAccessToken(),
+				new GraphRequest.GraphJSONObjectCallback() {
+					@Override
+					public void onCompleted(JSONObject jsonObject,
+							GraphResponse graphResponse) {
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
-    }
+						try {
 
-    public interface FacebookConnectCallBack {
+							UserInfo userInfo = new UserInfo();
+							userInfo.setUserName(jsonObject.optString("name"));
+							userInfo.setUserMail(jsonObject.optString("email"));
+							userInfo.setFacebookID(jsonObject.optString("id"));
+							LogUtil.e("makeRequest", "jsonObject: "
+									+ jsonObject.toString());
 
-        public void onStartFbLogin();
+							Gson gson = new Gson();
+							String json = gson.toJson(userInfo);
+							CustomSharedPreferences.setPreferences(
+									"LoggedinUser", json);
+							mUserInfo = userInfo;
+							Intent mainIntent = new Intent(SigninActivity.this,
+									MainActivity.class);
+							startActivity(mainIntent);
+							overridePendingTransition(R.anim.fadein,
+									R.anim.fadeout);
+							finish();
+						} catch (Exception ex) {
 
-        /**
-         * Successfully connect to facebook
-         * */
-        public void onFbConnectSuccess();
+							LogUtil.e("makeRequest", ex.getMessage());
+						}
+					}
+				}).executeAsync();
+	}
 
-        /**
-         * User cancel or fails to connect to facebook
-         * */
-        public void onFbConnectFails();
+	/**
+	 * Do login user with facebook
+	 */
+	private void doLogInFacebook() {
 
-        /**
-         * Request user data after successfully connected to facebook
-         * */
-        public void onFbRequestComplete(UserInfo userInfo);
-
-        /**
-         * Fails to request user data
-         * */
-        public void onFbRequestError();
-    }
-
-    private FacebookCallback facebookCallback = new FacebookCallback<LoginResult>() {
-
-        @Override
-        public void onSuccess(LoginResult loginResult) {
-
-            //mFacebookCallback.onFbConnectSuccess();
-            makeRequest(loginResult);
-        }
-
-        @Override
-        public void onCancel() {
-
-            //mFacebookCallback.onFbConnectFails();
-        }
-
-        @Override
-        public void onError(FacebookException e) {
-
-            //mFacebookCallback.onFbConnectFails();
-        }
-    };
-
-    private void makeRequest(LoginResult loginResult) {
-
-        GraphRequest.newMeRequest(loginResult.getAccessToken(),
-                new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject jsonObject,
-                                            GraphResponse graphResponse) {
-
-                        try {
-
-
-                            UserInfo userInfo = new UserInfo();
-                            userInfo.setUserName(jsonObject
-                                    .optString("name"));
-                            userInfo.setUserMail(jsonObject.optString("email"));
-                            userInfo.setFacebookID(jsonObject.optString("id"));
-                            //userInfo.setUserID(jsonObject.getInt("userID"));
-                            //userInfo.setGender(jsonObject.getInt("gender"));
-                            /*userInfo.setPhone(jsonObject.getString("phone"));
-                            userInfo.setMainSocial(jsonObject.getInt("mainSocial"));
-                            userInfo.setTwitterID(jsonObject.getString("twitterID"));
-                            userInfo.setInstagramID(jsonObject.getString("instagramID"));*/
-                            LogUtil.e("makeRequest", "jsonObject: " + jsonObject.toString());
-
-                            Gson gson = new Gson();
-                            String json = gson.toJson(userInfo);
-                            CustomSharedPreferences.setPreferences("LoggedinUser", json);
-                            mUserInfo = userInfo;
-                            Intent mainIntent = null;
-
-                            mainIntent = new Intent(SigninActivity.this, MainActivity.class);
-                            startActivity(mainIntent);
-                            overridePendingTransition(R.anim.fadein, R.anim.fadeout);
-                            finish();
-                            // new CheckUserRegisterAsyncTask()
-                            // .execute(userEntity);
-                            //mFacebookCallback.onFbRequestComplete(userInfo);
-
-                        } catch (Exception ex) {
-
-                            //mFacebookCallback.onFbRequestError();
-                            LogUtil.e("makeRequest", ex.getMessage());
-                        }
-                    }
-                }).executeAsync();
-    }
-
-    /**
-     * Do login user with facebook
-     */
-    private void doLogInFacebook() {
-
-        //mFacebookCallback.onStartFbLogin();
-        LoginManager.getInstance().logInWithReadPermissions(this, mPermissions);
-    }
+		LoginManager.getInstance().logInWithReadPermissions(this, mPermissions);
+	}
 }
