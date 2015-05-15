@@ -2,7 +2,6 @@ package com.ezzet.eulou.fragments;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,6 +10,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,11 +78,7 @@ public class ContactsFragment extends Fragment
 		View searchPlate = mSearchView.findViewById(searchPlateId);
 		searchPlate.setBackgroundResource(R.color.white);
 
-		// Set text size
-		int id = mSearchView.getContext().getResources()
-				.getIdentifier("android:id/search_src_text", null, null);
-		TextView textView = (TextView) mSearchView.findViewById(id);
-		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+		setSearchViewTextSize(true);
 		mSearchView.setIconified(false);
 		mSearchView.onActionViewExpanded();
 		mSearchView.clearFocus();
@@ -123,6 +119,7 @@ public class ContactsFragment extends Fragment
 	public boolean onClose() {
 		// TODO Auto-generated method stub
 
+		setSearchViewTextSize(true);
 		mContactAdapter.getFilter().filter("");
 		return false;
 	}
@@ -131,6 +128,7 @@ public class ContactsFragment extends Fragment
 	public boolean onQueryTextChange(String arg0) {
 		// TODO Auto-generated method stub
 
+		setSearchViewTextSize(arg0.equals(""));
 		mContactAdapter.getFilter().filter(arg0);
 		return false;
 	}
@@ -138,44 +136,24 @@ public class ContactsFragment extends Fragment
 	@Override
 	public boolean onQueryTextSubmit(String arg0) {
 		// TODO Auto-generated method stub
+
 		mContactAdapter.getFilter().filter(arg0);
 		return false;
 	}
 
-	@SuppressWarnings("unused")
-	private ArrayList<UserInfo> filterFriendsList(String strFilter) {
+	private void setSearchViewTextSize(boolean isHint) {
 
-		ArrayList<UserInfo> filteredList = new ArrayList<UserInfo>();
-		MainActivity activity = (MainActivity) getActivity();
-		for (int i = 0; i < BaseActivity.mFriendUsers.size(); i++) {
+		int id = mSearchView.getContext().getResources()
+				.getIdentifier("android:id/search_src_text", null, null);
+		TextView textView = (TextView) mSearchView.findViewById(id);
+		textView.setGravity(Gravity.CENTER_VERTICAL);
+		if (isHint) {
 
-			UserInfo userInfo = BaseActivity.mFriendUsers.get(i);
-			if (userInfo.getUserName().toLowerCase(Locale.US)
-					.contains(strFilter.toLowerCase(Locale.US))) {
-
-				filteredList.add(userInfo);
-			}
+			textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
+			return;
 		}
 
-		return filteredList;
-	}
-
-	@SuppressWarnings("unused")
-	private ArrayList<UserInfo> filterContactList(String strFilter) {
-
-		ArrayList<UserInfo> filteredList = new ArrayList<UserInfo>();
-		MainActivity activity = (MainActivity) getActivity();
-		for (int i = 0; i < BaseActivity.mContactUsers.size(); i++) {
-
-			UserInfo userInfo = BaseActivity.mContactUsers.get(i);
-			if (userInfo.getUserName().toLowerCase(Locale.US)
-					.contains(strFilter.toLowerCase(Locale.US))) {
-
-				filteredList.add(userInfo);
-			}
-		}
-
-		return filteredList;
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 17);
 	}
 
 	@Override
@@ -319,7 +297,7 @@ public class ContactsFragment extends Fragment
 		mContactAdapter = new ContactAdapter(getActivity());
 		mListView.setAdapter(mContactAdapter);
 		mListView.setFastScrollEnabled(true);
-		List<UserInfo> listData = new ArrayList<UserInfo>();
+		List<UserInfo> listData = new ArrayList<>();
 		if (mFacebookBtn.isSelected()) {
 
 			for (UserInfo user : BaseActivity.mFriendUsers) {
