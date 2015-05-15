@@ -1,4 +1,4 @@
-/*
+package com.ezzet.eulou.views;/*
  * Copyright 2011 woozzu
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-package com.ezzet.eulou.views;
-
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
@@ -24,8 +22,10 @@ import android.view.MotionEvent;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import com.ezzet.eulou.views.IndexScroller;
+
 public class IndexableListView extends ListView {
-	
+
 	private boolean mIsFastScrollEnabled = false;
 	private IndexScroller mScroller = null;
 	private GestureDetector mGestureDetector = null;
@@ -64,7 +64,7 @@ public class IndexableListView extends ListView {
 	@Override
 	public void draw(Canvas canvas) {
 		super.draw(canvas);
-		
+
 		// Overlay index bar
 		if (mScroller != null)
 			mScroller.draw(canvas);
@@ -75,23 +75,24 @@ public class IndexableListView extends ListView {
 		// Intercept ListView's touch event
 		if (mScroller != null && mScroller.onTouchEvent(ev))
 			return true;
-		
-		if (mGestureDetector == null) {
-			mGestureDetector = new GestureDetector(getContext(), new GestureDetector.SimpleOnGestureListener() {
 
-				@Override
-				public boolean onFling(MotionEvent e1, MotionEvent e2,
-						float velocityX, float velocityY) {
-					// If fling happens, index bar shows
-					if (mScroller != null)
-						mScroller.show();
-					return super.onFling(e1, e2, velocityX, velocityY);
-				}
-				
-			});
+		if (mGestureDetector == null) {
+			mGestureDetector = new GestureDetector(getContext(),
+					new GestureDetector.SimpleOnGestureListener() {
+
+						@Override
+						public boolean onFling(MotionEvent e1, MotionEvent e2,
+								float velocityX, float velocityY) {
+							// If fling happens, index bar shows
+							if (mScroller != null)
+								mScroller.show();
+							return super.onFling(e1, e2, velocityX, velocityY);
+						}
+
+					});
 		}
 		mGestureDetector.onTouchEvent(ev);
-		
+
 		return super.onTouchEvent(ev);
 	}
 

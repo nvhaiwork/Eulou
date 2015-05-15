@@ -35,5 +35,7 @@
     <!-- Bar all screen-->
     <color name="colorPrimaryDark">#3d8dc6</color>
 
+    <!-- Button background -->
+    <color name="button_bg_clicked">#0Dffffff</color>
 
 </resources>

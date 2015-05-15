@@ -1,21 +1,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="vertical"
+    >
 
     <TextView
         android:id="@+id/friend_item_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/main_friend_item_header_color_bg"
-        android:textColor="@color/main_friend_item_header_color_txt"
+        android:layout_marginEnd="@dimen/friendlist_item_padding_right"
+        android:layout_marginRight="@dimen/friendlist_item_padding_right"
+        android:background="@color/white"
         android:clickable="true"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:textColor="@color/main_friend_item_header_color_txt"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/greyish"
+        />
 
     <RelativeLayout
         android:id="@+id/friend_item_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/friendlist_item_padding_right"
+        android:layout_marginRight="@dimen/friendlist_item_padding_right"
         android:padding="@dimen/tabitem_padding">
 
         <com.ezzet.eulou.views.FBProfilePictureView
@@ -24,7 +36,7 @@
             android:layout_height="@dimen/friendlist_photo_width"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/tabitem_padding"
-            android:layout_marginRight="@dimen/tabitem_padding" />
+            android:layout_marginRight="@dimen/tabitem_padding"/>
 
         <ImageView
             android:id="@+id/friend_call_btn"
@@ -39,7 +51,7 @@
             android:background="@color/clear_back"
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_call_btn" />
+            android:src="@drawable/ic_call_btn"/>
 
         <ImageView
             android:id="@+id/friend_message_conversation_btn"
@@ -54,20 +66,18 @@
             android:background="@color/clear_back"
             android:contentDescription="@string/app_name"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_message" />
+            android:src="@drawable/ic_message"/>
 
-        <TextView
+        <com.ezzet.eulou.views.CustomFontClickTextView
             android:id="@+id/friend_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/friend_profile"
-            android:layout_toLeftOf="@+id/friend_call_btn"
             android:layout_toRightOf="@+id/friend_profile"
-            android:layout_toStartOf="@+id/friend_call_btn"
             android:gravity="center_vertical"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size1" />
+            android:textSize="@dimen/text_size1"/>
 
     </RelativeLayout>
 </LinearLayout>
