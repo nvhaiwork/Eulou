@@ -270,10 +270,12 @@ public class ContactsFragment extends Fragment
 			case R.id.contacts_contact :
 
 				mContactArrow.setSelected(true);
+				mFacebookBtn.setSelected(false);
 				break;
 
 			case R.id.contacts_facebook :
 
+				mContactArrow.setSelected(false);
 				mFacebookArrow.setSelected(true);
 				break;
 
