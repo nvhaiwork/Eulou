@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 19
+    compileSdkVersion 21
     buildToolsVersion "21.1.1"
 
     defaultConfig {
@@ -27,6 +27,8 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.0.0'
     compile 'com.google.android.gms:play-services:+'
     compile 'com.google.code.gson:gson:2.2.2'
+    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:recyclerview-v7:21.0.3'
     compile files('libs/acra-4.5.0.jar')
     compile files('libs/android-async-http-1.4.5.jar')
     compile files('libs/sinch-android-rtc-3.6.0.jar')

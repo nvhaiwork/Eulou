@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android = "http://schemas.android.com/apk/res/android">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name = "EditTextStyleWhite" parent = "android:style/Widget.EditText">
         <item name = "android:textColor">@color/black</item>
@@ -7,10 +7,19 @@
         <item name = "android:background">@drawable/apptheme_edit_text_holo_light</item>
     </style>
 
-    <style name = "AppBaseTheme" parent = "android:Theme.Light"></style>
 
-    <!-- Application theme. -->
-    <style name = "AppTheme" parent = "AppBaseTheme"></style>
+
+    <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+
+    </style>
+
+    <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimaryDark</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+    </style>
 
     <style name = "new_dialog" parent = "android:Theme.Dialog">
         <item name = "android:windowFrame">@null</item>
