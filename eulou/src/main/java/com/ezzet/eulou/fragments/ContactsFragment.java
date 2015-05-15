@@ -232,6 +232,7 @@ public class ContactsFragment extends Fragment
 		mFacebookBtn.setSelected(false);
 		mTwitterBtn.setSelected(false);
 		mInstagramBtn.setSelected(false);
+		view.setSelected(true);
 		setSelectedTriangle(view.getId());
 		mSearchView.setQuery("", false);
 		Utilities
