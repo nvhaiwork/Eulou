@@ -10,14 +10,15 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.TextView;
 
 import com.ezzet.eulou.R;
 import com.ezzet.eulou.models.UserInfo;
@@ -27,21 +28,21 @@ import com.ezzet.eulou.adapters.ContactAdapter;
 import com.ezzet.eulou.utilities.Utilities;
 import com.ezzet.eulou.views.IndexableListView;
 
-
 public class ContactsFragment extends Fragment
 		implements
-			View.OnClickListener,
 			OnQueryTextListener,
-			OnCloseListener {
+			OnCloseListener,
+			View.OnClickListener {
 
 	private SearchView mSearchView;
 	private IndexableListView mListView;
-	private RadioGroup mTabTriangleGroup;
 	private ContactAdapter mContactAdapter;
 	private ServiceBoundReceiver serviceBoundReceiver;
 	private FriendsLoadedReceiver friendsLoadedReceiver;
 	private ContactsLoadedReceiver contactsLoadedReceiver;
-	private ImageView mContactBtn, mFacebookBtn, mTwitterBtn, mInstagramBtn;
+	private ImageView mContactArrow, mFacebookArrow, mTwitterArrow,
+			mInstagramArrow, mContactBtn, mFacebookBtn, mTwitterBtn,
+			mInstagramBtn;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,23 +58,34 @@ public class ContactsFragment extends Fragment
 
 		mSearchView = (SearchView) rootView
 				.findViewById(R.id.contact_search_view);
+		mFacebookArrow = (ImageView) rootView
+				.findViewById(R.id.contacts_facebook_triangle);
+		mContactArrow = (ImageView) rootView
+				.findViewById(R.id.contacts_triangle);
+		mTwitterArrow = (ImageView) rootView
+				.findViewById(R.id.contacts_twitter_triangle);
+		mInstagramArrow = (ImageView) rootView
+				.findViewById(R.id.contacts_instagram_triangle);
+		mContactBtn = (ImageView) rootView.findViewById(R.id.contacts_contact);
 		mFacebookBtn = (ImageView) rootView
 				.findViewById(R.id.contacts_facebook);
+		mTwitterBtn = (ImageView) rootView.findViewById(R.id.contacts_twitter);
 		mInstagramBtn = (ImageView) rootView
 				.findViewById(R.id.contacts_instagram);
-		mTabTriangleGroup = (RadioGroup) rootView
-				.findViewById(R.id.contacts_tab_triangles);
-		mContactBtn = (ImageView) rootView.findViewById(R.id.contacts_contact);
-		mTwitterBtn = (ImageView) rootView.findViewById(R.id.contacts_twitter);
 
 		int searchPlateId = mSearchView.getContext().getResources()
 				.getIdentifier("android:id/search_plate", null, null);
 		View searchPlate = mSearchView.findViewById(searchPlateId);
-		searchPlate.setBackgroundResource(R.color.light_gray);
+		searchPlate.setBackgroundResource(R.color.white);
+
+		// Set text size
+		int id = mSearchView.getContext().getResources()
+				.getIdentifier("android:id/search_src_text", null, null);
+		TextView textView = (TextView) mSearchView.findViewById(id);
+		textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13);
 		mSearchView.setIconified(false);
 		mSearchView.onActionViewExpanded();
 		mSearchView.clearFocus();
-		onButtonFacebook();
 		friendsLoadedReceiver = new FriendsLoadedReceiver();
 		IntentFilter filter = new IntentFilter(
 				"com.ezzet.eulou.action.FRIENDSLOADED");
@@ -88,12 +100,14 @@ public class ContactsFragment extends Fragment
 		filter = new IntentFilter("com.ezzet.eulou.action.SERVICEBOUND");
 		getActivity().registerReceiver(serviceBoundReceiver, filter);
 
-		mSearchView.setOnCloseListener(this);
+		mFacebookBtn.setSelected(true);
 		mContactBtn.setOnClickListener(this);
-		mTwitterBtn.setOnClickListener(this);
 		mFacebookBtn.setOnClickListener(this);
+		mTwitterBtn.setOnClickListener(this);
 		mInstagramBtn.setOnClickListener(this);
+		mSearchView.setOnCloseListener(this);
 		mSearchView.setOnQueryTextListener(this);
+		setSelectedTriangle(mFacebookBtn.getId());
 		return rootView;
 	}
 
@@ -105,43 +119,6 @@ public class ContactsFragment extends Fragment
 		super.onDestroy();
 	}
 
-	@Override
-	public void onClick(View v) {
-
-		switch (v.getId()) {
-
-			case R.id.contacts_contact :
-
-				// Clear query
-				mSearchView.setQuery("", false);
-				// Collapse the action view
-				Utilities.doHideKeyboard(getActivity(), getActivity()
-						.getCurrentFocus());
-				onButtonContact();
-				break;
-			case R.id.contacts_facebook :
-
-				// Clear query
-				mSearchView.setQuery("", false);
-				// Collapse the action view
-				Utilities.doHideKeyboard(getActivity(), getActivity()
-						.getCurrentFocus());
-				onButtonFacebook();
-				break;
-			case R.id.contacts_twitter :
-
-				Utilities.doHideKeyboard(getActivity(), getActivity()
-						.getCurrentFocus());
-				onButtonTwitter();
-				break;
-			case R.id.contacts_instagram :
-
-				Utilities.doHideKeyboard(getActivity(), getActivity()
-						.getCurrentFocus());
-				onButtonInstargram();
-				break;
-		}
-	}
 	@Override
 	public boolean onClose() {
 		// TODO Auto-generated method stub
@@ -163,30 +140,6 @@ public class ContactsFragment extends Fragment
 		// TODO Auto-generated method stub
 		mContactAdapter.getFilter().filter(arg0);
 		return false;
-	}
-
-	private void onButtonContact() {
-
-		mTabTriangleGroup.check(R.id.contacts_tab_contact_triangle);
-		reloadData();
-	}
-
-	private void onButtonFacebook() {
-
-		mTabTriangleGroup.check(R.id.contacts_tab_facebook_triangle);
-		reloadData();
-	}
-
-	private void onButtonTwitter() {
-
-		mTabTriangleGroup.check(R.id.contacts_tab_twitter_triangle);
-		mListView.setAdapter(null);
-	}
-
-	private void onButtonInstargram() {
-
-		mTabTriangleGroup.check(R.id.contacts_tab_instagram_triangle);
-		mListView.setAdapter(null);
 	}
 
 	@SuppressWarnings("unused")
@@ -223,6 +176,63 @@ public class ContactsFragment extends Fragment
 		}
 
 		return filteredList;
+	}
+
+	@Override
+	public void onClick(View view) {
+
+		switch (view.getId()) {
+
+			case R.id.contacts_contact :
+			case R.id.contacts_facebook :
+			case R.id.contacts_twitter :
+			case R.id.contacts_instagram :
+
+				tabSelect(view);
+				break;
+		}
+	}
+
+	private void tabSelect(View view) {
+
+		switch (view.getId()) {
+
+			case R.id.contacts_contact :
+
+				if (!mContactBtn.isSelected()) {
+
+					reloadData();
+				}
+
+				break;
+
+			case R.id.contacts_facebook :
+
+				if (!mFacebookBtn.isSelected()) {
+
+					reloadData();
+				}
+
+				break;
+			case R.id.contacts_twitter :
+
+				mListView.setAdapter(null);
+				break;
+			case R.id.contacts_instagram :
+
+				mListView.setAdapter(null);
+				break;
+		}
+
+		mContactBtn.setSelected(false);
+		mFacebookBtn.setSelected(false);
+		mTwitterBtn.setSelected(false);
+		mInstagramBtn.setSelected(false);
+		view.setSelected(true);
+		setSelectedTriangle(view.getId());
+		mSearchView.setQuery("", false);
+		Utilities
+				.doHideKeyboard(getActivity(), getActivity().getCurrentFocus());
 	}
 
 	private class FriendsLoadedReceiver extends BroadcastReceiver {
@@ -267,16 +277,46 @@ public class ContactsFragment extends Fragment
 		}
 	}
 
+	private void setSelectedTriangle(int selectedId) {
+
+		mFacebookArrow.setSelected(false);
+		mContactArrow.setSelected(false);
+		mTwitterArrow.setSelected(false);
+		mInstagramArrow.setSelected(false);
+		switch (selectedId) {
+
+			case R.id.contacts_contact :
+
+				mContactArrow.setSelected(true);
+				break;
+
+			case R.id.contacts_facebook :
+
+				mFacebookArrow.setSelected(true);
+				break;
+
+			case R.id.contacts_twitter :
+
+				mTwitterArrow.setSelected(true);
+				break;
+
+			case R.id.contacts_instagram :
+
+				mInstagramArrow.setSelected(true);
+				break;
+		}
+	}
+
 	/**
 	 * Reload list data
-	 * */
+	 */
 	private void reloadData() {
 
 		mContactAdapter = new ContactAdapter(getActivity());
 		mListView.setAdapter(mContactAdapter);
 		mListView.setFastScrollEnabled(true);
 		List<UserInfo> listData = new ArrayList<UserInfo>();
-		if (mTabTriangleGroup.getCheckedRadioButtonId() == R.id.contacts_tab_facebook_triangle) {
+		if (mFacebookBtn.isSelected()) {
 
 			for (UserInfo user : BaseActivity.mFriendUsers) {
 

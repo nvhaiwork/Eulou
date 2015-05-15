@@ -55,4 +55,6 @@
 
     <!-- Login screen -->
     <dimen name="login_fb_button_margin">30dp</dimen>
+
+    <dimen name="contact_search_view">12sp</dimen>
 </resources>

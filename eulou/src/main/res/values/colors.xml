@@ -11,6 +11,7 @@
     <color name="greyish">#fff2f1f2</color>
     <color name="light_gray">#f0f0f0</color>
     <color name="clear_back">#00000000</color>
+    <color name="action_bar_color">#4c9cd0</color>
     <color name="dialog_out_bg">#99000000</color>
     <color name="view_seperator_bg">#e2e2e6</color>
     <color name="new_message_noti">#50ff216a</color>
