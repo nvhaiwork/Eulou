@@ -46,7 +46,7 @@ public class SigninActivity extends BaseActivity
 
 	private CallbackManager mCallbackManager;
 	private final List<String> mPermissions = Arrays.asList("public_profile",
-			"email", "user_friends");
+			"email", "user_friends", "read_friendlists", "read_custom_friendlists");
 
     private String mSocialID;
     private String mUserName;

@@ -2,7 +2,6 @@ package com.ezzet.eulou.services;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -107,14 +106,12 @@ public class EulouService extends Service {
 		{
 			userName = "" + currentUser.getUserID();// added by darshak
 		}
-        LogUtil.e("SinchClientService", "SinchClientService1: " + userName);
+
 		mSinchClientService = new SinchClientService();
 		mSinchClientService.start(this, userName);
-        LogUtil.e("SinchClientService", "SinchClientService2: " + userName);
+
 		requestFriendsFacebook();
-        LogUtil.e("SinchClientService", "SinchClientService3: " + userName);
 		requestUsersFromContacts();
-        LogUtil.e("SinchClientService", "SinchClientService4: " + userName);
 	}
 
 	public void requestUsersFromContacts() {
@@ -174,32 +171,15 @@ public class EulouService extends Service {
 	}
 
 	public void requestFriendsFacebook() {
+
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-		//Session activeSession = Session.getActiveSession();
+
 		if (accessToken == null) {
-			//Session.openActiveSessionFromCache(this);
+
 			EulouService.this.requestFriendsFacebook();
 		} else {
-            GraphRequestBatch batch = new GraphRequestBatch(
-                    GraphRequest.newMeRequest(
-                            accessToken,
-                            new GraphRequest.GraphJSONObjectCallback() {
-                                @Override
-                                public void onCompleted(
-                                        JSONObject jsonObject,
-                                        GraphResponse response) {
-                                    if (jsonObject != null) {
-                                        LogUtil.e("newMeRequest", "JSONOBJECT: " + jsonObject.toString());
-                                    } else {
-                                        Toast.makeText(
-                                                EulouService.this
-                                                        .getApplicationContext(),
-                                                "Failed to retrieve friends list.",
-                                                Toast.LENGTH_LONG).show();
-                                    }
 
-                                }
-                            }),
+            GraphRequestBatch batch = new GraphRequestBatch(
                     GraphRequest.newMyFriendsRequest(
                             accessToken,
                             new GraphRequest.GraphJSONArrayCallback() {
@@ -207,9 +187,39 @@ public class EulouService extends Service {
                                 public void onCompleted(
                                         JSONArray jsonArray,
                                         GraphResponse response) {
+
                                     if(jsonArray != null) {
-                                        LogUtil.e("newMeRequest", "JSONOBJECT: " + jsonArray.toString());
+                                        if (jsonArray.length() == 0) {
+
+                                            Toast.makeText(
+                                                    EulouService.this
+                                                            .getApplicationContext(),
+                                                    "Failed to retrieve friends list.",
+                                                    Toast.LENGTH_LONG).show();
+                                            return;
+                                        }
+                                        LogUtil.e("newMyFriendsRequest", jsonArray.length() + " JSONOBJECT: " + jsonArray.toString());
+                                        String fbIDs = "";
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+
+                                            try {
+
+                                                if (i == 0) {
+
+                                                    fbIDs += "fb" + jsonArray.getJSONObject(i).getString("id");
+                                                } else {
+
+                                                    fbIDs += ",fb" + jsonArray.getJSONObject(i).getString("id");
+                                                }
+
+                                            } catch (JSONException e) {
+
+                                                LogUtil.e("newMyFriendsRequest", e.getMessage());
+                                            }
+                                        }
+                                        EulouService.this.requestFriendsService(fbIDs);
                                     }else {
+
                                         Toast.makeText(
                                                 EulouService.this
                                                         .getApplicationContext(),
@@ -223,47 +233,10 @@ public class EulouService extends Service {
             batch.addCallback(new GraphRequestBatch.Callback() {
                 @Override
                 public void onBatchCompleted(GraphRequestBatch graphRequests) {
-                    // Application code for when the batch finishes
+
                 }
             });
             batch.executeAsync();
-
-
-
-
-
-
-
-
-
-			/*Request.newMyFriendsRequest(Session.getActiveSession(),
-					new GraphUserListCallback() {
-
-						@Override
-						public void onCompleted(List<GraphUser> users,
-								Response response) {
-							if (users == null) {
-								Toast.makeText(
-										EulouService.this
-												.getApplicationContext(),
-										"Failed to retrieve friends list.",
-										Toast.LENGTH_LONG).show();
-								return;
-							}
-
-							String fbIDs = "";
-							for (int i = 0; i < users.size(); i++) {
-								GraphUser user = users.get(i);
-								if (i == 0) {
-									fbIDs += "fb" + user.getId();
-								} else {
-									fbIDs += ",fb" + user.getId();
-								}
-							}
-							EulouService.this.requestFriendsService(fbIDs);
-						}
-
-					}).executeAsync();*/
 		}
 	}
 
