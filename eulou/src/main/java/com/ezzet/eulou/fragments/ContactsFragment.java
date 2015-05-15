@@ -201,6 +201,7 @@ public class ContactsFragment extends Fragment
 
 				if (!mContactBtn.isSelected()) {
 
+					view.setSelected(true);
 					reloadData();
 				}
 
@@ -210,16 +211,19 @@ public class ContactsFragment extends Fragment
 
 				if (!mFacebookBtn.isSelected()) {
 
+					view.setSelected(true);
 					reloadData();
 				}
 
 				break;
 			case R.id.contacts_twitter :
 
+				view.setSelected(true);
 				mListView.setAdapter(null);
 				break;
 			case R.id.contacts_instagram :
 
+				view.setSelected(true);
 				mListView.setAdapter(null);
 				break;
 		}
@@ -228,7 +232,6 @@ public class ContactsFragment extends Fragment
 		mFacebookBtn.setSelected(false);
 		mTwitterBtn.setSelected(false);
 		mInstagramBtn.setSelected(false);
-		view.setSelected(true);
 		setSelectedTriangle(view.getId());
 		mSearchView.setQuery("", false);
 		Utilities
