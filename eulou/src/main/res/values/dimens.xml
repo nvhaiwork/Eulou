@@ -57,4 +57,10 @@
     <dimen name="login_fb_button_margin">30dp</dimen>
 
     <dimen name="contact_search_view">12sp</dimen>
+
+    <!-- Contact screen-->
+    <dimen name="friendlist_item_padding_right">25dp</dimen>
+
+    <dimen name="friendlist_item_padding_right_call">35dp</dimen>
+
 </resources>
