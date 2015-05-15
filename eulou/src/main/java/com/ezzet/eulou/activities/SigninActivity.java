@@ -152,7 +152,7 @@ public class SigninActivity extends BaseActivity
         mGender = jsonObject.optString("gender");//(String) user.getProperty("gender");
         String requestString = Constants.EULOU_SERVICE_URL + "?action="
                 + Constants.API_SIGNIN_FACEBOOK + "&facebookID=" + mSocialID;
-        LogUtil.e("onSuccess EULOU_SERVICE_URL", "Error: "
+        LogUtil.e("loginCompleted EULOU_SERVICE_URL", "API: "
                 + requestString);
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(requestString, new AsyncHttpResponseHandler() {
@@ -190,7 +190,7 @@ public class SigninActivity extends BaseActivity
                                         Toast.makeText(getApplicationContext(),
                                                 error.getMessage(),
                                                 Toast.LENGTH_LONG).show();
-                                        LogUtil.e("onSuccess EULOU_SERVICE_URL", "Error: "
+                                        LogUtil.e("onFailure EULOU_SERVICE_URL", "Error: "
                                                 + error.getMessage());
                                         return;
                                     }
@@ -213,7 +213,7 @@ public class SigninActivity extends BaseActivity
                                                                 .getString("message"),
                                                         Toast.LENGTH_LONG)
                                                         .show();
-                                                LogUtil.e("onSuccess EULOU_SERVICE_URL", "Error: "
+                                                LogUtil.e("onSuccess EULOU_SERVICE_URL", "Error succeeded: "
                                                         + responseObject
                                                         .getString("message"));
                                                 return;
@@ -255,9 +255,9 @@ public class SigninActivity extends BaseActivity
                                             }
 
                                         } catch (Exception e) {
-                                            e.printStackTrace();
+
                                             mProgressDialog.dismiss();
-                                            LogUtil.e("onSuccess EULOU_SERVICE_URL", "Error: "
+                                            LogUtil.e("Exception EULOU_SERVICE_URL", "Error: "
                                                     + e.getMessage());
                                             Toast.makeText(
                                                     getApplicationContext(),
@@ -272,10 +272,9 @@ public class SigninActivity extends BaseActivity
                         return;
                     }
 
-                    mProgressDialog.dismiss();
                     JSONObject userObject = responseObject
                             .getJSONObject("user");
-                    LogUtil.e("onSuccess EULOU_SERVICE_URL Exception", "Error: "
+                    LogUtil.e("onSuccess EULOU_SERVICE_URL has value", "has value: "
                             + userObject.toString());
                     UserInfo userInfo = new UserInfo();
                     userInfo.setUserID(userObject.getInt("userID"));
@@ -288,14 +287,15 @@ public class SigninActivity extends BaseActivity
                     userInfo.setGender(userObject.getInt("gender"));
                     userInfo.setPhone(userObject.getString("phone"));
                     SigninActivity.this.onLoginSuccessWithUser(userInfo);
+                    mProgressDialog.dismiss();
                     return;
 
                 } catch (Exception e) {
-                    e.printStackTrace();
+
                     mProgressDialog.dismiss();
                     Toast.makeText(getApplicationContext(), e.getMessage(),
                             Toast.LENGTH_LONG).show();
-                    LogUtil.e("onSuccess EULOU_SERVICE_URL Exception", "Error: "
+                    LogUtil.e("EULOU_SERVICE_URL Exception", "Error: "
                             + e.getMessage());
                     return;
                 }
@@ -322,7 +322,7 @@ public class SigninActivity extends BaseActivity
 
 						try {
 
-
+                            mProgressDialog.show();
                             loginCompleted(jsonObject, graphResponse);
 
 						} catch (Exception ex) {
@@ -341,6 +341,7 @@ public class SigninActivity extends BaseActivity
 	 * Do login user with facebook
 	 */
 	private void doLogInFacebook() {
+
 
 		LoginManager.getInstance().logInWithReadPermissions(this, mPermissions);
 	}
