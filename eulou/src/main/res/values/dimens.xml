@@ -36,7 +36,7 @@
 
     <!-- Message screen -->
     <dimen name="un_read_msg_count">12sp</dimen>
-    <dimen name="message_time">9sp</dimen>
+    <dimen name="message_time">12sp</dimen>
     <dimen name="user_type_image_width">22dp</dimen>
 
     <!-- Chatting screen -->

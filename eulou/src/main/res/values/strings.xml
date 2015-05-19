@@ -69,4 +69,17 @@
     <!-- Login screen -->
     <string name="login_facebook_notice">We don\'t post anything to Facebook</string>
 
+
+    <!-- History screen -->
+    <string name="str_yesterday">Yesterday</string>
+    <string name="str_today">Today</string>
+    <string-array name="day_of_week">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
 </resources>

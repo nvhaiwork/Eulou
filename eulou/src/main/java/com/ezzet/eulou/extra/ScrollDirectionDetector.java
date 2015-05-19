@@ -1,5 +1,6 @@
 package com.ezzet.eulou.extra;
 
+import android.view.View;
 import android.widget.AbsListView;
 
 /**
@@ -11,6 +12,7 @@ public abstract class ScrollDirectionDetector implements AbsListView.OnScrollLis
     protected abstract void onScrollUp();
 
     private int mLastFirstVisibleItem;
+    private int mLastTop;
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -19,10 +21,13 @@ public abstract class ScrollDirectionDetector implements AbsListView.OnScrollLis
 
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+        View firstChild = view.getChildAt(0);
+        int top = firstChild == null ? 0 : firstChild.getTop();
         if (mLastFirstVisibleItem < firstVisibleItem) {
             onScrollDown();
         } else if (mLastFirstVisibleItem > firstVisibleItem) {
             onScrollUp();
+        } else {
         }
         mLastFirstVisibleItem = firstVisibleItem;
     }

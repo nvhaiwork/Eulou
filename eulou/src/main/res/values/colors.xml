@@ -38,4 +38,7 @@
     <!-- Button background -->
     <color name="button_bg_clicked">#0Dffffff</color>
 
+    <!-- Message list (history) -->
+    <color name="date_time_highlighted">#1d76bf</color>
+    <color name="date_time_normal">#afafb1</color>
 </resources>
