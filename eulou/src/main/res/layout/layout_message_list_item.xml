@@ -1,82 +1,94 @@
-<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
-    android:layout_width = "match_parent"
-    android:layout_height = "wrap_content"
-    android:padding = "@dimen/tabitem_padding">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingBottom="5dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="5dp">
 
-    <com.ezzet.eulou.views.FBProfilePictureView
-        android:id = "@+id/message_user_profile_pic"
-        android:layout_width = "@dimen/friendlist_photo_width"
-        android:layout_height = "@dimen/friendlist_photo_width"
-        android:layout_centerVertical = "true"
-        android:layout_marginEnd = "@dimen/friendlist_item_padding"
-        android:layout_marginRight = "@dimen/friendlist_item_padding"></com.ezzet.eulou.views.FBProfilePictureView>
+    <FrameLayout
+        android:id="@+id/fl_user_photo"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_centerVertical="true">
 
-    <TextView
-        android:id = "@+id/message_username"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:layout_alignParentTop = "true"
-        android:layout_marginTop = "-5dp"
-        android:layout_toEndOf = "@+id/message_user_profile_pic"
-        android:layout_toLeftOf = "@+id/message_user_type"
-        android:layout_toRightOf = "@id/message_user_profile_pic"
-        android:layout_toStartOf = "@+id/message_user_type"
-        android:text = "@string/app_name"
-        android:textColor = "@color/black"
-        android:textSize = "@dimen/text_size1" />
+        <com.ezzet.eulou.views.FBProfilePictureView
+            android:id="@+id/message_user_profile_pic"
+            android:layout_width="@dimen/friendlist_photo_width"
+            android:layout_height="@dimen/friendlist_photo_width"
+            android:layout_gravity="center" />
 
-    <TextView
-        android:id = "@+id/message_text"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"
-        android:layout_below = "@+id/message_username"
-        android:layout_toEndOf = "@+id/message_user_profile_pic"
-        android:layout_toLeftOf = "@+id/message_user_type"
-        android:layout_toRightOf = "@id/message_user_profile_pic"
-        android:layout_toStartOf = "@+id/message_user_type"
-        android:text = "@string/app_name"
-        android:textColor = "@color/dark_gray"
-        android:textSize = "@dimen/text_size3" />
+        <ImageView
+            android:id="@+id/message_user_type"
+            android:layout_width="@dimen/user_type_image_width"
+            android:layout_height="@dimen/user_type_image_width"
+            android:layout_gravity="bottom|right"
+            android:adjustViewBounds="true"
+            android:background="@drawable/white_circle_20"
+            android:contentDescription="@string/app_name"
+            android:padding="1dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_info" />
+    </FrameLayout>
 
-    <TextView
-        android:id = "@+id/message_time"
-        android:layout_width = "wrap_content"
-        android:layout_height = "wrap_content"
-        android:layout_alignParentEnd = "true"
-        android:layout_alignParentRight = "true"
-        android:layout_alignParentTop = "true"
-        android:gravity = "center_horizontal"
-        android:text = "@string/app_name"
-        android:textColor = "@color/black"
-        android:textSize = "@dimen/message_time" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id = "@+id/message_unread_count"
-        android:layout_width = "@dimen/user_type_image_width"
-        android:layout_height = "@dimen/user_type_image_width"
-        android:layout_alignParentBottom = "true"
-        android:layout_toLeftOf = "@+id/message_user_type"
-        android:layout_toStartOf = "@+id/message_user_type"
-        android:background = "@drawable/show_message_num_bg"
-        android:gravity = "center"
-        android:textColor = "@color/white"
-        android:textSize = "@dimen/un_read_msg_count" />
+        <TextView
+            android:id="@+id/message_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_toLeftOf="@+id/message_time"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="@string/app_name"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size1" />
 
-    <ImageView
-        android:id = "@+id/message_user_type"
-        android:layout_width = "@dimen/user_type_image_width"
-        android:layout_height = "@dimen/user_type_image_width"
-        android:layout_alignParentBottom = "true"
-        android:layout_alignParentEnd = "true"
-        android:layout_alignParentRight = "true"
-        android:layout_marginEnd = "@dimen/friendlist_item_padding"
-        android:layout_marginLeft = "2dp"
-        android:layout_marginRight = "@dimen/friendlist_item_padding"
-        android:layout_marginStart = "2dp"
-        android:adjustViewBounds = "true"
-        android:background = "@color/clear_back"
-        android:contentDescription = "@string/app_name"
-        android:scaleType = "fitCenter"
-        android:src = "@drawable/ic_info" />
+        <TextView
+            android:id="@+id/message_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/message_username"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/message_unread_count"
+            android:ellipsize="end"
+            android:lines="1"
+            android:singleLine="true"
+            android:textColor="@color/dark_gray"
+            android:textSize="@dimen/text_size3" />
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/message_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:gravity="center_horizontal"
+            android:text="@string/app_name"
+            android:textSize="@dimen/message_time" />
+
+        <TextView
+            android:id="@+id/message_unread_count"
+            android:layout_width="@dimen/user_type_image_width"
+            android:layout_height="@dimen/user_type_image_width"
+            android:layout_alignBottom="@+id/message_text"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/blue_rect_1"
+            android:gravity="center"
+            android:text="2"
+            android:textColor="@color/white"
+            android:textSize="@dimen/un_read_msg_count" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

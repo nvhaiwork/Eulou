@@ -1,22 +1,5 @@
 package com.ezzet.eulou.adapters;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.Map;
-import java.util.TimeZone;
-import java.util.Map.Entry;
-
-import com.ezzet.eulou.R;
-import com.ezzet.eulou.models.UserInfo;
-import com.ezzet.eulou.utilities.LogUtil;
-import com.ezzet.eulou.utilities.Utilities;
-import com.ezzet.eulou.views.FBProfilePictureView;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +8,23 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.ezzet.eulou.R;
+import com.ezzet.eulou.models.UserInfo;
+import com.ezzet.eulou.utilities.LogUtil;
+import com.ezzet.eulou.utilities.Utilities;
+import com.ezzet.eulou.views.FBProfilePictureView;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TimeZone;
 
 public class MessageListAdapter extends BaseAdapter {
 
@@ -37,13 +37,12 @@ public class MessageListAdapter extends BaseAdapter {
 
 		this.mInflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH);
+		mDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 	}
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-
 		if (mMessages != null) {
 
 			return mMessages.size();
@@ -55,21 +54,17 @@ public class MessageListAdapter extends BaseAdapter {
 	@Override
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public Map<String, Object> getItem(int arg0) {
-		// TODO Auto-generated method stub
-
 		String key = (String) (new ArrayList(mMessages.keySet())).get(arg0);
 		return mMessages.get(key);
 	}
 
 	@Override
 	public long getItemId(int arg0) {
-		// TODO Auto-generated method stub
 		return arg0;
 	}
 
 	@Override
 	public View getView(int pos, View convertView, ViewGroup parrent) {
-		// TODO Auto-generated method stub
 
 		Map<String, Object> message = (Map<String, Object>) getItem(pos);
 		ViewHolder holder = null;
@@ -100,11 +95,8 @@ public class MessageListAdapter extends BaseAdapter {
 		String messageTime = "";
 		try {
 
-			mDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
 			Date startDate = mDateFormat
 					.parse((String) message.get("LastTime"));
-			mDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-					Locale.ENGLISH);
 			messageTime = mDateFormat.format(startDate);
 		} catch (ParseException e) {
 
