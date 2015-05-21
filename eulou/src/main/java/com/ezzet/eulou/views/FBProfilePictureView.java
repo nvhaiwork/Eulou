@@ -40,6 +40,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.ezzet.eulou.utilities.BitmapUtil;
 import com.ezzet.eulou.utilities.LogUtil;
 import com.facebook.FacebookException;
 import com.facebook.LoggingBehavior;
@@ -481,15 +482,14 @@ public class FBProfilePictureView extends FrameLayout {
 				int blankImageResource = isCropped()
 						? R.drawable.com_facebook_profile_picture_blank_square
 						: R.drawable.com_facebook_profile_picture_blank_portrait;
-				setImageBitmap(BitmapFactory.decodeResource(getResources(),
-						blankImageResource));
+				setImageBitmap(BitmapUtil.decodeWithSampleSize(getResources().openRawResource(blankImageResource), 98, 98));
 			} catch (Exception ex) {
 //com_facebook_profile_picture_blank_square_large
-				int blankImageResource = isCropped()
-						? R.drawable.com_facebook_profile_picture_blank_square
-						: R.drawable.com_facebook_profile_picture_blank_portrait;
-				setImageBitmap(BitmapFactory.decodeResource(getResources(),
-						blankImageResource));
+//				int blankImageResource = isCropped()
+//						? R.drawable.com_facebook_profile_picture_blank_square
+//						: R.drawable.com_facebook_profile_picture_blank_portrait;
+//				setImageBitmap(BitmapFactory.decodeResource(getResources(),
+//						blankImageResource));
 			}
 		} else {
 			// Update profile image dimensions.
