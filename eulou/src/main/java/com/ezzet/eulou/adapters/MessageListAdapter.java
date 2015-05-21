@@ -12,10 +12,12 @@ import android.widget.TextView;
 
 import com.ezzet.eulou.R;
 import com.ezzet.eulou.models.UserInfo;
+import com.ezzet.eulou.utilities.LogUtil;
 import com.ezzet.eulou.utilities.Utilities;
 import com.ezzet.eulou.views.FBProfilePictureView;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -58,21 +60,19 @@ public class MessageListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-//        if (mMessages != null) {
-//
-//            return mMessages.size();
-//        }
-//
-//        return 0;
-        return 20;
+        if (mMessages != null) {
+
+            return mMessages.size();
+        }
+
+        return 0;
     }
 
     @Override
     @SuppressWarnings({"unchecked", "rawtypes"})
     public Map<String, Object> getItem(int arg0) {
-//        String key = (String) (new ArrayList(mMessages.keySet())).get(arg0);
-//        return mMessages.get(key);
-        return null;
+        String key = (String) (new ArrayList(mMessages.keySet())).get(arg0);
+        return mMessages.get(key);
     }
 
     @Override
@@ -108,66 +108,66 @@ public class MessageListAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-//        UserInfo user = (UserInfo) message.get("UserInfo");
-//        Log.v("TAG", (String) message.get("LastTime"));
-//
-//        holder.time.setText(" ");
-//        holder.time.setTextColor(sNormalColor);
-//        try {
-//            Date startDate = mInputDateFormat
-//                    .parse((String) message.get("LastTime"));
-//            OutputTime ot = formatTime(startDate);
-//            holder.time.setText(ot.time);
-//            if (ot.highlighted) {
-//                holder.time.setTextColor(sHighLightedColor);
-//            }
-//        } catch (Exception e) {
-//        }
-//
-//
-//        holder.message.setText(((String) message.get("LastMessage")));
-//
-//        // Log for crashes
-//        LogUtil.e("Message history list all data: ", mMessages.toString());
-//        LogUtil.e("Message history list current data: ", message.toString());
-//        holder.username.setText(user.getUserName());
-//        holder.userType.setVisibility(View.VISIBLE);
-//
-//        int receivedMsg = 0;
-//        int shownMsg = 0;
-//        if (message.containsKey("ReceivedMsgCount")) {
-//
-//            receivedMsg = (Integer) message.get("ReceivedMsgCount");
-//        }
-//
-//        if (message.containsKey("ShownMsgCount")) {
-//            shownMsg = (Integer) message.get("ShownMsgCount");
-//        }
-//
-//        int messageCount = receivedMsg - shownMsg;
-//        if (messageCount > 0) {
-//
-//            holder.messageCount.setText(messageCount + "");
-//            holder.messageCount.setVisibility(View.VISIBLE);
-//        } else {
-//
-//            holder.messageCount.setVisibility(View.INVISIBLE);
-//        }
-//
-//        if (!user.getFacebookID().equals("")) {
-//            holder.profilePic.setProfileId(user.getFacebookID());
-//            holder.userType.setImageResource(R.drawable.ic_facebook_list_item);
-//        } else if (!user.getTwitterID().equals("")) {
-//
-//            holder.userType.setImageResource(R.drawable.ic_twitter_list_item);
-//        } else if (!user.getTwitterID().equals("")) {
-//
-//            holder.userType
-//                    .setImageResource(R.drawable.ic_instargram_list_item);
-//        } else {
-//
-//            holder.userType.setVisibility(View.INVISIBLE);
-//        }
+        UserInfo user = (UserInfo) message.get("UserInfo");
+        Log.v("TAG", (String) message.get("LastTime"));
+
+        holder.time.setText(" ");
+        holder.time.setTextColor(sNormalColor);
+        try {
+            Date startDate = mInputDateFormat
+                    .parse((String) message.get("LastTime"));
+            OutputTime ot = formatTime(startDate);
+            holder.time.setText(ot.time);
+            if (ot.highlighted) {
+                holder.time.setTextColor(sHighLightedColor);
+            }
+        } catch (Exception e) {
+        }
+
+
+        holder.message.setText(((String) message.get("LastMessage")));
+
+        // Log for crashes
+        LogUtil.e("Message history list all data: ", mMessages.toString());
+        LogUtil.e("Message history list current data: ", message.toString());
+        holder.username.setText(user.getUserName());
+        holder.userType.setVisibility(View.VISIBLE);
+
+        int receivedMsg = 0;
+        int shownMsg = 0;
+        if (message.containsKey("ReceivedMsgCount")) {
+
+            receivedMsg = (Integer) message.get("ReceivedMsgCount");
+        }
+
+        if (message.containsKey("ShownMsgCount")) {
+            shownMsg = (Integer) message.get("ShownMsgCount");
+        }
+
+        int messageCount = receivedMsg - shownMsg;
+        if (messageCount > 0) {
+
+            holder.messageCount.setText(messageCount + "");
+            holder.messageCount.setVisibility(View.VISIBLE);
+        } else {
+
+            holder.messageCount.setVisibility(View.INVISIBLE);
+        }
+
+        if (!user.getFacebookID().equals("")) {
+            holder.profilePic.setProfileId(user.getFacebookID());
+            holder.userType.setImageResource(R.drawable.ic_facebook_list_item);
+        } else if (!user.getTwitterID().equals("")) {
+
+            holder.userType.setImageResource(R.drawable.ic_twitter_list_item);
+        } else if (!user.getTwitterID().equals("")) {
+
+            holder.userType
+                    .setImageResource(R.drawable.ic_instargram_list_item);
+        } else {
+
+            holder.userType.setVisibility(View.INVISIBLE);
+        }
 
         return convertView;
     }
