@@ -1,22 +1,46 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:focusableInTouchMode="true">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
-    <SearchView
-        android:id="@+id/messages_search_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/find"
-        android:padding="7dp"/>
-
-    <ListView
+    <com.larswerkman.quickreturnlistview.QuickReturnListView
         android:id="@+id/messages_message_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/messages_search_view"
         android:background="@color/white"
         android:divider="@color/light_gray"
-        android:dividerHeight="1sp"/>
+        android:dividerHeight="1sp" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll_search_view"
+        android:layout_width="match_parent"
+        android:layout_height="49dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/contact_tabs_layout"
+        android:background="#d1d1d1"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:background="#FFF"
+            android:layout_height="48dp"
+            android:padding="16dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_search" />
+
+        <EditText
+            android:id="@+id/et_search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="1dp"
+            android:background="#FFF"
+            android:hint="@string/search"
+            android:lines="1"
+            android:singleLine="true"
+            android:textColorHint="#b0b0b0"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</FrameLayout>

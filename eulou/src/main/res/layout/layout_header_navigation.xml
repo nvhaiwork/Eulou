@@ -13,7 +13,7 @@
 
         <com.ezzet.eulou.views.CustomImageButton
             android:id="@+id/main_navigation_left_img_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/topbar_height"
             android:layout_height="match_parent"
             android:contentDescription="@string/app_name"
             android:padding="14dp"
@@ -97,7 +97,7 @@
 
     <com.ezzet.eulou.views.CustomImageButton
         android:id="@+id/main_navigation_right_img_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/topbar_height"
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
