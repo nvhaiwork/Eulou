@@ -58,13 +58,13 @@ public class MessageListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return 20;
 //        if (mMessages != null) {
 //
 //            return mMessages.size();
 //        }
 //
 //        return 0;
+        return 20;
     }
 
     @Override
@@ -121,7 +121,7 @@ public class MessageListAdapter extends BaseAdapter {
 //            if (ot.highlighted) {
 //                holder.time.setTextColor(sHighLightedColor);
 //            }
-//        } catch (ParseException e) {
+//        } catch (Exception e) {
 //        }
 //
 //

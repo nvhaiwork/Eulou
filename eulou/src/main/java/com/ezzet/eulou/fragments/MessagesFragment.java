@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -14,16 +13,16 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.TranslateAnimation;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
+import com.etiennelawlor.quickreturn.library.enums.QuickReturnViewType;
+import com.etiennelawlor.quickreturn.library.listeners.QuickReturnListViewOnScrollListener;
 import com.ezzet.eulou.R;
 import com.ezzet.eulou.activities.BaseActivity;
 import com.ezzet.eulou.activities.ChatActivity;
@@ -31,14 +30,13 @@ import com.ezzet.eulou.adapters.MessageListAdapter;
 import com.ezzet.eulou.constants.Constants;
 import com.ezzet.eulou.extra.HelperFunction;
 import com.ezzet.eulou.models.UserInfo;
-import com.larswerkman.quickreturnlistview.QuickReturnListView;
 
 import java.util.ArrayList;
 import java.util.Map;
 
 public class MessagesFragment extends Fragment
         implements
-        OnItemClickListener, AbsListView.OnScrollListener,
+        OnItemClickListener,
         AdapterView.OnItemLongClickListener {
 
     private static final String TAG = "MessagesFragment";
@@ -46,20 +44,7 @@ public class MessagesFragment extends Fragment
     private View mSearchViewContainer;
     private EditText mEtSearch;
 
-    QuickReturnListView mListView;
-    private View mHeader;
-    private View mPlaceHolder;
-
-    private int mCachedVerticalScrollRange;
-    private int mQuickReturnHeight;
-
-    private static final int STATE_ONSCREEN = 0;
-    private static final int STATE_OFFSCREEN = 1;
-    private static final int STATE_RETURNING = 2;
-    private int mState = STATE_ONSCREEN;
-    private int mScrollY;
-    private int mMinRawY = 0;
-    private TranslateAnimation anim;
+    ListView mListView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,29 +82,25 @@ public class MessagesFragment extends Fragment
     }
 
     private void setupListViewWithQuickReturnHeader(LayoutInflater inflater, ViewGroup container, View rootView) {
-        mListView = (QuickReturnListView) rootView
+        mListView = (ListView) rootView
                 .findViewById(R.id.messages_message_list);
-        mHeader = inflater.inflate(R.layout.list_message_header, mListView, false);
-        mListView.addHeaderView(mHeader);
-        mPlaceHolder = mHeader.findViewById(R.id.placeholder);
 
+        View header = inflater.inflate(R.layout.list_message_header, mListView, false);
+        mListView.addHeaderView(header);
         mMessagesAdapter = new MessageListAdapter(getActivity());
         mListView.setAdapter(mMessagesAdapter);
 
         mListView.setOnItemClickListener(this);
         mListView.setOnItemLongClickListener(this);
 
-        mListView.getViewTreeObserver().addOnGlobalLayoutListener(
-                new ViewTreeObserver.OnGlobalLayoutListener() {
-                    @Override
-                    public void onGlobalLayout() {
-                        mQuickReturnHeight = mSearchViewContainer.getHeight();
-                        mListView.computeScrollY();
-                        mCachedVerticalScrollRange = mListView.getListHeight();
+        int headerHeight = getActivity().getResources().getDimensionPixelSize(R.dimen.message_list_header_height);
 
-                    }
-                });
-        mListView.setOnScrollListener(this);
+        QuickReturnListViewOnScrollListener scrollListener = new QuickReturnListViewOnScrollListener.Builder(QuickReturnViewType.HEADER)
+                .header(mSearchViewContainer)
+                .minHeaderTranslation(-headerHeight)
+                .isSnappable(true)
+                .build();
+        mListView.setOnScrollListener(scrollListener);
     }
 
     @Override
@@ -196,74 +177,6 @@ public class MessagesFragment extends Fragment
         });
 
         dialog.show();
-    }
-
-    @Override
-    public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-    }
-
-    @Override
-    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-        mScrollY = 0;
-        int translationY = 0;
-
-        if (mListView.scrollYIsComputed()) {
-            mScrollY = mListView.getComputedScrollY();
-        }
-
-        int rawY = mPlaceHolder.getTop()
-                - Math.min(
-                mCachedVerticalScrollRange
-                        - mListView.getHeight(), mScrollY);
-
-        switch (mState) {
-            case STATE_OFFSCREEN:
-                if (rawY <= mMinRawY) {
-                    mMinRawY = rawY;
-                } else {
-                    mState = STATE_RETURNING;
-                }
-                translationY = rawY;
-                break;
-
-            case STATE_ONSCREEN:
-                if (rawY < -mQuickReturnHeight) {
-                    mState = STATE_OFFSCREEN;
-                    mMinRawY = rawY;
-                }
-                translationY = rawY;
-                break;
-
-            case STATE_RETURNING:
-                translationY = (rawY - mMinRawY) - mQuickReturnHeight;
-                if (translationY > 0) {
-                    translationY = 0;
-                    mMinRawY = rawY - mQuickReturnHeight;
-                }
-
-                if (rawY > 0) {
-                    mState = STATE_ONSCREEN;
-                    translationY = rawY;
-                }
-
-                if (translationY < -mQuickReturnHeight) {
-                    mState = STATE_OFFSCREEN;
-                    mMinRawY = rawY;
-                }
-                break;
-        }
-
-        /** this can be used if the build is below honeycomb **/
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.HONEYCOMB) {
-            anim = new TranslateAnimation(0, 0, translationY,
-                    translationY);
-            anim.setFillAfter(true);
-            anim.setDuration(0);
-            mSearchViewContainer.startAnimation(anim);
-        } else {
-            mSearchViewContainer.setTranslationY(translationY);
-        }
     }
 
     private class DeleteMessageHistory extends AsyncTask<Integer, Void, Void> {

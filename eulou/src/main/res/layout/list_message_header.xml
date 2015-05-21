@@ -7,6 +7,6 @@
     <View
         android:id="@+id/placeholder"
         android:layout_width="match_parent"
-        android:layout_height="49dp" />
+        android:layout_height="@dimen/message_list_header_height" />
 
 </LinearLayout>

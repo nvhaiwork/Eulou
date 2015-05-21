@@ -1,1 +1,1 @@
-include ':eulou'
+include ':eulou', ':quick_return'

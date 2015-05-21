@@ -62,4 +62,5 @@
     <dimen name="friendlist_item_padding_right">25dp</dimen>
     <dimen name="friendlist_item_padding_right_call">25dp</dimen>
 
+    <dimen name="message_list_header_height">49dp</dimen>
 </resources>

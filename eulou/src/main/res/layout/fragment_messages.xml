@@ -1,10 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <com.larswerkman.quickreturnlistview.QuickReturnListView
+    <ListView
         android:id="@+id/messages_message_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,16 +15,14 @@
     <LinearLayout
         android:id="@+id/ll_search_view"
         android:layout_width="match_parent"
-        android:layout_height="49dp"
-        android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/contact_tabs_layout"
+        android:layout_height="@dimen/message_list_header_height"
         android:background="#d1d1d1"
         android:orientation="horizontal">
 
         <ImageView
             android:layout_width="48dp"
-            android:background="#FFF"
             android:layout_height="48dp"
+            android:background="#FFF"
             android:padding="16dp"
             android:scaleType="centerInside"
             android:src="@drawable/ic_search" />
@@ -40,7 +38,6 @@
             android:singleLine="true"
             android:textColorHint="#b0b0b0"
             android:textSize="14sp" />
-
     </LinearLayout>
 
-</FrameLayout>
+</RelativeLayout>
