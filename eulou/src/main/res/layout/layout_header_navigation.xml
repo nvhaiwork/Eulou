@@ -1,10 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/topbar_height"
-                android:background="@color/action_bar_color"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/topbar_height"
+    android:background="@color/action_bar_color"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp">
 
     <RelativeLayout
         android:id="@+id/main_navigation_left_layout"
@@ -15,10 +15,10 @@
             android:id="@+id/main_navigation_left_img_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:adjustViewBounds="true"
             android:contentDescription="@string/app_name"
-            android:padding="8dp"
-            android:src="@drawable/ic_launcher"/>
+            android:padding="14dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_launcher" />
 
         <com.ezzet.eulou.views.CustomFontTextView
             android:id="@+id/main_navigation_left_txt_btn"
@@ -29,7 +29,7 @@
             android:paddingRight="8dp"
             android:textColor="@color/white"
             android:textSize="@dimen/navigation_bar_buttons"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </RelativeLayout>
 
     <LinearLayout
@@ -47,7 +47,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="@dimen/navigation_bar_title"/>
+            android:textSize="@dimen/navigation_bar_title" />
 
         <RadioGroup
             android:id="@+id/main_header_navigator"
@@ -63,7 +63,7 @@
                 android:button="@drawable/main_header_navigator_bg"
                 android:clickable="false"
                 android:paddingLeft="2dp"
-                android:paddingRight="2dp"/>
+                android:paddingRight="2dp" />
 
             <RadioButton
                 android:id="@+id/main_header_navigator_item2"
@@ -73,7 +73,7 @@
                 android:checked="true"
                 android:clickable="false"
                 android:paddingLeft="2dp"
-                android:paddingRight="2dp"/>
+                android:paddingRight="2dp" />
 
             <RadioButton
                 android:id="@+id/main_header_navigator_item3"
@@ -82,7 +82,7 @@
                 android:button="@drawable/main_header_navigator_bg"
                 android:clickable="false"
                 android:paddingLeft="2dp"
-                android:paddingRight="2dp"/>
+                android:paddingRight="2dp" />
 
             <RadioButton
                 android:id="@+id/main_header_navigator_item4"
@@ -91,7 +91,7 @@
                 android:button="@drawable/main_header_navigator_bg"
                 android:clickable="false"
                 android:paddingLeft="2dp"
-                android:paddingRight="2dp"/>
+                android:paddingRight="2dp" />
         </RadioGroup>
     </LinearLayout>
 
@@ -101,10 +101,10 @@
         android:layout_height="match_parent"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:adjustViewBounds="true"
         android:contentDescription="@string/app_name"
-        android:padding="8dp"
-        android:src="@drawable/ic_launcher"/>
+        android:padding="14dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/ic_launcher" />
 
     <com.ezzet.eulou.views.CustomFontTextView
         android:id="@+id/main_navigation_right_txt_btn"
@@ -117,6 +117,6 @@
         android:paddingRight="8dp"
         android:textColor="@color/white"
         android:textSize="@dimen/navigation_bar_buttons"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

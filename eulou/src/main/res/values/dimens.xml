@@ -5,7 +5,7 @@
     <dimen name="continue_btn_bottom">48dp</dimen>
     <dimen name="buttons_bottom">80dp</dimen>
     <dimen name="buttons_spacing">20dp</dimen>
-    <dimen name="topbar_height">48dp</dimen>
+    <dimen name="topbar_height">54dp</dimen>
     <dimen name="topbar_button_width">35dp</dimen>
     <dimen name="tabbar_height">60dp</dimen>
     <dimen name="tabitem_padding">5dp</dimen>
@@ -28,7 +28,7 @@
     <dimen name="text_size3">13sp</dimen>
 
     <!-- Navigation bar -->
-    <dimen name="navigation_bar_title">19sp</dimen>
+    <dimen name="navigation_bar_title">16sp</dimen>
     <dimen name="navigation_bar_buttons">17sp</dimen>
 
     <!-- New message screen -->
