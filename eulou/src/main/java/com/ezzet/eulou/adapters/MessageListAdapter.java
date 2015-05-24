@@ -60,12 +60,7 @@ public class MessageListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (mMessages != null) {
-
-            return mMessages.size();
-        }
-
-        return 0;
+        return mMessages == null ? 0 : mMessages.size();
     }
 
     @Override
@@ -107,7 +102,7 @@ public class MessageListAdapter extends BaseAdapter {
 
             holder = (ViewHolder) convertView.getTag();
         }
-
+//
         UserInfo user = (UserInfo) message.get("UserInfo");
         Log.v("TAG", (String) message.get("LastTime"));
 

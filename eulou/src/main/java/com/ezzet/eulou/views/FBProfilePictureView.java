@@ -19,9 +19,7 @@ package com.ezzet.eulou.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
@@ -50,8 +48,6 @@ import com.facebook.internal.ImageRequest;
 import com.facebook.internal.ImageResponse;
 import com.facebook.internal.Logger;
 import com.facebook.internal.Utility;
-
-import java.net.URISyntaxException;
 
 /**
  * View that displays the profile photo of a supplied profile ID, while
@@ -476,6 +472,7 @@ public class FBProfilePictureView extends FrameLayout {
 	}
 
 	private void setBlankProfilePicture() {
+		Log.e("TAG", "Blank");
 		if (customizedDefaultProfilePicture == null) {
 			try {
 

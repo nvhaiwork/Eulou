@@ -9,8 +9,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -19,10 +21,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.etiennelawlor.quickreturn.library.enums.QuickReturnViewType;
-import com.etiennelawlor.quickreturn.library.listeners.QuickReturnListViewOnScrollListener;
 import com.ezzet.eulou.R;
 import com.ezzet.eulou.activities.BaseActivity;
 import com.ezzet.eulou.activities.ChatActivity;
@@ -30,6 +31,7 @@ import com.ezzet.eulou.adapters.MessageListAdapter;
 import com.ezzet.eulou.constants.Constants;
 import com.ezzet.eulou.extra.HelperFunction;
 import com.ezzet.eulou.models.UserInfo;
+import com.ezzet.eulou.utilities.Utilities;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -41,7 +43,7 @@ public class MessagesFragment extends Fragment
 
     private static final String TAG = "MessagesFragment";
     private MessageListAdapter mMessagesAdapter;
-    private View mSearchViewContainer;
+    private RelativeLayout mSearchViewContainer;
     private EditText mEtSearch;
 
     ListView mListView;
@@ -56,9 +58,10 @@ public class MessagesFragment extends Fragment
 
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_messages, container, false);
 
-        mSearchViewContainer = rootView.findViewById(R.id.ll_search_view);
+        mSearchViewContainer = (RelativeLayout) inflater.inflate(R.layout.view_message_fragment_search_bar, container, false);
+        mSearchViewContainer.setLayoutParams(new ListView.LayoutParams(ListView.LayoutParams.MATCH_PARENT, ListView.LayoutParams.WRAP_CONTENT));
 
-        mEtSearch = (EditText) rootView.findViewById(R.id.et_search_view);
+        mEtSearch = (EditText) mSearchViewContainer.findViewById(R.id.et_search_view);
         mEtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -85,29 +88,59 @@ public class MessagesFragment extends Fragment
         mListView = (ListView) rootView
                 .findViewById(R.id.messages_message_list);
 
-        View header = inflater.inflate(R.layout.list_message_header, mListView, false);
-        mListView.addHeaderView(header);
         mMessagesAdapter = new MessageListAdapter(getActivity());
+        mListView.addHeaderView(mSearchViewContainer);
         mListView.setAdapter(mMessagesAdapter);
 
         mListView.setOnItemClickListener(this);
         mListView.setOnItemLongClickListener(this);
+        mListView.setOnTouchListener(new View.OnTouchListener() {
+            float lastx, lasty;
 
-        int headerHeight = getActivity().getResources().getDimensionPixelSize(R.dimen.message_list_header_height);
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    lasty = event.getY();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+//                    Log.e(TAG, "First, last: " + mListView.getFirstVisiblePosition() + " -- " + mListView.getLastVisiblePosition());
+//                    Log.e(TAG, " Move: " + (event.getY() - lasty));
+                    if (event.getY() - lasty > 100 && mListView.getFirstVisiblePosition() == 0) {
+                        Log.e(TAG, "Move up");
+                        for (int i = 0; i < mSearchViewContainer.getChildCount(); i++) {
+                            mSearchViewContainer.getChildAt(i).setVisibility(View.VISIBLE);
+                        }
+                    } else if (event.getY() - lasty < -100
+                            && mListView.getFirstVisiblePosition() == 0
+                            && mListView.getLastVisiblePosition() == mMessagesAdapter.getCount()) {
+                        Log.e(TAG, "Move down");
+                        mEtSearch.setText("");
+                        for (int i = 0; i < mSearchViewContainer.getChildCount(); i++) {
+                            mSearchViewContainer.getChildAt(i).setVisibility(View.GONE);
+                        }
+                        Utilities.doHideKeyboard(getActivity(), mEtSearch);
+                    } else {
+                        return false;
+                    }
+                }
+                return false;
+            }
+        });
 
-        QuickReturnListViewOnScrollListener scrollListener = new QuickReturnListViewOnScrollListener.Builder(QuickReturnViewType.HEADER)
-                .header(mSearchViewContainer)
-                .minHeaderTranslation(-headerHeight)
-                .isSnappable(true)
-                .build();
-        mListView.setOnScrollListener(scrollListener);
+//        int headerHeight = getActivity().getResources().getDimensionPixelSize(R.dimen.message_list_header_height);
+//
+//        QuickReturnListViewOnScrollListener scrollListener = new QuickReturnListViewOnScrollListener.Builder(QuickReturnViewType.HEADER)
+//                .header(mSearchViewContainer)
+//                .minHeaderTranslation(-headerHeight)
+//                .isSnappable(true)
+//                .build();
+//        mListView.setOnScrollListener(scrollListener);
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void onItemClick(AdapterView<?> adapterView, View view, int pos,
                             long id) {
-
+//        Toast.makeText(getActivity(), "Item clicked", Toast.LENGTH_LONG).show();
         Map<String, Object> historyItem = (Map<String, Object>) adapterView
                 .getAdapter().getItem(pos);
         UserInfo userInfo = (UserInfo) historyItem.get("UserInfo");
@@ -135,7 +168,7 @@ public class MessagesFragment extends Fragment
     @Override
     public boolean onItemLongClick(AdapterView<?> adapterView, View view,
                                    int i, long l) {
-
+//        Toast.makeText(getActivity(), "Item long clicked", Toast.LENGTH_LONG).show();
         deleteOptionsDialog(getActivity(), i);
         return true;
     }
