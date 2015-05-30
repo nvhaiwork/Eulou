@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -91,11 +90,13 @@ public class MessagesFragment extends Fragment
         mMessagesAdapter = new MessageListAdapter(getActivity());
         mListView.addHeaderView(mSearchViewContainer);
         mListView.setAdapter(mMessagesAdapter);
-
+        for (int i = 0; i < mSearchViewContainer.getChildCount(); i++) {
+            mSearchViewContainer.getChildAt(i).setVisibility(View.VISIBLE);
+        }
         mListView.setOnItemClickListener(this);
         mListView.setOnItemLongClickListener(this);
         mListView.setOnTouchListener(new View.OnTouchListener() {
-            float lastx, lasty;
+            float lasty;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -105,14 +106,12 @@ public class MessagesFragment extends Fragment
 //                    Log.e(TAG, "First, last: " + mListView.getFirstVisiblePosition() + " -- " + mListView.getLastVisiblePosition());
 //                    Log.e(TAG, " Move: " + (event.getY() - lasty));
                     if (event.getY() - lasty > 100 && mListView.getFirstVisiblePosition() == 0) {
-                        Log.e(TAG, "Move up");
                         for (int i = 0; i < mSearchViewContainer.getChildCount(); i++) {
                             mSearchViewContainer.getChildAt(i).setVisibility(View.VISIBLE);
                         }
                     } else if (event.getY() - lasty < -100
                             && mListView.getFirstVisiblePosition() == 0
                             && mListView.getLastVisiblePosition() == mMessagesAdapter.getCount()) {
-                        Log.e(TAG, "Move down");
                         mEtSearch.setText("");
                         for (int i = 0; i < mSearchViewContainer.getChildCount(); i++) {
                             mSearchViewContainer.getChildAt(i).setVisibility(View.GONE);
@@ -126,14 +125,6 @@ public class MessagesFragment extends Fragment
             }
         });
 
-//        int headerHeight = getActivity().getResources().getDimensionPixelSize(R.dimen.message_list_header_height);
-//
-//        QuickReturnListViewOnScrollListener scrollListener = new QuickReturnListViewOnScrollListener.Builder(QuickReturnViewType.HEADER)
-//                .header(mSearchViewContainer)
-//                .minHeaderTranslation(-headerHeight)
-//                .isSnappable(true)
-//                .build();
-//        mListView.setOnScrollListener(scrollListener);
     }
 
     @Override

@@ -7,6 +7,7 @@
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
         <item name="android:windowSharedElementEnterTransition">@android:transition/move</item>
         <item name="android:windowSharedElementExitTransition">@android:transition/move</item>
+        <item name="vpiCirclePageIndicatorStyle">@style/CirclePageIndicator</item>
     </style>
 
     <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">

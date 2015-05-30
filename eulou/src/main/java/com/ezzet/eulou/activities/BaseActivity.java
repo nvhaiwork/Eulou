@@ -1,22 +1,5 @@
 package com.ezzet.eulou.activities;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.ezzet.eulou.R;
-import com.ezzet.eulou.constants.Constants;
-import com.ezzet.eulou.extra.HelperFunction;
-import com.ezzet.eulou.models.MessageModel;
-import com.ezzet.eulou.models.UserInfo;
-import com.ezzet.eulou.services.EulouService;
-import com.ezzet.eulou.utilities.CustomSharedPreferences;
-import com.ezzet.eulou.utilities.LogUtil;
-import com.ezzet.eulou.utilities.Utilities;
-import com.sinch.android.rtc.messaging.WritableMessage;
-
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -39,8 +22,25 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import com.ezzet.eulou.R;
+import com.ezzet.eulou.constants.Constants;
+import com.ezzet.eulou.extra.HelperFunction;
+import com.ezzet.eulou.models.MessageModel;
+import com.ezzet.eulou.models.UserInfo;
+import com.ezzet.eulou.services.EulouService;
+import com.ezzet.eulou.utilities.CustomSharedPreferences;
+import com.ezzet.eulou.utilities.LogUtil;
+import com.ezzet.eulou.utilities.Utilities;
+import com.sinch.android.rtc.messaging.WritableMessage;
+import com.viewpagerindicator.CirclePageIndicator;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BaseActivity extends FragmentActivity
 		implements
@@ -53,7 +53,7 @@ public class BaseActivity extends FragmentActivity
 	public static ArrayList<UserInfo> mContactUsers;
 	public static Map<String, Map<String, Object>> mMessages;
 	private static int runningActivities = 0;
-	protected RadioGroup mNavigatorGroup;
+	protected CirclePageIndicator mPagerIndicator;
 	protected ImageView mLeftImgBtn, mRightImgBtn;
 	protected TextView mTitleTxt, mLeftTxtBtn, mRightTxtBtn, mNewMsgNoti;
 	private EulouService mService = null;
@@ -135,10 +135,9 @@ public class BaseActivity extends FragmentActivity
 	}
 
 	protected void initNavigationComponents() {
-
+		mPagerIndicator = (CirclePageIndicator) findViewById(R.id.indicator);
 		mTitleTxt = (TextView) findViewById(R.id.main_title_txt);
 		mNewMsgNoti = (TextView) findViewById(R.id.new_message_notice);
-		mNavigatorGroup = (RadioGroup) findViewById(R.id.main_header_navigator);
 		mLeftTxtBtn = (TextView) findViewById(R.id.main_navigation_left_txt_btn);
 		mLeftImgBtn = (ImageView) findViewById(R.id.main_navigation_left_img_btn);
 		mRightTxtBtn = (TextView) findViewById(R.id.main_navigation_right_txt_btn);

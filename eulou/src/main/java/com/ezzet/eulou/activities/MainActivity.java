@@ -1,10 +1,5 @@
 package com.ezzet.eulou.activities;
 
-import org.apache.http.Header;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -26,10 +21,10 @@ import android.widget.Toast;
 
 import com.ezzet.eulou.R;
 import com.ezzet.eulou.constants.Constants;
-import com.ezzet.eulou.fragments.RecentCallFragment;
 import com.ezzet.eulou.fragments.ContactsFragment;
 import com.ezzet.eulou.fragments.MessagesFragment;
 import com.ezzet.eulou.fragments.ProfileFragment;
+import com.ezzet.eulou.fragments.RecentCallFragment;
 import com.ezzet.eulou.models.CallHistoryItem;
 import com.ezzet.eulou.models.UserInfo;
 import com.ezzet.eulou.services.EulouService;
@@ -37,6 +32,11 @@ import com.ezzet.eulou.utilities.Utilities;
 import com.ezzet.eulou.views.CustomSwipeViewPager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+
+import org.apache.http.Header;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends BaseActivity
 		implements
@@ -105,10 +105,10 @@ public class MainActivity extends BaseActivity
 		mSettingLayout = (RelativeLayout) findViewById(R.id.main_setting_layout);
 		mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
 		mPager.setAdapter(mPagerAdapter);
-		mPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+		mPagerIndicator.setViewPager(mPager);
+		mPagerIndicator.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {
-
 				doPageChange(position);
 			}
 		});
@@ -293,28 +293,24 @@ public class MainActivity extends BaseActivity
 				mTitleTxt.setText(getString(R.string.messages));
 				mLeftImgBtn.setImageResource(R.drawable.ic_write_msg);
 				mRightImgBtn.setImageResource(R.drawable.ic_contacts);
-				mNavigatorGroup.check(R.id.main_header_navigator_item1);
 				break;
 			case Constants.TAB_CONTACTS :
 
 				mTitleTxt.setText(getString(R.string.contacts));
 				mLeftImgBtn.setImageResource(R.drawable.ic_messages);
 				mRightImgBtn.setImageResource(R.drawable.ic_recent_calls);
-				mNavigatorGroup.check(R.id.main_header_navigator_item2);
 				break;
 			case Constants.TAB_RECENT_CALLS :
 
 				mTitleTxt.setText(getString(R.string.recent_calls));
 				mLeftImgBtn.setImageResource(R.drawable.ic_contacts);
 				mRightImgBtn.setImageResource(R.drawable.ic_profile);
-				mNavigatorGroup.check(R.id.main_header_navigator_item3);
 				break;
 			case Constants.TAB_PROFILE :
 
 				mTitleTxt.setText(getString(R.string.profile));
 				mLeftImgBtn.setImageResource(R.drawable.ic_recent_calls);
 				mRightImgBtn.setImageResource(R.drawable.ic_setting);
-				mNavigatorGroup.check(R.id.main_header_navigator_item4);
 				break;
 		}
 	}
@@ -329,14 +325,14 @@ public class MainActivity extends BaseActivity
 
 		if (isShow) {
 
-			mNavigatorGroup.setVisibility(View.GONE);
+			mPagerIndicator.setVisibility(View.GONE);
 			mRightImgBtn.setVisibility(View.INVISIBLE);
 			mSettingLayout.setVisibility(View.VISIBLE);
 			mTitleTxt.setText(getString(R.string.setting));
 			mLeftImgBtn.setImageResource(R.drawable.ic_back);
 		} else {
 
-			mNavigatorGroup.setVisibility(View.VISIBLE);
+			mPagerIndicator.setVisibility(View.VISIBLE);
 			mSettingLayout.setVisibility(View.GONE);
 			mRightImgBtn.setVisibility(View.VISIBLE);
 			mTitleTxt.setText(getString(R.string.profile));

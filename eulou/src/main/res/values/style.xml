@@ -10,7 +10,16 @@
 
 
     <style name="MyMaterialTheme" parent="MyMaterialTheme.Base">
+        <item name="vpiCirclePageIndicatorStyle">@style/CirclePageIndicator</item>
+    </style>
 
+    <style name="CirclePageIndicator">
+        <item name="fillColor">#FFF</item>
+        <item name="pageColor">#3FFF</item>
+        <item name="strokeColor">#0FFF</item>
+        <item name="strokeWidth">0dp</item>
+        <item name="radius">4dp</item>
+        <item name="centered">true</item>
     </style>
 
     <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">

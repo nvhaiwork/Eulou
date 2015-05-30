@@ -1,20 +1,5 @@
 package com.ezzet.eulou.activities;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import com.ezzet.eulou.R;
-import com.ezzet.eulou.adapters.SendMessageRecipientsAdapter;
-import com.ezzet.eulou.constants.Constants;
-import com.ezzet.eulou.extra.HelperFunction;
-import com.ezzet.eulou.models.UserInfo;
-import com.ezzet.eulou.services.EulouService;
-import com.ezzet.eulou.utilities.Utilities;
-import com.ezzet.eulou.views.CustomAlertDialog.OnNegativeButtonClick;
-import com.ezzet.eulou.views.CustomLoadingDialog;
-import com.sinch.android.rtc.messaging.WritableMessage;
-
 import android.app.Dialog;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -31,6 +16,21 @@ import android.view.View.OnKeyListener;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+
+import com.ezzet.eulou.R;
+import com.ezzet.eulou.adapters.SendMessageRecipientsAdapter;
+import com.ezzet.eulou.constants.Constants;
+import com.ezzet.eulou.extra.HelperFunction;
+import com.ezzet.eulou.models.UserInfo;
+import com.ezzet.eulou.services.EulouService;
+import com.ezzet.eulou.utilities.Utilities;
+import com.ezzet.eulou.views.CustomAlertDialog.OnNegativeButtonClick;
+import com.ezzet.eulou.views.CustomLoadingDialog;
+import com.sinch.android.rtc.messaging.WritableMessage;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NewMessageActivity extends BaseActivity implements TextWatcher {
 
@@ -65,7 +65,7 @@ public class NewMessageActivity extends BaseActivity implements TextWatcher {
 		mTitleTxt.setVisibility(View.VISIBLE);
 		mLeftTxtBtn.setVisibility(View.VISIBLE);
 		mRightTxtBtn.setVisibility(View.VISIBLE);
-		mNavigatorGroup.setVisibility(View.GONE);
+		mPagerIndicator.setVisibility(View.GONE);
 		mLeftImgBtn.setVisibility(View.INVISIBLE);
 		mRightImgBtn.setVisibility(View.INVISIBLE);
 		mRightTxtBtn.setText(getString(R.string.send));

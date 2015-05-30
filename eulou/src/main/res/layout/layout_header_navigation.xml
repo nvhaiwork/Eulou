@@ -49,50 +49,15 @@
             android:textColor="@color/white"
             android:textSize="@dimen/navigation_bar_title" />
 
-        <RadioGroup
-            android:id="@+id/main_header_navigator"
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/indicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-3dp"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/main_header_navigator_item1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@drawable/main_header_navigator_bg"
-                android:clickable="false"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp" />
-
-            <RadioButton
-                android:id="@+id/main_header_navigator_item2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@drawable/main_header_navigator_bg"
-                android:checked="true"
-                android:clickable="false"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp" />
-
-            <RadioButton
-                android:id="@+id/main_header_navigator_item3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@drawable/main_header_navigator_bg"
-                android:clickable="false"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp" />
-
-            <RadioButton
-                android:id="@+id/main_header_navigator_item4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@drawable/main_header_navigator_bg"
-                android:clickable="false"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp" />
-        </RadioGroup>
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp" />
     </LinearLayout>
 
     <com.ezzet.eulou.views.CustomImageButton
